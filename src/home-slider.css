@@ -1,0 +1,37 @@
+/* Home Slider Styles */
+
+.embla {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.embla__container {
+  display: flex;
+  backface-visibility: hidden;
+  touch-action: pan-y pinch-zoom;
+  transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+
+.embla__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  position: relative;
+}
+
+.embla__slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: opacity 0.6s ease-in-out;
+}
+
+.embla__container.is-dragging {
+  cursor: grabbing;
+}
+
+.embla__container.is-draggable {
+  cursor: grab;
+}
