@@ -10,7 +10,7 @@
     </title>
   </head>
 
-  <body class="font-zalando bg-white-pearl antialiased">
+  <body class="font-zalando bg-white-pearl antialiased scroll-smooth">
     <a
       href="#main"
       class="focus:bg-info sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-md focus:px-4 focus:py-2 focus:text-white"
@@ -74,10 +74,10 @@
       </symbol>
     </svg>
 
-    <header class="bg-white py-4 shadow-2xl xl:px-28">
-      <div
-        class="mx-auto px-4 py-4"
-        x-data="{
+<header class="bg-white py-4 shadow-2xl xl:px-28">
+  <div
+    class="mx-auto px-4 py-4"
+    x-data="{
       mobileOpen: false,
       servicesOpen: false,
       searchOpen: false,
@@ -93,372 +93,383 @@
         this.$nextTick(() => this.lastFocusEl?.focus?.())
       }
     }"
-        @keydown.escape.window="
+    @keydown.escape.window="
       if (searchOpen) { closeSearch(); return }
       mobileOpen = false; servicesOpen = false
     "
+  >
+    <div class="flex items-center justify-between gap-4">
+      <!-- Brand -->
+      <a
+        href="#"
+        class="focus-visible:ring-info flex items-center gap-3 rounded focus-visible:outline-none focus-visible:ring-2"
       >
-        <div class="flex items-center justify-between gap-4">
-          <!-- Brand -->
-          <a
-            href="#"
-            class="focus-visible:ring-info flex items-center gap-3 rounded focus-visible:outline-none focus-visible:ring-2"
-          >
-            <img
-              src="./images/maria-hospital-logo.svg"
-              alt="Maria Hospital"
-              class="min-w-52"
-            />
-          </a>
+        <img
+          src="./images/maria-hospital-logo.svg"
+          alt="Maria Hospital"
+          class="min-w-52"
+        />
+      </a>
 
-          <!-- DESKTOP - NAVIGATION -->
-          <div class="flex gap-28">
-            <nav class="hidden lg:flex" aria-label="Primary">
-              <ul class="flex items-center gap-6 text-lg">
-                <li>
+      <!-- DESKTOP - NAVIGATION -->
+      <div class="flex gap-28">
+        <nav class="hidden lg:flex" aria-label="Primary">
+          <ul class="flex items-center gap-6 text-lg">
+            <li>
+              <a
+                href="#"
+                class="text-dark-navy hover:text-accent-navy focus-visible:ring-info rounded px-1 py-1 focus-visible:outline-none focus-visible:ring-2"
+              >
+                Home
+              </a>
+            </li>
+
+            <!-- Dropdown -->
+            <li class="relative">
+              <button
+                type="button"
+                class="text-dark-navy hover:text-accent-navy focus-visible:ring-info inline-flex cursor-pointer items-center gap-2 rounded px-1 py-1 focus-visible:outline-none focus-visible:ring-2"
+                @click.stop="servicesOpen = !servicesOpen"
+                :aria-expanded="servicesOpen"
+                aria-haspopup="menu"
+                aria-controls="services-menu"
+              >
+                Care Services
+                <!-- ICON: chevron-down -->
+                <svg class="size-5" aria-hidden="true">
+                  <use href="#icon-chevron" />
+                </svg>
+              </button>
+
+              <ul
+                id="services-menu"
+                role="menu"
+                x-cloak
+                x-show="servicesOpen"
+                x-transition
+                @click.outside="servicesOpen = false"
+                class="absolute left-0 top-full z-20 mt-2 w-64 rounded-lg bg-white p-2 shadow-2xl"
+              >
+                <li role="none">
                   <a
+                    role="menuitem"
                     href="#"
-                    class="text-dark-navy hover:text-accent-navy focus-visible:ring-info rounded px-1 py-1 focus-visible:outline-none focus-visible:ring-2"
+                    class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-2"
+                    >Urology<span class="text-info">/</span>STD</a
                   >
-                    Home
-                  </a>
                 </li>
-
-                <!-- Dropdown -->
-                <li class="relative">
-                  <button
-                    type="button"
-                    class="text-dark-navy hover:text-accent-navy focus-visible:ring-info inline-flex cursor-pointer items-center gap-2 rounded px-1 py-1 focus-visible:outline-none focus-visible:ring-2"
-                    @click.stop="servicesOpen = !servicesOpen"
-                    :aria-expanded="servicesOpen"
-                    aria-haspopup="menu"
-                    aria-controls="services-menu"
-                  >
-                    Care Services
-                    <!-- ICON: chevron-down -->
-                    <svg class="size-5" aria-hidden="true">
-                      <use href="#icon-chevron" />
-                    </svg>
-                  </button>
-
-                  <ul
-                    id="services-menu"
-                    role="menu"
-                    x-cloak
-                    x-show="servicesOpen"
-                    x-transition
-                    @click.outside="servicesOpen = false"
-                    class="absolute left-0 top-full z-20 mt-2 w-56 rounded-lg bg-white p-2 shadow-2xl"
-                  >
-                    <li role="none">
-                      <a
-                        role="menuitem"
-                        href="#"
-                        class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-2"
-                        >Anorectal / Piles</a
-                      >
-                    </li>
-                    <li role="none">
-                      <a
-                        role="menuitem"
-                        href="#"
-                        class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-2"
-                        >Urology / STD</a
-                      >
-                    </li>
-                    <li role="none">
-                      <a
-                        role="menuitem"
-                        href="#"
-                        class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-2"
-                        >Acupuncture</a
-                      >
-                    </li>
-                    <li role="none">
-                      <a
-                        role="menuitem"
-                        href="#"
-                        class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-2"
-                        >Gynecology</a
-                      >
-                    </li>
-                    <li role="none">
-                      <a
-                        role="menuitem"
-                        href="#"
-                        class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-2"
-                        >ENT</a
-                      >
-                    </li>
-                  </ul>
-                </li>
-
-                <li>
+                <li role="none">
                   <a
+                    role="menuitem"
                     href="#"
-                    class="text-dark-navy hover:text-accent-navy focus-visible:ring-info rounded px-1 py-1 focus-visible:outline-none focus-visible:ring-2"
+                    class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-2"
+                    >ENT (Ear, Nose & Throat)</a
                   >
-                    Testimonials
-                  </a>
                 </li>
-
-                <li>
+                <li role="none">
                   <a
+                    role="menuitem"
                     href="#"
-                    class="text-dark-navy hover:text-accent-navy focus-visible:ring-info rounded px-1 py-1 focus-visible:outline-none focus-visible:ring-2"
+                    class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-2"
+                    >Anorectal<span class="text-info">/</span>Piles</a
                   >
-                    Contact Us
-                  </a>
+                </li>
+                <li role="none">
+                  <a
+                    role="menuitem"
+                    href="#"
+                    class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-2"
+                    >Acupuncture</a
+                  >
+                </li>
+                <li role="none">
+                  <a
+                    role="menuitem"
+                    href="#"
+                    class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-2"
+                    >Gynecology</a
+                  >
+                </li>
+                <li role="none">
+                  <a
+                    role="menuitem"
+                    href="#"
+                    class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-2"
+                    >General Medicine<span class="text-info">/</span>Lab</a
+                  >
                 </li>
               </ul>
-            </nav>
+            </li>
 
-            <div class="hidden items-center gap-3 lg:flex">
-              <button
-                type="button"
-                @click="openSearch()"
-                :aria-expanded="searchOpen"
-                aria-controls="search-overlay"
-                aria-label="Open search"
-                class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info inline-flex size-11 cursor-pointer items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-slate-200 focus-visible:outline-none focus-visible:ring-2"
-              >
-                <!-- ICON: magnifying-glass -->
-                <svg class="size-6" aria-hidden="true">
-                  <use href="#icon-search" />
-                </svg>
-              </button>
-
+            <li>
               <a
                 href="#"
-                class="bg-dark-navy hover:bg-accent-navy focus-visible:ring-info inline-flex items-center justify-center rounded-full px-6 py-2.5 text-white focus-visible:outline-none focus-visible:ring-2"
+                class="text-dark-navy hover:text-accent-navy focus-visible:ring-info rounded px-1 py-1 focus-visible:outline-none focus-visible:ring-2"
               >
-                Book an Appointment
+                Testimonials
               </a>
-            </div>
-          </div>
+            </li>
 
-          <!-- Mobile toggle -->
+            <li>
+              <a
+                href="#"
+                class="text-dark-navy hover:text-accent-navy focus-visible:ring-info rounded px-1 py-1 focus-visible:outline-none focus-visible:ring-2"
+              >
+                Contact Us
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="hidden items-center gap-3 lg:flex">
           <button
             type="button"
-            class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info inline-flex items-center justify-center rounded-md border border-slate-300 bg-white p-2 focus-visible:outline-none focus-visible:ring-2 lg:hidden"
-            @click="mobileOpen = !mobileOpen"
-            :aria-expanded="mobileOpen"
-            aria-controls="mobile-menu"
+            @click="openSearch()"
+            :aria-expanded="searchOpen"
+            aria-controls="search-overlay"
+            aria-label="Open search"
+            class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info inline-flex size-11 cursor-pointer items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-slate-200 focus-visible:outline-none focus-visible:ring-2"
           >
-            <span
-              class="sr-only"
-              x-text="mobileOpen ? 'Close menu' : 'Open menu'"
-            >
-              Open menu
-            </span>
-            <!-- ICON: hamburger -->
-            <svg x-show="!mobileOpen" class="size-6" aria-hidden="true">
-              <use href="#icon-menu" />
-            </svg>
-            <!-- ICON: x-mark -->
-            <svg x-show="mobileOpen" class="size-6" aria-hidden="true">
-              <use href="#icon-close" />
+            <!-- ICON: magnifying-glass -->
+            <svg class="size-6" aria-hidden="true">
+              <use href="#icon-search" />
             </svg>
           </button>
-        </div>
 
-        <!-- Mobile panel -->
-        <div
-          id="mobile-menu"
-          class="lg:hidden"
-          x-cloak
-          x-show="mobileOpen"
-          x-transition
-          @click.outside="mobileOpen = false"
-        >
-          <!-- MOBILE - NAVIGATION -->
-          <nav
-            class="mt-4 rounded-lg border border-slate-200 bg-white p-4 shadow-sm"
-            aria-label="Mobile primary"
+          <a
+            href="#"
+            class="bg-dark-navy hover:bg-accent-navy focus-visible:ring-info inline-flex items-center justify-center rounded-full px-6 py-2.5 text-white focus-visible:outline-none focus-visible:ring-2"
           >
-            <ul class="grid gap-2">
-              <li>
-                <a
-                  href="#"
-                  class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-2"
-                >
-                  Home
-                </a>
-              </li>
-
-              <li>
-                <button
-                  type="button"
-                  class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info flex w-full cursor-pointer items-center justify-between rounded-md px-3 py-2 text-left focus-visible:outline-none focus-visible:ring-2"
-                  @click.stop="servicesOpen = !servicesOpen"
-                  :aria-expanded="servicesOpen"
-                  aria-controls="mobile-services"
-                >
-                  Care Services
-                  <!-- ICON: chevron-down -->
-                  <svg class="size-5" aria-hidden="true">
-                    <use href="#icon-chevron" />
-                  </svg>
-                </button>
-
-                <ul
-                  id="mobile-services"
-                  role="menu"
-                  x-cloak
-                  x-show="servicesOpen"
-                  x-transition
-                  class="mt-1 grid gap-1 pl-2"
-                >
-                  <li role="none">
-                    <a
-                      role="menuitem"
-                      href="#"
-                      class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-2"
-                      >Anorectal / Piles</a
-                    >
-                  </li>
-                  <li role="none">
-                    <a
-                      role="menuitem"
-                      href="#"
-                      class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-2"
-                      >Urology / STD</a
-                    >
-                  </li>
-                  <li role="none">
-                    <a
-                      role="menuitem"
-                      href="#"
-                      class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-2"
-                      >Acupuncture</a
-                    >
-                  </li>
-                  <li role="none">
-                    <a
-                      role="menuitem"
-                      href="#"
-                      class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-2"
-                      >Gynecology</a
-                    >
-                  </li>
-                  <li role="none">
-                    <a
-                      role="menuitem"
-                      href="#"
-                      class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-2"
-                      >ENT</a
-                    >
-                  </li>
-                </ul>
-              </li>
-
-              <li>
-                <a
-                  href="#"
-                  class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-2"
-                >
-                  Testimonials
-                </a>
-              </li>
-
-              <li>
-                <a
-                  href="#"
-                  class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-2"
-                >
-                  Contact Us
-                </a>
-              </li>
-            </ul>
-
-            <div class="mt-4 flex w-full items-center gap-3">
-              <button
-                type="button"
-                @click="openSearch(); mobileOpen = false"
-                :aria-expanded="searchOpen"
-                aria-controls="search-overlay"
-                aria-label="Open search"
-                class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info inline-flex size-11 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-slate-200 focus-visible:outline-none focus-visible:ring-2"
-              >
-                <!-- ICON: magnifying-glass -->
-                <svg class="size-6" aria-hidden="true">
-                  <use href="#icon-search" />
-                </svg>
-              </button>
-
-              <a
-                href="#"
-                class="bg-dark-navy hover:bg-accent-navy focus-visible:ring-info inline-flex flex-1 items-center justify-center rounded-full px-6 py-2.5 text-white focus-visible:outline-none focus-visible:ring-2"
-              >
-                Book an Appointment
-              </a>
-            </div>
-          </nav>
-        </div>
-
-        <!-- FULLSCREEN SEARCH OVERLAY -->
-        <div
-          id="search-overlay"
-          x-cloak
-          x-show="searchOpen"
-          x-transition.opacity
-          class="fixed inset-0 z-50"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Site search"
-        >
-          <div
-            class="bg-dark-navy/70 absolute inset-0"
-            @click="closeSearch()"
-          ></div>
-
-          <div
-            class="pointer-events-none relative flex min-h-dvh flex-col items-center justify-center p-4"
-          >
-            <div
-              x-trap.noscroll="searchOpen"
-              class="pointer-events-auto w-full max-w-2xl rounded-xl bg-white shadow-xl"
-            >
-              <div class="p-4">
-                <form action="#" method="get" class="mx-auto w-full">
-                  <label for="site-search" class="sr-only">Search</label>
-
-                  <div class="flex w-full items-center gap-2">
-                    <input
-                      id="site-search"
-                      x-ref="searchInput"
-                      name="q"
-                      type="search"
-                      placeholder="Search…"
-                      class="text-grey focus:ring-accent-navy w-full rounded-md border border-slate-300 bg-white px-3 py-3 placeholder:text-slate-400 focus:outline-none focus:ring-2"
-                    />
-                    <button
-                      type="submit"
-                      class="bg-dark-navy hover:bg-accent-navy focus-visible:ring-info shrink-0 cursor-pointer rounded-md px-4 py-3 text-white focus-visible:outline-none focus-visible:ring-2"
-                    >
-                      Search
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-            <button
-              class="bg-dark-navy hover:bg-accent-navy pointer-events-auto flex cursor-pointer gap-2 rounded-b-lg px-4 py-1 text-white focus-visible:outline-none focus-visible:ring-2"
-              @click="closeSearch()"
-              aria-label="Close search"
-            >
-              <span>Close</span>
-              <span>
-                <!-- ICON: x-mark -->
-                <svg class="size-6" aria-hidden="true">
-                  <use href="#icon-close" />
-                </svg>
-              </span>
-            </button>
-          </div>
+            Book an Appointment
+          </a>
         </div>
       </div>
-    </header>
+
+      <!-- Mobile toggle -->
+      <button
+        type="button"
+        class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info inline-flex items-center justify-center rounded-md border border-slate-300 bg-white p-2 focus-visible:outline-none focus-visible:ring-2 lg:hidden"
+        @click="mobileOpen = !mobileOpen"
+        :aria-expanded="mobileOpen"
+        aria-controls="mobile-menu"
+      >
+        <span class="sr-only" x-text="mobileOpen ? 'Close menu' : 'Open menu'">
+          Open menu
+        </span>
+        <!-- ICON: hamburger -->
+        <svg x-show="!mobileOpen" class="size-6" aria-hidden="true">
+          <use href="#icon-menu" />
+        </svg>
+        <!-- ICON: x-mark -->
+        <svg x-show="mobileOpen" class="size-6" aria-hidden="true">
+          <use href="#icon-close" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile panel -->
+    <div
+      id="mobile-menu"
+      class="lg:hidden"
+      x-cloak
+      x-show="mobileOpen"
+      x-transition
+      @click.outside="mobileOpen = false"
+    >
+      <!-- MOBILE - NAVIGATION -->
+      <nav
+        class="mt-4 rounded-lg border border-slate-200 bg-white p-4 shadow-sm"
+        aria-label="Mobile primary"
+      >
+        <ul class="grid gap-2">
+          <li>
+            <a
+              href="#"
+              class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-2"
+            >
+              Home
+            </a>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info flex w-full cursor-pointer items-center justify-between rounded-md px-3 py-2 text-left focus-visible:outline-none focus-visible:ring-2"
+              @click.stop="servicesOpen = !servicesOpen"
+              :aria-expanded="servicesOpen"
+              aria-controls="mobile-services"
+            >
+              Care Services
+              <!-- ICON: chevron-down -->
+              <svg class="size-5" aria-hidden="true">
+                <use href="#icon-chevron" />
+              </svg>
+            </button>
+
+            <ul
+              id="mobile-services"
+              role="menu"
+              x-cloak
+              x-show="servicesOpen"
+              x-transition
+              class="mt-1 grid gap-1 pl-2"
+            >
+              <li role="none">
+                <a
+                  role="menuitem"
+                  href="#"
+                  class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-2"
+                  >Urology<span class="text-info">/</span>STD</a
+                >
+              </li>
+              <li role="none">
+                <a
+                  role="menuitem"
+                  href="#"
+                  class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-2"
+                  >ENT (Ear, Nose & Throat)</a
+                >
+              </li>
+              <li role="none">
+                <a
+                  role="menuitem"
+                  href="#"
+                  class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-2"
+                  >Anorectal<span class="text-info">/</span>Piles</a
+                >
+              </li>
+
+              <li role="none">
+                <a
+                  role="menuitem"
+                  href="#"
+                  class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-2"
+                  >Acupuncture</a
+                >
+              </li>
+              <li role="none">
+                <a
+                  role="menuitem"
+                  href="#"
+                  class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-2"
+                  >Gynecology</a
+                >
+              </li>
+              <li role="none">
+                <a
+                  role="menuitem"
+                  href="#"
+                  class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-2"
+                  >General Medicine<span class="text-info">/</span>Lab</a
+                >
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <a
+              href="#"
+              class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-2"
+            >
+              Testimonials
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="#"
+              class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:outline-none focus-visible:ring-2"
+            >
+              Contact Us
+            </a>
+          </li>
+        </ul>
+
+        <div class="mt-4 flex w-full items-center gap-3">
+          <button
+            type="button"
+            @click="openSearch(); mobileOpen = false"
+            :aria-expanded="searchOpen"
+            aria-controls="search-overlay"
+            aria-label="Open search"
+            class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info inline-flex size-11 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-slate-200 focus-visible:outline-none focus-visible:ring-2"
+          >
+            <!-- ICON: magnifying-glass -->
+            <svg class="size-6" aria-hidden="true">
+              <use href="#icon-search" />
+            </svg>
+          </button>
+
+          <a
+            href="#"
+            class="bg-dark-navy hover:bg-accent-navy focus-visible:ring-info inline-flex flex-1 items-center justify-center rounded-full px-6 py-2.5 text-white focus-visible:outline-none focus-visible:ring-2"
+          >
+            Book an Appointment
+          </a>
+        </div>
+      </nav>
+    </div>
+
+    <!-- FULLSCREEN SEARCH OVERLAY -->
+    <div
+      id="search-overlay"
+      x-cloak
+      x-show="searchOpen"
+      x-transition.opacity
+      class="fixed inset-0 z-50"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Site search"
+    >
+      <div class="bg-dark-navy/70 absolute inset-0" @click="closeSearch()"></div>
+
+      <div
+        class="pointer-events-none relative flex min-h-dvh flex-col items-center justify-center p-4"
+      >
+        <div
+          x-trap.noscroll="searchOpen"
+          class="pointer-events-auto w-full max-w-2xl rounded-xl bg-white shadow-xl"
+        >
+          <div class="p-4">
+            <form action="#" method="get" class="mx-auto w-full">
+              <label for="site-search" class="sr-only">Search</label>
+
+              <div class="flex w-full items-center gap-2">
+                <input
+                  id="site-search"
+                  x-ref="searchInput"
+                  name="q"
+                  type="search"
+                  placeholder="Search…"
+                  class="text-grey focus:ring-accent-navy w-full rounded-md border border-slate-300 bg-white px-3 py-3 placeholder:text-slate-400 focus:outline-none focus:ring-2"
+                />
+                <button
+                  type="submit"
+                  class="bg-dark-navy hover:bg-accent-navy focus-visible:ring-info shrink-0 cursor-pointer rounded-md px-4 py-3 text-white focus-visible:outline-none focus-visible:ring-2"
+                >
+                  Search
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <button
+          class="bg-dark-navy hover:bg-accent-navy pointer-events-auto flex cursor-pointer gap-2 rounded-b-lg px-4 py-1 text-white focus-visible:outline-none focus-visible:ring-2"
+          @click="closeSearch()"
+          aria-label="Close search"
+        >
+          <span>Close</span>
+          <span>
+            <!-- ICON: x-mark -->
+            <svg class="size-6" aria-hidden="true">
+              <use href="#icon-close" />
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
 
     <main>
       <!-- HOME SLIDER -->
@@ -494,7 +505,17 @@
       </div>
 
          <!-- Slide 4 -->
-      <div class="embla__slide">
+            <div class="embla__slide">
+        <img
+          src="./images/sliders/acupuncture.avif"
+          alt="Healthcare professional wearing blue medical gloves performing acupuncture treatment, inserting fine needles into patient's skin"
+          class="w-full  h-auto object-cover"
+        />
+      </div>
+   
+
+               <!-- Slide 5 -->
+                   <div class="embla__slide">
         <img
           src="./images/sliders/Gynecology.avif"
           alt="Medical professional in blue gloves presenting holographic visualization of female reproductive system with uterus and ovaries highlighted in red"
@@ -502,21 +523,14 @@
         />
       </div>
 
-               <!-- Slide 5 -->
-      <div class="embla__slide">
-        <img
-          src="./images/sliders/acupuncture.avif"
-          alt="Healthcare professional wearing blue medical gloves performing acupuncture treatment, inserting fine needles into patient's skin"
-          class="w-full  h-auto object-cover"
-        />
-      </div>
+    
 
        <!-- Slide 6 -->
       <div class="embla__slide">
         <img
           src="./images/sliders/General-Medicine-Lab.avif"
           alt="Male laboratory technician in white coat examining test tube sample while using microscope and digital tablet in research lab"
-          class="w-full  h-auto object-cover"
+          class="w-full h-auto object-cover"
         />
       </div>
     </div>
@@ -557,19 +571,105 @@
 </section>
 <!-- HOME SLIDER END -->
 
-  <section> <!-- Care Services -->
-    <h2>Care Services</h2>
-    <p><!-- Description text --></p>
+<!-- CARE SERVICES -->
+ <section>
+    <h2>
+        Care Services
+    </h2>
+
+    <p>
+        Your health is our priority. We provide specialized care tailored to your needs, ranging from General Surgery and Reproductive Health to holistic Pain Management. Explore our departments below to find the right solution for you.
+    </p>
     
-    <div> <!-- Services Grid -->
-      <article> <!-- Urology/STD card -->
-      <article> <!-- ENT card -->
-      <article> <!-- Antenatal/Pills card -->
-      <article> <!-- Gynecology card -->
-      <article> <!-- Acupuncture card -->
-      <article> <!-- General Medicine/Lab card -->
+    <div>
+        
+        <article>
+            <img 
+                src="./images/sliders/Urology-STDs.avif" 
+                alt="Doctor explaining urinary system health to male patient using holographic display showing kidneys, bladder, and urinary tract" 
+            >
+            <h3>Urology/STD</h3>
+            <p>
+                Expert diagnosis for urinary tract conditions and male reproductive health, alongside confidential and compassionate care for sexually transmitted diseases.
+            </p>
+            <a href="#">
+                Learn More
+            </a>
+        </article>
+
+        <article>
+            <img 
+                src="./images/sliders/ENT.avif" 
+                alt="Three panels showing ENT specialists examining elderly man's ear, woman's nose, and young man's throat during medical consultation" 
+            >
+            <h3>ENT (Ear, Nose & Throat)</h3>
+            <p>
+                Comprehensive medical and surgical care for all conditions affecting the ear, nose, and throat, including sinus issues, allergies, and hearing disorders.
+            </p>
+            <a href="#">
+                Learn More
+            </a>
+        </article>
+
+        <article>
+            <img 
+                src="./images/sliders/Anorectal-Piles.avif" 
+                alt="Man experiencing pain in modern blue bathroom while woman stands in background, illustrating anorectal or piles pain" 
+            >
+            <h3>Anorectal/Piles</h3>
+            <p>
+                Specialized care for anorectal conditions like piles, fissures, and fistulas, focusing on minimally invasive treatments and effective pain relief.
+            </p>
+            <a href="#">
+                Learn More
+            </a>
+        </article>
+
+         <article>
+            <img 
+                src="./images/sliders/acupuncture.avif" 
+                alt="Healthcare professional wearing blue medical gloves performing acupuncture treatment, inserting fine needles into patient's skin" 
+            >
+            <h3>Acupuncture</h3>
+            <p>
+                Holistic therapy designed to alleviate pain, reduce stress, and promote overall wellness through the precise stimulation of specific energy points.
+            </p>
+            <a href="#">
+                Learn More
+            </a>
+        </article>
+
+        <article>
+            <img 
+                src="./images/sliders/Gynecology.avif" 
+                alt="Medical professional in blue gloves presenting holographic visualization of female reproductive system with uterus and ovaries highlighted in red" 
+            >
+            <h3>Gynecology</h3>
+            <p>
+                Dedicated women's health services covering reproductive care, pregnancy support, hormonal health, and preventive screenings for all stages of life.
+            </p>
+            <a href="#">
+                Learn More
+            </a>
+        </article>
+     
+        <article>
+            <img 
+                src="./images/sliders/General-Medicine-Lab.avif" 
+                alt="Male laboratory technician in white coat examining test tube sample while using microscope and digital tablet in research lab" 
+            >
+            <h3>General Medicine/Lab</h3>
+            <p>
+                Primary care for routine and chronic health needs, supported by our fully equipped diagnostic laboratory for precise and timely test results.
+            </p>
+            <a href="#">
+                Learn More
+            </a>
+        </article>
     </div>
-  </section>
+</section>
+<!-- CARE SERVICES END -->
+
 
   <section> <!-- Your Trusted Partner -->
     <h2>Your Trusted Partner in Health</h2>
@@ -631,7 +731,7 @@
         <li>Gynecology</li>
         <li>Acupuncture</li>
         <li>Urology/STD</li>
-        <li>ENT</li>
+        <li>ENT (Ear, Nose & Throat)</li>
       </ul>
     </nav>
     
@@ -643,8 +743,8 @@
       </ul>
     </nav>
   </div>
-  
-  <div> <!-- Copyright -->
+
+    <div> <!-- Copyright -->
     <p>© 2025 MARIA HOSPITAL. All Rights Reserved.</p>
   </div>
 </footer>
