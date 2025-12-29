@@ -1,0 +1,9 @@
+{
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
+  },
+  "extends": ["ultracite/core"],
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json"
+}

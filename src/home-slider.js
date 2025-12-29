@@ -37,7 +37,7 @@ export function initHomeSlider({
   const nextBtn = emblaNode.closest("section")?.querySelector(".embla__next");
   const dotsNode = emblaNode.closest("section")?.querySelector(".embla__dots");
 
-  if (!prevBtn || !nextBtn || !dotsNode) {
+  if (!(prevBtn && nextBtn && dotsNode)) {
     console.error("Navigation elements not found");
     return null;
   }
