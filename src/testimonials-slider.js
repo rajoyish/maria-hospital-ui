@@ -1,163 +1,121 @@
 import EmblaCarousel from "embla-carousel";
-import "./testimonials-slider.css";
 
-/**
- * Initialize Testimonials Slider
- * @param {Object} options - Configuration options
- */
-export function initTestimonialsSlider({
-  containerSelector = ".embla-testimonials",
-  transitionDuration = 35,
-  loop = true,
-} = {}) {
-  const emblaNode = document.querySelector(containerSelector);
+const addTogglePrevNextBtnsActive = (emblaApi, prevBtn, nextBtn) => {
+  const togglePrevNextBtnsState = () => {
+    if (emblaApi.canScrollPrev()) prevBtn.removeAttribute("disabled");
+    else prevBtn.setAttribute("disabled", "disabled");
 
-  if (!emblaNode) {
-    console.error(`Testimonials carousel "${containerSelector}" not found`);
-    return null;
-  }
+    if (emblaApi.canScrollNext()) nextBtn.removeAttribute("disabled");
+    else nextBtn.setAttribute("disabled", "disabled");
+  };
 
-  const root = emblaNode.closest("[data-testimonials-carousel]");
-  const prevBtn = root?.querySelector(".embla-testimonials__prev");
-  const nextBtn = root?.querySelector(".embla-testimonials__next");
-  const dotsNode = root?.querySelector(".embla-testimonials__dots");
+  emblaApi
+    .on("select", togglePrevNextBtnsState)
+    .on("init", togglePrevNextBtnsState)
+    .on("reInit", togglePrevNextBtnsState);
 
-  if (!(prevBtn && nextBtn && dotsNode)) {
-    console.error("Testimonials navigation elements not found");
-    return null;
-  }
+  return () => {
+    prevBtn.removeAttribute("disabled");
+    nextBtn.removeAttribute("disabled");
+  };
+};
 
-  // Initialize Embla Carousel
-  const emblaApi = EmblaCarousel(emblaNode, {
-    loop,
-    skipSnaps: false,
-    duration: transitionDuration,
-    dragFree: false,
-    draggable: true,
-    align: "start",
-  });
+const addPrevNextBtnsClickHandlers = (emblaApi, prevBtn, nextBtn) => {
+  const scrollPrev = () => emblaApi.scrollPrev();
+  const scrollNext = () => emblaApi.scrollNext();
 
-  // Navigation button handlers
-  const onPrev = () => emblaApi.scrollPrev();
-  const onNext = () => emblaApi.scrollNext();
+  prevBtn.addEventListener("click", scrollPrev, false);
+  nextBtn.addEventListener("click", scrollNext, false);
 
-  prevBtn.addEventListener("click", onPrev);
-  nextBtn.addEventListener("click", onNext);
+  const removeTogglePrevNextBtnsActive = addTogglePrevNextBtnsActive(
+    emblaApi,
+    prevBtn,
+    nextBtn
+  );
 
-  // Media query for large screens (2-column layout)
-  const lgMq = window.matchMedia("(min-width: 1024px)");
+  return () => {
+    removeTogglePrevNextBtnsActive();
+    prevBtn.removeEventListener("click", scrollPrev, false);
+    nextBtn.removeEventListener("click", scrollNext, false);
+  };
+};
 
-  // Dots Navigation
-  const addDotBtns = () => {
-    const scrollSnaps = emblaApi.scrollSnapList();
-    dotsNode.innerHTML = scrollSnaps
+const addDotBtnsAndClickHandlers = (emblaApi, dotsNode) => {
+  let dotNodes = [];
+
+  const addDotBtnsWithClickHandlers = () => {
+    dotsNode.innerHTML = emblaApi
+      .scrollSnapList()
       .map(
-        (_, index) => `
-        <button 
-          class="embla-testimonials__dot w-3 h-3 rounded-full bg-accent-navy/30 transition-all duration-300 hover:bg-accent-navy/50" 
-          type="button" 
-          aria-label="Go to testimonial ${index + 1}"
-        ></button>
-      `
+        () =>
+          '<button class="w-3 h-3 rounded-full border-2 border-gray-300 hover:border-info transition-colors embla-testimonials__dot" type="button" aria-label="Go to slide"></button>'
       )
       .join("");
+
+    const scrollTo = (index) => emblaApi.scrollTo(index);
+
+    dotNodes = Array.from(
+      dotsNode.querySelectorAll(".embla-testimonials__dot")
+    );
+    dotNodes.forEach((dotNode, index) => {
+      dotNode.addEventListener("click", () => scrollTo(index), false);
+    });
   };
 
-  const updateDots = () => {
+  const toggleDotBtnsActive = () => {
     const previous = emblaApi.previousScrollSnap();
     const selected = emblaApi.selectedScrollSnap();
-    const dots = dotsNode.querySelectorAll(".embla-testimonials__dot");
-
-    dots[previous]?.classList.remove("bg-accent-navy", "w-8");
-    dots[previous]?.classList.add("bg-accent-navy/30", "w-3");
-
-    dots[selected]?.classList.add("bg-accent-navy", "w-8");
-    dots[selected]?.classList.remove("bg-accent-navy/30", "w-3");
+    dotNodes[previous]?.classList.remove("!bg-info", "!border-info");
+    dotNodes[selected]?.classList.add("!bg-info", "!border-info");
   };
 
-  const addDotClickListeners = () => {
-    const dots = dotsNode.querySelectorAll(".embla-testimonials__dot");
-    dots.forEach((dot, index) => {
-      dot.addEventListener("click", () => emblaApi.scrollTo(index));
-    });
+  emblaApi
+    .on("init", addDotBtnsWithClickHandlers)
+    .on("reInit", addDotBtnsWithClickHandlers)
+    .on("init", toggleDotBtnsActive)
+    .on("reInit", toggleDotBtnsActive)
+    .on("select", toggleDotBtnsActive);
+
+  return () => {
+    dotsNode.innerHTML = "";
   };
+};
 
-  // Initialize dots
-  addDotBtns();
-  addDotClickListeners();
-  updateDots();
+export const initTestimonialsSlider = () => {
+  const emblaNode = document.querySelector(".embla-testimonials");
+  if (!emblaNode) return;
 
-  // Height Equalization
-  const clearHeights = () => {
-    emblaApi.slideNodes().forEach((slide) => {
-      const card = slide.querySelector(".js-testimonial-card");
-      if (card) card.style.height = "";
-    });
-  };
+  const viewportNode = emblaNode.querySelector(".embla-testimonials__viewport");
+  const prevBtnNode = emblaNode.querySelector(
+    ".embla-testimonials__button--prev"
+  );
+  const nextBtnNode = emblaNode.querySelector(
+    ".embla-testimonials__button--next"
+  );
+  const dotsNode = emblaNode.querySelector(".embla-testimonials__dots");
 
-  const syncHeights = () => {
-    // Only equalize heights on large screens (2-column layout)
-    if (!lgMq.matches) {
-      clearHeights();
-      return;
-    }
-
-    const slideNodes = emblaApi.slideNodes();
-    const inView = emblaApi.slidesInView();
-    const indexes = inView.length ? inView : [emblaApi.selectedScrollSnap()];
-
-    // Reset heights for visible slides
-    indexes.forEach((i) => {
-      const card = slideNodes[i]?.querySelector(".js-testimonial-card");
-      if (card) card.style.height = "";
-    });
-
-    // Calculate max height among visible slides
-    let maxHeight = 0;
-    indexes.forEach((i) => {
-      const card = slideNodes[i]?.querySelector(".js-testimonial-card");
-      if (!card) return;
-      maxHeight = Math.max(maxHeight, card.getBoundingClientRect().height);
-    });
-
-    // Apply max height to visible slides
-    indexes.forEach((i) => {
-      const card = slideNodes[i]?.querySelector(".js-testimonial-card");
-      if (!card) return;
-      card.style.height = `${Math.ceil(maxHeight)}px`;
-    });
-  };
-
-  const syncHeightsRaf = () => requestAnimationFrame(syncHeights);
-
-  // Event listeners
-  emblaApi.on("select", () => {
-    updateDots();
-    syncHeightsRaf();
-  });
-
-  emblaApi.on("reInit", () => {
-    addDotBtns();
-    addDotClickListeners();
-    updateDots();
-    syncHeightsRaf();
-  });
-
-  emblaApi.on("resize", syncHeightsRaf);
-
-  lgMq.addEventListener("change", syncHeightsRaf);
-
-  // Initial setup
-  syncHeightsRaf();
-
-  // Cleanup function
-  return {
-    emblaApi,
-    destroy: () => {
-      lgMq.removeEventListener("change", syncHeightsRaf);
-      prevBtn.removeEventListener("click", onPrev);
-      nextBtn.removeEventListener("click", onNext);
-      emblaApi.destroy();
+  const options = {
+    slidesToScroll: 1,
+    breakpoints: {
+      "(min-width: 1024px)": { slidesToScroll: 2 },
     },
   };
-}
+
+  const emblaApi = EmblaCarousel(viewportNode, options);
+
+  const removePrevNextBtnsClickHandlers = addPrevNextBtnsClickHandlers(
+    emblaApi,
+    prevBtnNode,
+    nextBtnNode
+  );
+
+  const removeDotBtnsAndClickHandlers = addDotBtnsAndClickHandlers(
+    emblaApi,
+    dotsNode
+  );
+
+  emblaApi.on("destroy", removePrevNextBtnsClickHandlers);
+  emblaApi.on("destroy", removeDotBtnsAndClickHandlers);
+
+  return emblaApi;
+};
