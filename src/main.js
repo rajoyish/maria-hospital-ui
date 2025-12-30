@@ -3,13 +3,12 @@ import "./style.css";
 import focus from "@alpinejs/focus";
 import Alpine from "alpinejs";
 import { initHomeSlider } from "./home-slider";
+import { initTestimonialsSlider } from "./testimonials-slider";
 
-// Initialize Alpine.js
 Alpine.plugin(focus);
 window.Alpine = Alpine;
 Alpine.start();
 
-// Initialize home slider on DOM ready
 document.addEventListener("DOMContentLoaded", () => {
   const homeSlider = initHomeSlider({
     containerSelector: ".embla",
@@ -18,10 +17,14 @@ document.addEventListener("DOMContentLoaded", () => {
     loop: true,
   });
 
-  // Cleanup on page unload
-  if (homeSlider) {
-    window.addEventListener("beforeunload", () => {
-      homeSlider.destroy();
-    });
-  }
+  const testimonialsSlider = initTestimonialsSlider({
+    containerSelector: ".embla-testimonials",
+    transitionDuration: 35,
+    loop: true,
+  });
+
+  window.addEventListener("beforeunload", () => {
+    homeSlider?.destroy();
+    testimonialsSlider?.destroy();
+  });
 });
