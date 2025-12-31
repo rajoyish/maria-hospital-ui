@@ -43,6 +43,18 @@
     <symbol id="icon-next" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
       <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
     </symbol>
+
+    <!-- ICON: plus -->
+    <symbol id="icon-plus" viewBox="0 0 20 20">
+      <path
+        d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+    </symbol>
+
+    <!-- ICON: minus -->
+    <symbol id="icon-minus" viewBox="0 0 20 20">
+      <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z"
+        clip-rule="evenodd" />
+    </symbol>
   </svg>
   <!-- HEADER -->
   <header class="bg-white py-4 shadow-2xl xl:px-28">
@@ -782,22 +794,187 @@
     </section>
     <!-- CARE JOURNEYS END -->
 
+    <!-- FAQs -->
     <section class="bg-soft-blue">
-      <!-- FAQs -->
-      <h2>Frequently Asked Questions (FAQs)</h2>
-      <p><!-- Description text --></p>
+      <div class="mx-auto max-w-7xl px-4 py-16">
+        <!-- Header -->
+        <div class="mb-12 text-center">
+          <h1 class="mb-6 text-4xl font-bold text-indigo-900 md:text-5xl">Frequently Asked Questions <span
+              class="text-info">(FAQs)</span></h1>
+          <p class="mx-auto max-w-4xl text-base text-gray-700 md:text-lg">Maria Hospital's FAQs answer common visitor
+            questions to make your visit seamless. Review them beforehand to save time and learn basic information about
+            us.
+          </p>
+        </div>
 
-      <div>
-        <!-- Accordion -->
-        <details><!-- OPD charge --></details>
-        <details><!-- Appointment booking --></details>
-        <details><!-- Infertility treatment --></details>
-        <details><!-- Price for X or Y --></details>
-        <details><!-- STDs confidentiality --></details>
-        <details><!-- Doctor experience --></details>
-        <details><!-- More FAQs --></details>
+        <!-- FAQ Grid -->
+        <div class="grid gap-16 md:grid-cols-2">
+          <!-- Left Column -->
+          <div class="space-y-6">
+            <!-- FAQ 1 -->
+            <div class="rounded-3xl bg-white/40 p-3 shadow-sm backdrop-blur-sm">
+              <div class="overflow-hidden rounded-2xl bg-white">
+                <details name="faq-left" class="group" open>
+                  <summary
+                    class="flex cursor-pointer list-none items-center gap-4 px-6 py-5 group-open:border-b group-open:border-gray-100 group-open:bg-gray-50 hover:bg-gray-50 [&::-webkit-details-marker]:hidden">
+                    <div class="shrink-0 opacity-30">
+                      <!-- Plus icon (shown when closed) -->
+                      <svg class="size-5 group-open:hidden" fill="currentColor" aria-hidden="true">
+                        <use href="#icon-plus" />
+                      </svg>
+                      <!-- Minus icon (shown when open) -->
+                      <svg class="hidden size-5 group-open:block" fill="currentColor" aria-hidden="true">
+                        <use href="#icon-minus" />
+                      </svg>
+                    </div>
+                    <h4 class="text-left font-semibold text-indigo-900">What is the OPD charge at Maria Hospital?</h4>
+                  </summary>
+                  <p class="px-6 py-5 text-sm leading-relaxed text-gray-600">The OPD form fee is NPR 500; after the
+                    doctor's
+                    assessment, the total treatment cost is decided based on history, examination, and any required
+                    lab/imaging tests.</p>
+                </details>
+              </div>
+            </div>
+
+            <!-- FAQ 2 -->
+            <div class="rounded-3xl bg-white/40 p-3 shadow-sm backdrop-blur-sm">
+              <div class="overflow-hidden rounded-2xl bg-white">
+                <details name="faq-left" class="group">
+                  <summary
+                    class="flex cursor-pointer list-none items-center gap-4 px-6 py-5 group-open:border-b group-open:border-gray-100 group-open:bg-gray-50 hover:bg-gray-50 [&::-webkit-details-marker]:hidden">
+                    <div class="shrink-0 opacity-30">
+                      <!-- Plus icon (shown when closed) -->
+                      <svg class="size-5 group-open:hidden" fill="currentColor" aria-hidden="true">
+                        <use href="#icon-plus" />
+                      </svg>
+                      <!-- Minus icon (shown when open) -->
+                      <svg class="hidden size-5 group-open:block" fill="currentColor" aria-hidden="true">
+                        <use href="#icon-minus" />
+                      </svg>
+                    </div>
+                    <h4 class="text-left font-semibold text-indigo-900">What's the price for treatment of X or Y?</h4>
+                  </summary>
+                  <p class="px-6 py-5 text-sm leading-relaxed text-gray-600">Pricing depends on the patient's treatment
+                    history, background, physical examination, and lab tests; the OPD form fee is NPR 500, and final
+                    cost is
+                    confirmed after doctor evaluation.</p>
+                </details>
+              </div>
+            </div>
+
+            <!-- FAQ 3 -->
+            <div class="rounded-3xl bg-white/40 p-3 shadow-sm backdrop-blur-sm">
+              <div class="overflow-hidden rounded-2xl bg-white">
+                <details name="faq-left" class="group">
+                  <summary
+                    class="flex cursor-pointer list-none items-center gap-4 px-6 py-5 group-open:border-b group-open:border-gray-100 group-open:bg-gray-50 hover:bg-gray-50 [&::-webkit-details-marker]:hidden">
+                    <div class="shrink-0 opacity-30">
+                      <!-- Plus icon (shown when closed) -->
+                      <svg class="size-5 group-open:hidden" fill="currentColor" aria-hidden="true">
+                        <use href="#icon-plus" />
+                      </svg>
+                      <!-- Minus icon (shown when open) -->
+                      <svg class="hidden size-5 group-open:block" fill="currentColor" aria-hidden="true">
+                        <use href="#icon-minus" />
+                      </svg>
+                    </div>
+                    <h4 class="text-left font-semibold text-indigo-900">Do you treat STDs confidentially?</h4>
+                  </summary>
+                  <p class="px-6 py-5 text-sm leading-relaxed text-gray-600">Yes, consultations are handled
+                    professionally
+                    with patient privacy and respectful communication; tests and treatment are advised based on symptoms
+                    and
+                    risk history.</p>
+                </details>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column -->
+          <div class="space-y-6">
+            <!-- FAQ 4 -->
+            <div class="rounded-3xl bg-white/40 p-3 shadow-sm backdrop-blur-sm">
+              <div class="overflow-hidden rounded-2xl bg-white">
+                <details name="faq-right" class="group">
+                  <summary
+                    class="flex cursor-pointer list-none items-center gap-4 px-6 py-5 group-open:border-b group-open:border-gray-100 group-open:bg-gray-50 hover:bg-gray-50 [&::-webkit-details-marker]:hidden">
+                    <div class="shrink-0 opacity-30">
+                      <!-- Plus icon (shown when closed) -->
+                      <svg class="size-5 group-open:hidden" fill="currentColor" aria-hidden="true">
+                        <use href="#icon-plus" />
+                      </svg>
+                      <!-- Minus icon (shown when open) -->
+                      <svg class="hidden size-5 group-open:block" fill="currentColor" aria-hidden="true">
+                        <use href="#icon-minus" />
+                      </svg>
+                    </div>
+                    <h4 class="text-left font-semibold text-indigo-900">Can I come directly or need an appointment?</h4>
+                  </summary>
+                  <p class="px-6 py-5 text-sm leading-relaxed text-gray-600">Both options work—walk-in OPD is available,
+                    and
+                    booking in advance helps reduce waiting time (recommended for privacy and time planning).</p>
+                </details>
+              </div>
+            </div>
+
+            <!-- FAQ 5 -->
+            <div class="rounded-3xl bg-white/40 p-3 shadow-sm backdrop-blur-sm">
+              <div class="overflow-hidden rounded-2xl bg-white">
+                <details name="faq-right" class="group">
+                  <summary
+                    class="flex cursor-pointer list-none items-center gap-4 px-6 py-5 group-open:border-b group-open:border-gray-100 group-open:bg-gray-50 hover:bg-gray-50 [&::-webkit-details-marker]:hidden">
+                    <div class="shrink-0 opacity-30">
+                      <!-- Plus icon (shown when closed) -->
+                      <svg class="size-5 group-open:hidden" fill="currentColor" aria-hidden="true">
+                        <use href="#icon-plus" />
+                      </svg>
+                      <!-- Minus icon (shown when open) -->
+                      <svg class="hidden size-5 group-open:block" fill="currentColor" aria-hidden="true">
+                        <use href="#icon-minus" />
+                      </svg>
+                    </div>
+                    <h4 class="text-left font-semibold text-indigo-900">Does Maria Hospital cure infertility?</h4>
+                  </summary>
+                  <p class="px-6 py-5 text-sm leading-relaxed text-gray-600">Gynecology mainly supports
+                    infertility-related
+                    concerns such as sperm count issues and irregular menstruation; the doctor advises investigations
+                    and a
+                    treatment plan based on the couple's reports and tests.</p>
+                </details>
+              </div>
+            </div>
+
+            <!-- FAQ 6 -->
+            <div class="rounded-3xl bg-white/40 p-3 shadow-sm backdrop-blur-sm">
+              <div class="overflow-hidden rounded-2xl bg-white">
+                <details name="faq-right" class="group">
+                  <summary
+                    class="flex cursor-pointer list-none items-center gap-4 px-6 py-5 group-open:border-b group-open:border-gray-100 group-open:bg-gray-50 hover:bg-gray-50 [&::-webkit-details-marker]:hidden">
+                    <div class="shrink-0 opacity-30">
+                      <!-- Plus icon (shown when closed) -->
+                      <svg class="size-5 group-open:hidden" fill="currentColor" aria-hidden="true">
+                        <use href="#icon-plus" />
+                      </svg>
+                      <!-- Minus icon (shown when open) -->
+                      <svg class="hidden size-5 group-open:block" fill="currentColor" aria-hidden="true">
+                        <use href="#icon-minus" />
+                      </svg>
+                    </div>
+                    <h4 class="text-left font-semibold text-indigo-900">Are Maria Hospital doctors experienced?</h4>
+                  </summary>
+                  <p class="px-6 py-5 text-sm leading-relaxed text-gray-600">Yes, Maria Hospital has professional and
+                    experienced doctors, and the hospital promotes access to specialist clinicians and modern
+                    technology.
+                  </p>
+                </details>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
+    <!-- FAQs END -->
   </main>
 
   <footer class="bg-dark-navy pb-30">
