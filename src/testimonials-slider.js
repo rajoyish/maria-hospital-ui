@@ -40,47 +40,6 @@ const addPrevNextBtnsClickHandlers = (emblaApi, prevBtn, nextBtn) => {
   };
 };
 
-const addDotBtnsAndClickHandlers = (emblaApi, dotsNode) => {
-  let dotNodes = [];
-
-  const addDotBtnsWithClickHandlers = () => {
-    dotsNode.innerHTML = emblaApi
-      .scrollSnapList()
-      .map(
-        () =>
-          '<button class="w-3 h-3 rounded-full border-2 border-gray-300 hover:border-info transition-colors embla-testimonials__dot" type="button" aria-label="Go to slide"></button>'
-      )
-      .join("");
-
-    const scrollTo = (index) => emblaApi.scrollTo(index);
-
-    dotNodes = Array.from(
-      dotsNode.querySelectorAll(".embla-testimonials__dot")
-    );
-    dotNodes.forEach((dotNode, index) => {
-      dotNode.addEventListener("click", () => scrollTo(index), false);
-    });
-  };
-
-  const toggleDotBtnsActive = () => {
-    const previous = emblaApi.previousScrollSnap();
-    const selected = emblaApi.selectedScrollSnap();
-    dotNodes[previous]?.classList.remove("!bg-info", "!border-info");
-    dotNodes[selected]?.classList.add("!bg-info", "!border-info");
-  };
-
-  emblaApi
-    .on("init", addDotBtnsWithClickHandlers)
-    .on("reInit", addDotBtnsWithClickHandlers)
-    .on("init", toggleDotBtnsActive)
-    .on("reInit", toggleDotBtnsActive)
-    .on("select", toggleDotBtnsActive);
-
-  return () => {
-    dotsNode.innerHTML = "";
-  };
-};
-
 export const initTestimonialsSlider = () => {
   const emblaNode = document.querySelector(".embla-testimonials");
   if (!emblaNode) return;
@@ -92,7 +51,6 @@ export const initTestimonialsSlider = () => {
   const nextBtnNode = emblaNode.querySelector(
     ".embla-testimonials__button--next"
   );
-  const dotsNode = emblaNode.querySelector(".embla-testimonials__dots");
 
   const options = {
     slidesToScroll: 1,
@@ -109,13 +67,7 @@ export const initTestimonialsSlider = () => {
     nextBtnNode
   );
 
-  const removeDotBtnsAndClickHandlers = addDotBtnsAndClickHandlers(
-    emblaApi,
-    dotsNode
-  );
-
   emblaApi.on("destroy", removePrevNextBtnsClickHandlers);
-  emblaApi.on("destroy", removeDotBtnsAndClickHandlers);
 
   return emblaApi;
 };
