@@ -55,6 +55,18 @@
       <path fill-rule="evenodd" d="M4 10a.75.75 0 01.75-.75h10.5a.75.75 0 010 1.5H4.75A.75.75 0 014 10z"
         clip-rule="evenodd" />
     </symbol>
+
+    <!-- Location Icon -->
+    <symbol id="icon-location" viewBox="0 0 20 20" fill="currentColor">
+      <path fill-rule="evenodd" clip-rule="evenodd"
+        d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" />
+    </symbol>
+
+    <!-- Phone Icon -->
+    <symbol id="icon-phone" viewBox="0 0 20 20" fill="currentColor">
+      <path
+        d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+    </symbol>
   </svg>
   <!-- HEADER -->
   <header class="bg-white py-4 shadow-2xl xl:px-28">
@@ -139,6 +151,12 @@
                       Medicine<span class="text-info">/</span>Lab</a>
                   </li>
                 </ul>
+              </li>
+
+              <li>
+                <a href="#"
+                  class="text-dark-navy hover:text-accent-navy focus-visible:ring-info rounded px-1 py-1 focus-visible:ring-2 focus-visible:outline-none">
+                  FAQs </a>
               </li>
 
               <li>
@@ -248,6 +266,12 @@
             <li>
               <a href="#"
                 class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">
+                FAQs </a>
+            </li>
+
+            <li>
+              <a href="#"
+                class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">
                 Testimonials </a>
             </li>
 
@@ -276,9 +300,9 @@
       </div>
 
       <!-- FULLSCREEN SEARCH OVERLAY -->
-      <div id="search-overlay" x-cloak x-show="searchOpen" x-transition.opacity class="fixed inset-0 z-50" role="dialog"
+      <div id="search-overlay" x-cloak x-show="searchOpen" x-transition.opacity class="fixed inset-0 z-60" role="dialog"
         aria-modal="true" aria-label="Site search">
-        <div class="bg-dark-navy/70 absolute inset-0" @click="closeSearch()"></div>
+        <div class="bg-dark-navy/90 absolute inset-0 backdrop-blur-md" @click="closeSearch()"></div>
 
         <div class="pointer-events-none relative flex min-h-dvh flex-col items-center justify-center p-4">
           <div x-trap.noscroll="searchOpen" class="pointer-events-auto w-full max-w-2xl rounded-xl bg-white shadow-xl">
@@ -563,10 +587,8 @@
           <h2 class="text-accent-navy mb-8 text-4xl font-bold tracking-tight lg:text-5xl">Care <span
               class="text-info">Journeys</span></h2>
           <p class="text-maria-black mb-8 leading-relaxed lg:text-2xl">Care Journeys shares real patient experiences
-            with
-            Maria Hospital. These stories reflect the care, communication, and support patients felt during their
-            visits.
-          </p>
+            with Maria Hospital. These stories reflect the care, communication, and support patients felt during their
+            visits.</p>
           <small class="text-maria-gray italic">* Patient names have been withheld to protect their privacy.</small>
         </div>
 
@@ -583,9 +605,8 @@
                       <p class="relative z-10 mb-10">
                         <img class="absolute -z-10" src="./images/double-quote-icon.svg" alt="" />
                         I had burning while urinating and frequent urges for a long time. At Maria Hospital's
-                        Urology/STD
-                        department, the doctor explained everything clearly and started treatment right away. I felt
-                        significant relief within a few weeks, and the staff were very supportive.
+                        Urology/STD department, the doctor explained everything clearly and started treatment right
+                        away. I felt significant relief within a few weeks, and the staff were very supportive.
                       </p>
                     </blockquote>
                     <div class="p-8 pt-0">
@@ -604,8 +625,7 @@
                         <img class="absolute -z-10" src="./images/double-quote-icon.svg" alt="" />
                         I visited for an ENT issue because my throat pain and hoarse voice were getting worse. The ENT
                         doctor checked me thoroughly and suggested the right medicines and care. I'm much better now,
-                        and
-                        the follow-up system is also well managed.
+                        and the follow-up system is also well managed.
                       </p>
                     </blockquote>
                     <div class="p-8 pt-0">
@@ -624,8 +644,7 @@
                         <img class="absolute -z-10" src="./images/double-quote-icon.svg" alt="" />
                         I was suffering from piles and even sitting became painful. Maria Hospital's Anorectal service
                         handled my case respectfully and professionally, and the consultation felt private and
-                        comfortable.
-                        After treatment, the pain reduced a lot and my daily life is easier.
+                        comfortable. After treatment, the pain reduced a lot and my daily life is easier.
                       </p>
                     </blockquote>
                     <div class="p-8 pt-0">
@@ -643,10 +662,8 @@
                       <p class="relative z-10 mb-10">
                         <img class="absolute -z-10" src="./images/double-quote-icon.svg" alt="" />
                         I had chronic neck and shoulder pain, and medicines only gave temporary relief. I tried
-                        acupuncture
-                        at Maria Hospital, and after a few sessions I could feel real improvement. The procedure felt
-                        safe,
-                        and the therapist was very professional.
+                        acupuncture at Maria Hospital, and after a few sessions I could feel real improvement. The
+                        procedure felt safe, and the therapist was very professional.
                       </p>
                     </blockquote>
                     <div class="p-8 pt-0">
@@ -664,9 +681,8 @@
                       <p class="relative z-10 mb-10">
                         <img class="absolute -z-10" src="./images/double-quote-icon.svg" alt="" />
                         I went for a gynecology check-up and felt comfortable from the start. The doctor listened
-                        patiently
-                        and explained the next steps in a very simple way. The reports came on time and the overall
-                        environment felt very friendly for female patients.
+                        patiently and explained the next steps in a very simple way. The reports came on time and the
+                        overall environment felt very friendly for female patients.
                       </p>
                     </blockquote>
                     <div class="p-8 pt-0">
@@ -684,10 +700,8 @@
                       <p class="relative z-10 mb-10">
                         <img class="absolute -z-10" src="./images/double-quote-icon.svg" alt="" />
                         I was anxious about an STD concern and didn't know where to go. At Maria Hospital, privacy was
-                        taken
-                        seriously and the doctor listened without judgment. Testing and treatment were smooth, and I
-                        feel
-                        much more confident and relieved now.
+                        taken seriously and the doctor listened without judgment. Testing and treatment were smooth, and
+                        I feel much more confident and relieved now.
                       </p>
                     </blockquote>
                     <div class="p-8 pt-0">
@@ -706,8 +720,7 @@
                         <img class="absolute -z-10" src="./images/double-quote-icon.svg" alt="" />
                         I had ongoing sinus problems and constant nasal blockage. The ENT department at Maria Hospital
                         diagnosed the issue quickly and the treatment worked well. The staff were helpful and the
-                        service
-                        felt fast and organized.
+                        service felt fast and organized.
                       </p>
                     </blockquote>
                     <div class="p-8 pt-0">
@@ -725,10 +738,8 @@
                       <p class="relative z-10 mb-10">
                         <img class="absolute -z-10" src="./images/double-quote-icon.svg" alt="" />
                         I had bleeding and discomfort due to piles, but I kept delaying out of embarrassment. The doctor
-                        and
-                        nurses at Maria Hospital treated me with respect and gave a clear treatment plan. My symptoms
-                        have
-                        improved a lot—I only wish I had come earlier.
+                        and nurses at Maria Hospital treated me with respect and gave a clear treatment plan. My
+                        symptoms have improved a lot—I only wish I had come earlier.
                       </p>
                     </blockquote>
                     <div class="p-8 pt-0">
@@ -746,10 +757,8 @@
                       <p class="relative z-10 mb-10">
                         <img class="absolute -z-10" src="./images/double-quote-icon.svg" alt="" />
                         I had irregular periods and lower abdominal pain, so I visited Maria Hospital's gynecology
-                        service.
-                        The check-up, reports, and treatment were well organized and timely. The doctor also guided me
-                        on
-                        diet, rest, and follow-up, which really helped.
+                        service. The check-up, reports, and treatment were well organized and timely. The doctor also
+                        guided me on diet, rest, and follow-up, which really helped.
                       </p>
                     </blockquote>
                     <div class="p-8 pt-0">
@@ -811,7 +820,7 @@
     <!-- CARE JOURNEYS END -->
 
     <!-- FAQs -->
-    <section class="bg-soft-blue px-8 py-16 md:p-28 relative z-10">
+    <section class="bg-soft-blue relative z-10 px-8 py-16 md:p-28">
       <div class="mx-auto max-w-7xl">
         <!-- Header -->
         <div class="mx-auto mb-16 max-w-4xl text-center lg:mb-28">
@@ -820,8 +829,7 @@
             <span class="text-info">(FAQs)</span>
           </h1>
           <p class="text-maria-black leading-relaxed lg:text-2xl">FAQs answer common visitor questions to make your
-            visit
-            seamless. Review them beforehand to save time and learn basic information about us.</p>
+            visit seamless. Review them beforehand to save time and learn basic information about us.</p>
         </div>
 
         <!-- FAQ Grid -->
@@ -868,9 +876,8 @@
                     <h4 class="text-accent-navy text-left font-bold">What's the price for treatment of X or Y?</h4>
                   </summary>
                   <p class="text-maria-black px-6 py-5 leading-relaxed">Pricing depends on the patient's treatment
-                    history,
-                    background, physical examination, and lab tests; the OPD form fee is NPR 500, and final cost is
-                    confirmed after doctor evaluation.</p>
+                    history, background, physical examination, and lab tests; the OPD form fee is NPR 500, and final
+                    cost is confirmed after doctor evaluation.</p>
                 </details>
               </div>
             </div>
@@ -892,10 +899,8 @@
                     <h4 class="text-accent-navy text-left font-bold">Do you treat STDs confidentially?</h4>
                   </summary>
                   <p class="text-maria-black px-6 py-5 leading-relaxed">Yes, consultations are handled professionally
-                    with
-                    patient privacy and respectful communication; tests and treatment are advised based on symptoms and
-                    risk
-                    history.</p>
+                    with patient privacy and respectful communication; tests and treatment are advised based on symptoms
+                    and risk history.</p>
                 </details>
               </div>
             </div>
@@ -945,8 +950,7 @@
                   </summary>
                   <p class="text-maria-black px-6 py-5 leading-relaxed">Gynecology mainly supports infertility-related
                     concerns such as sperm count issues and irregular menstruation; the doctor advises investigations
-                    and a
-                    treatment plan based on the couple's reports and tests.</p>
+                    and a treatment plan based on the couple's reports and tests.</p>
                 </details>
               </div>
             </div>
@@ -969,15 +973,15 @@
                     <h4 class="text-accent-navy text-left font-bold">Are Maria Hospital doctors experienced?</h4>
                   </summary>
                   <p class="text-maria-black px-6 py-5 leading-relaxed">Yes, Maria Hospital has professional and
-                    experienced
-                    doctors, and the hospital promotes access to specialist clinicians and modern technology.</p>
+                    experienced doctors, and the hospital promotes access to specialist clinicians and modern
+                    technology.</p>
                 </details>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <img class="absolute bottom-4 right-0 w-1/2 -z-10" src="./images/faqs-decor.svg">
+      <img class="absolute right-0 bottom-4 -z-10 w-1/2" src="./images/faqs-decor.svg" />
     </section>
     <!-- FAQs END -->
   </main>
@@ -990,19 +994,21 @@
           <p class="max-w-sm text-gray-300 italic">"International Quality You Can Trust"</p>
           <div class="space-y-4">
             <div class="flex items-start gap-3">
-              <svg class="text-info size-6 shrink-0 font-bold" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd"
-                  d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                  clip-rule="evenodd" />
+              <!-- ICON: location -->
+              <svg class="text-info size-6 shrink-0 font-bold" aria-hidden="true">
+                <use href="#icon-location" />
               </svg>
+
               <p class="text-gray-200">Gairidhara Road, Baluwatar, Kathmandu</p>
             </div>
+
             <div class="flex items-center gap-3">
-              <svg class="text-info size-6 shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+              <!-- ICON: phone -->
+              <svg class="text-info size-6 shrink-0" aria-hidden="true">
+                <use href="#icon-phone" />
               </svg>
-              <a class="text-soft-blue" href="tel:+9779851433833">+977-9851433833</a>
+
+              <a class="text-soft-blue" href="tel:+9779851433833"> +977-9851433833 </a>
             </div>
           </div>
         </div>
@@ -1061,7 +1067,7 @@
   <!-- BOTTOM FIXED NAVIGATION -->
   <div class="fixed bottom-0 left-0 z-50 w-full lg:right-auto lg:bottom-0 lg:left-1/2 lg:max-w-2xl lg:-translate-x-1/2">
     <p
-      class="bg-emerald-100 inset-shadow-sm text-emerald-800 mx-auto max-w-fit rounded-tl-full rounded-tr-full px-10 py-1 pt-2 text-center text-sm leading-tight uppercase">
+      class="mx-auto max-w-fit rounded-tl-full rounded-tr-full bg-emerald-100 px-10 py-1 pt-2 text-center text-sm leading-tight text-emerald-800 uppercase inset-shadow-sm">
       Connect with us online</p>
 
     <div class="bg-accent-navy lg:rounded-tl-full lg:rounded-tr-full">
