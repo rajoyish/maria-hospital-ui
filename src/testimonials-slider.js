@@ -42,9 +42,13 @@ const addPrevNextBtnsClickHandlers = (emblaApi, prevBtn, nextBtn) => {
 
 export const initTestimonialsSlider = () => {
   const emblaNode = document.querySelector(".embla-testimonials");
-  if (!emblaNode) return;
+  // Safety check 1: Exit if container is missing
+  if (!emblaNode) return null;
 
   const viewportNode = emblaNode.querySelector(".embla-testimonials__viewport");
+  // Safety check 2: Exit if viewport is missing (required for Embla)
+  if (!viewportNode) return null;
+
   const prevBtnNode = emblaNode.querySelector(
     ".embla-testimonials__button--prev"
   );
@@ -61,13 +65,15 @@ export const initTestimonialsSlider = () => {
 
   const emblaApi = EmblaCarousel(viewportNode, options);
 
-  const removePrevNextBtnsClickHandlers = addPrevNextBtnsClickHandlers(
-    emblaApi,
-    prevBtnNode,
-    nextBtnNode
-  );
-
-  emblaApi.on("destroy", removePrevNextBtnsClickHandlers);
+  // Safety check 3: Only attach handlers if buttons exist
+  if (prevBtnNode && nextBtnNode) {
+    const removePrevNextBtnsClickHandlers = addPrevNextBtnsClickHandlers(
+      emblaApi,
+      prevBtnNode,
+      nextBtnNode
+    );
+    emblaApi.on("destroy", removePrevNextBtnsClickHandlers);
+  }
 
   return emblaApi;
 };
