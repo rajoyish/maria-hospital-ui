@@ -3,7 +3,7 @@
 class AppHeader extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
-      <header class="bg-white py-4 shadow-2xl xl:px-28">
+      <header class="bg-white py-4 shadow-xl xl:px-28">
         <div class="mx-auto px-4 py-4" x-data="{
           mobileOpen: false,
           servicesOpen: false,
@@ -80,7 +80,7 @@ class AppHeader extends HTMLElement {
                   </li>
 
                   <li>
-                    <a href="#" class="text-dark-navy hover:text-accent-navy focus-visible:ring-info rounded px-1 py-1 focus-visible:ring-2 focus-visible:outline-none">
+                    <a href="/contact-us.html" class="text-dark-navy hover:text-accent-navy focus-visible:ring-info rounded px-1 py-1 focus-visible:ring-2 focus-visible:outline-none">
                       Contact Us </a>
                   </li>
                 </ul>
@@ -113,7 +113,7 @@ class AppHeader extends HTMLElement {
             <nav class="mt-4 rounded-lg border border-slate-200 bg-white p-4 shadow-sm" aria-label="Mobile primary">
               <ul class="grid gap-2">
                 <li>
-                  <a href="#" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">
+                  <a href="/" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">
                     Home </a>
                 </li>
 
@@ -139,7 +139,7 @@ class AppHeader extends HTMLElement {
 
                 <li><a href="#" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">FAQs</a></li>
                 <li><a href="#" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Testimonials</a></li>
-                <li><a href="#" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Contact Us</a></li>
+                <li><a href="/contact-us.html" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Contact Us</a></li>
               </ul>
 
               <div class="mt-4 flex w-full items-center gap-3">
