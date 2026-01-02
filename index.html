@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
   <meta charset="UTF-8" />
@@ -8,7 +8,7 @@
   <title>Home | Maria Hospital Gairidhara, Kathmandu | International Quality Healthcare You Can Trust</title>
 </head>
 
-<body class="font-google-sans bg-white-pearl scroll-smooth text-lg antialiased">
+<body class="font-google-sans bg-white-pearl  text-lg antialiased">
   <!-- SVG Icon Sprite -->
   <svg class="hidden" aria-hidden="true">
     <!-- ICON: chevron-down -->
@@ -90,13 +90,11 @@
       mobileOpen = false; servicesOpen = false
     ">
       <div class="flex items-center justify-between gap-4">
-        <!-- Brand -->
         <a href="#"
           class="focus-visible:ring-info flex items-center gap-3 rounded focus-visible:ring-2 focus-visible:outline-none">
           <img src="./images/maria-hospital-logo.svg" alt="Maria Hospital" class="min-w-52" />
         </a>
 
-        <!-- DESKTOP - NAVIGATION -->
         <div class="flex gap-28">
           <nav class="hidden lg:flex" aria-label="Primary">
             <ul class="flex items-center gap-6">
@@ -106,14 +104,12 @@
                   Home </a>
               </li>
 
-              <!-- Dropdown -->
               <li class="relative">
                 <button type="button"
                   class="text-dark-navy hover:text-accent-navy focus-visible:ring-info inline-flex cursor-pointer items-center gap-2 rounded px-1 py-1 focus-visible:ring-2 focus-visible:outline-none"
                   @click.stop="servicesOpen = !servicesOpen" :aria-expanded="servicesOpen" aria-haspopup="menu"
                   aria-controls="services-menu">
                   Care Services
-                  <!-- ICON: chevron-down -->
                   <svg class="size-5" aria-hidden="true">
                     <use href="#icon-chevron" />
                   </svg>
@@ -123,30 +119,30 @@
                   @click.outside="servicesOpen = false"
                   class="absolute top-full left-0 z-20 mt-2 w-64 rounded-lg bg-white p-2 shadow-2xl">
                   <li role="none">
-                    <a role="menuitem" href="#"
+                    <a role="menuitem" href="#urology-std" @click="servicesOpen = false"
                       class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Urology<span
                         class="text-info">/</span>STD</a>
                   </li>
                   <li role="none">
-                    <a role="menuitem" href="#"
+                    <a role="menuitem" href="#ent" @click="servicesOpen = false"
                       class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">ENT
                       (Ear, Nose & Throat)</a>
                   </li>
                   <li role="none">
-                    <a role="menuitem" href="#"
+                    <a role="menuitem" href="#anorectal-piles" @click="servicesOpen = false"
                       class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Anorectal<span
                         class="text-info">/</span>Piles</a>
                   </li>
                   <li role="none">
-                    <a role="menuitem" href="#"
+                    <a role="menuitem" href="#acupuncture" @click="servicesOpen = false"
                       class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Acupuncture</a>
                   </li>
                   <li role="none">
-                    <a role="menuitem" href="#"
+                    <a role="menuitem" href="#gynecology" @click="servicesOpen = false"
                       class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Gynecology</a>
                   </li>
                   <li role="none">
-                    <a role="menuitem" href="#"
+                    <a role="menuitem" href="#general-medicine" @click="servicesOpen = false"
                       class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">General
                       Medicine<span class="text-info">/</span>Lab</a>
                   </li>
@@ -177,7 +173,6 @@
             <button type="button" @click="openSearch()" :aria-expanded="searchOpen" aria-controls="search-overlay"
               aria-label="Open search"
               class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info inline-flex size-11 cursor-pointer items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-slate-200 focus-visible:ring-2 focus-visible:outline-none">
-              <!-- ICON: magnifying-glass -->
               <svg class="size-6" aria-hidden="true">
                 <use href="#icon-search" />
               </svg>
@@ -189,26 +184,21 @@
           </div>
         </div>
 
-        <!-- Mobile toggle -->
         <button type="button"
           class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info inline-flex items-center justify-center rounded-md border border-slate-300 bg-white p-2 focus-visible:ring-2 focus-visible:outline-none lg:hidden"
           @click="mobileOpen = !mobileOpen" :aria-expanded="mobileOpen" aria-controls="mobile-menu">
           <span class="sr-only" x-text="mobileOpen ? 'Close menu' : 'Open menu'"> Open menu </span>
-          <!-- ICON: hamburger -->
           <svg x-show="!mobileOpen" class="size-6" aria-hidden="true">
             <use href="#icon-menu" />
           </svg>
-          <!-- ICON: x-mark -->
           <svg x-show="mobileOpen" class="size-6" aria-hidden="true">
             <use href="#icon-close" />
           </svg>
         </button>
       </div>
 
-      <!-- Mobile panel -->
       <div id="mobile-menu" class="lg:hidden" x-cloak x-show="mobileOpen" x-transition
         @click.outside="mobileOpen = false">
-        <!-- MOBILE - NAVIGATION -->
         <nav class="mt-4 rounded-lg border border-slate-200 bg-white p-4 shadow-sm" aria-label="Mobile primary">
           <ul class="grid gap-2">
             <li>
@@ -223,7 +213,6 @@
                 @click.stop="servicesOpen = !servicesOpen" :aria-expanded="servicesOpen"
                 aria-controls="mobile-services">
                 Care Services
-                <!-- ICON: chevron-down -->
                 <svg class="size-5" aria-hidden="true">
                   <use href="#icon-chevron" />
                 </svg>
@@ -232,31 +221,31 @@
               <ul id="mobile-services" role="menu" x-cloak x-show="servicesOpen" x-transition
                 class="mt-1 grid gap-1 pl-2">
                 <li role="none">
-                  <a role="menuitem" href="#"
+                  <a role="menuitem" href="#urology-std" @click="mobileOpen = false"
                     class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Urology<span
                       class="text-info">/</span>STD</a>
                 </li>
                 <li role="none">
-                  <a role="menuitem" href="#"
+                  <a role="menuitem" href="#ent" @click="mobileOpen = false"
                     class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">ENT
                     (Ear, Nose & Throat)</a>
                 </li>
                 <li role="none">
-                  <a role="menuitem" href="#"
+                  <a role="menuitem" href="#anorectal-piles" @click="mobileOpen = false"
                     class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Anorectal<span
                       class="text-info">/</span>Piles</a>
                 </li>
 
                 <li role="none">
-                  <a role="menuitem" href="#"
+                  <a role="menuitem" href="#acupuncture" @click="mobileOpen = false"
                     class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Acupuncture</a>
                 </li>
                 <li role="none">
-                  <a role="menuitem" href="#"
+                  <a role="menuitem" href="#gynecology" @click="mobileOpen = false"
                     class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Gynecology</a>
                 </li>
                 <li role="none">
-                  <a role="menuitem" href="#"
+                  <a role="menuitem" href="#general-medicine" @click="mobileOpen = false"
                     class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">General
                     Medicine<span class="text-info">/</span>Lab</a>
                 </li>
@@ -286,7 +275,6 @@
             <button type="button" @click="openSearch(); mobileOpen = false" :aria-expanded="searchOpen"
               aria-controls="search-overlay" aria-label="Open search"
               class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info inline-flex size-11 items-center justify-center rounded-full bg-white shadow-sm ring-1 ring-slate-200 focus-visible:ring-2 focus-visible:outline-none">
-              <!-- ICON: magnifying-glass -->
               <svg class="size-6" aria-hidden="true">
                 <use href="#icon-search" />
               </svg>
@@ -299,7 +287,6 @@
         </nav>
       </div>
 
-      <!-- FULLSCREEN SEARCH OVERLAY -->
       <div id="search-overlay" x-cloak x-show="searchOpen" x-transition.opacity class="fixed inset-0 z-60" role="dialog"
         aria-modal="true" aria-label="Site search">
         <div class="bg-dark-navy/90 absolute inset-0 backdrop-blur-md" @click="closeSearch()"></div>
@@ -324,7 +311,6 @@
             @click="closeSearch()" aria-label="Close search">
             <span>Close</span>
             <span>
-              <!-- ICON: x-mark -->
               <svg class="size-6" aria-hidden="true">
                 <use href="#icon-close" />
               </svg>
@@ -424,8 +410,10 @@
             your needs, ranging from General Surgery and Reproductive Health to holistic Pain Management. Explore our
             departments below to find the right solution for you.</p>
         </div>
+
         <div class="grid grid-cols-1 gap-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          <article class="group space-y-4">
+
+          <article id="urology-std" class="group scroll-mt-28 space-y-4">
             <img src="./images/sliders/Urology-STDs.avif"
               class="mb-8 rounded-2xl transition-all duration-300 group-hover:scale-110"
               alt="Doctor explaining urinary system health to male patient using holographic display showing kidneys, bladder, and urinary tract" />
@@ -435,7 +423,7 @@
             <a href="#" class="text-info hover:text-white-pearl border-b-4 font-bold transition-colors"> Learn More </a>
           </article>
 
-          <article class="group space-y-4">
+          <article id="ent" class="group scroll-mt-28 space-y-4">
             <img src="./images/sliders/ENT.avif"
               class="mb-8 rounded-2xl transition-all duration-300 group-hover:scale-110"
               alt="Three panels showing ENT specialists examining elderly man's ear, woman's nose, and young man's throat during medical consultation" />
@@ -445,7 +433,7 @@
             <a href="#" class="text-info hover:text-white-pearl border-b-4 font-bold transition-colors"> Learn More </a>
           </article>
 
-          <article class="group space-y-4">
+          <article id="anorectal-piles" class="group scroll-mt-28 space-y-4">
             <img src="./images/sliders/Anorectal-Piles.avif"
               class="mb-8 rounded-2xl transition-all duration-300 group-hover:scale-110"
               alt="Man experiencing pain in modern blue bathroom while woman stands in background, illustrating anorectal or piles pain" />
@@ -455,7 +443,7 @@
             <a href="#" class="text-info hover:text-white-pearl border-b-4 font-bold transition-colors"> Learn More </a>
           </article>
 
-          <article class="group space-y-4">
+          <article id="acupuncture" class="group scroll-mt-28 space-y-4">
             <img src="./images/sliders/acupuncture.avif"
               class="mb-8 rounded-2xl transition-all duration-300 group-hover:scale-110"
               alt="Healthcare professional wearing blue medical gloves performing acupuncture treatment, inserting fine needles into patient's skin" />
@@ -465,7 +453,7 @@
             <a href="#" class="text-info hover:text-white-pearl border-b-4 font-bold transition-colors"> Learn More </a>
           </article>
 
-          <article class="group space-y-4">
+          <article id="gynecology" class="group scroll-mt-28 space-y-4">
             <img src="./images/sliders/Gynecology.avif"
               class="mb-8 rounded-2xl transition-all duration-300 group-hover:scale-110"
               alt="Medical professional in blue gloves presenting holographic visualization of female reproductive system with uterus and ovaries highlighted in red" />
@@ -475,7 +463,7 @@
             <a href="#" class="text-info hover:text-white-pearl border-b-4 font-bold transition-colors"> Learn More </a>
           </article>
 
-          <article class="group space-y-4">
+          <article id="general-medicine" class="group scroll-mt-28 space-y-4">
             <img src="./images/sliders/General-Medicine-Lab.avif"
               class="mb-8 rounded-2xl transition-all duration-300 group-hover:scale-110"
               alt="Male laboratory technician in white coat examining test tube sample while using microscope and digital tablet in research lab" />
@@ -487,7 +475,6 @@
         </div>
       </div>
     </section>
-
     <!-- CARE SERVICES END -->
 
     <!-- TRUSTED PARTNER -->
