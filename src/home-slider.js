@@ -1,14 +1,6 @@
 import EmblaCarousel from "embla-carousel";
 import "./home-slider.css";
 
-/**
- * Initialize Home Slider with navigation and autoplay
- * @param {Object} options - Configuration options
- * @param {string} options.containerSelector - Slider container selector
- * @param {number} options.autoplayDelay - Autoplay delay in ms (default: 6000)
- * @param {number} options.transitionDuration - Transition duration (default: 35)
- * @param {boolean} options.loop - Enable loop (default: true)
- */
 export function initHomeSlider({
   containerSelector = ".embla",
   autoplayDelay = 6000,
@@ -17,12 +9,10 @@ export function initHomeSlider({
 } = {}) {
   const emblaNode = document.querySelector(containerSelector);
 
-  if (!emblaNode) {
-    console.error(`Slider element "${containerSelector}" not found`);
-    return null;
-  }
+  // Silent exit if slider not found (prevents errors on other pages)
+  if (!emblaNode) return null;
 
-  // Initialize Embla
+  // Init Embla
   const emblaApi = EmblaCarousel(emblaNode, {
     loop,
     skipSnaps: false,
@@ -32,29 +22,27 @@ export function initHomeSlider({
     align: "start",
   });
 
-  // Get navigation elements
-  const prevBtn = emblaNode.closest("section")?.querySelector(".embla__prev");
-  const nextBtn = emblaNode.closest("section")?.querySelector(".embla__next");
-  const dotsNode = emblaNode.closest("section")?.querySelector(".embla__dots");
+  // Navigation elements
+  const section = emblaNode.closest("section");
+  const prevBtn = section?.querySelector(".embla__prev");
+  const nextBtn = section?.querySelector(".embla__next");
+  const dotsNode = section?.querySelector(".embla__dots");
 
   if (!(prevBtn && nextBtn && dotsNode)) {
-    console.error("Navigation elements not found");
-    return null;
+    return { emblaApi, destroy: () => emblaApi.destroy() }; // Return API even if nav is missing
   }
 
-  // Navigation handlers
+  // Event Handlers
   prevBtn.addEventListener("click", () => emblaApi.scrollPrev());
   nextBtn.addEventListener("click", () => emblaApi.scrollNext());
 
-  // Dots functionality
+  // Dots Logic
   const addDotBtns = () => {
     dotsNode.innerHTML = emblaApi
       .scrollSnapList()
       .map(
-        (_, index) =>
-          `<button class="embla__dot w-3 h-3 rounded-full bg-white/50 transition-all duration-300" type="button" aria-label="Go to slide ${
-            index + 1
-          }"></button>`
+        (_, i) =>
+          `<button class="embla__dot w-3 h-3 rounded-full bg-white/50 transition-all duration-300" type="button" aria-label="Go to slide ${i + 1}"></button>`
       )
       .join("");
   };
@@ -64,26 +52,28 @@ export function initHomeSlider({
     const selected = emblaApi.selectedScrollSnap();
     const dots = dotsNode.querySelectorAll(".embla__dot");
 
-    dots[previous]?.classList.remove("bg-white", "w-8");
-    dots[previous]?.classList.add("bg-white/50", "w-3");
+    if (dots[previous]) {
+      dots[previous].classList.remove("bg-white", "w-8");
+      dots[previous].classList.add("bg-white/50", "w-3");
+    }
 
-    dots[selected]?.classList.add("bg-white", "w-8");
-    dots[selected]?.classList.remove("bg-white/50", "w-3");
+    if (dots[selected]) {
+      dots[selected].classList.add("bg-white", "w-8");
+      dots[selected].classList.remove("bg-white/50", "w-3");
+    }
   };
 
   const addDotClickListeners = () => {
-    const dots = dotsNode.querySelectorAll(".embla__dot");
-    dots.forEach((dot, index) => {
-      dot.addEventListener("click", () => emblaApi.scrollTo(index), false);
+    dotsNode.querySelectorAll(".embla__dot").forEach((dot, i) => {
+      dot.addEventListener("click", () => emblaApi.scrollTo(i), false);
     });
   };
 
-  // Initialize dots
+  // Init UI
   addDotBtns();
   addDotClickListeners();
   updateDots();
 
-  // Update on slide change
   emblaApi.on("select", updateDots);
   emblaApi.on("reInit", () => {
     addDotBtns();
@@ -91,24 +81,18 @@ export function initHomeSlider({
     updateDots();
   });
 
-  // Autoplay
+  // Autoplay Logic
   let autoplayInterval;
-
   const startAutoplay = () => {
-    autoplayInterval = setInterval(() => {
-      emblaApi.scrollNext();
-    }, autoplayDelay);
+    autoplayInterval = setInterval(() => emblaApi.scrollNext(), autoplayDelay);
   };
-
-  const stopAutoplay = () => {
-    clearInterval(autoplayInterval);
-  };
+  const stopAutoplay = () => clearInterval(autoplayInterval);
 
   startAutoplay();
   emblaNode.addEventListener("mouseenter", stopAutoplay);
   emblaNode.addEventListener("mouseleave", startAutoplay);
 
-  // Return API for external control
+  // Return Public API
   return {
     emblaApi,
     destroy: () => {
