@@ -5,6 +5,8 @@ import Alpine from "alpinejs";
 import { initHomeSlider } from "./home-slider";
 import { initTestimonialsSlider } from "./testimonials-slider";
 
+import "./components/header.js";
+
 Alpine.plugin(focus);
 window.Alpine = Alpine;
 Alpine.start();
