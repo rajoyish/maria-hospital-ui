@@ -1,0 +1,61 @@
+name: Deploy to Production (npmariahospital.com)
+
+on:
+  # Trigger 1: Manually from GitHub Actions tab
+  workflow_dispatch:
+  
+  # Trigger 2: When you push a tag starting with "v" (e.g., v1.0.0)
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  deploy-production:
+    runs-on: ubuntu-latest
+    
+    # Environment allows you to require approval (optional, configurable in repo settings)
+    environment: 
+      name: Production
+      url: https://npmariahospital.com
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build (Vite)
+        run: npm run build
+        # Ensure your vite.config.js doesn't have a specific 'base' set for staging, 
+        # or defaults to '/'
+
+      - name: Start SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.PROD_SSH_KEY }}
+
+      - name: Add server to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -p "${{ secrets.PROD_PORT }}" "${{ secrets.PROD_HOST }}" >> ~/.ssh/known_hosts
+
+      - name: Deploy to public_html
+        run: |
+          # DANGER: --delete removes files in destination that are not in source.
+          # We use --exclude to protect cPanel specific files/folders inside public_html.
+          
+          rsync -az --delete \
+            -e "ssh -p ${{ secrets.PROD_PORT }}" \
+            --exclude '.htaccess' \
+            --exclude '.well-known' \
+            --exclude 'cgi-bin' \
+            --exclude 'cp_errordocument.shtml' \
+            dist/ \
+            "${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }}:${{ secrets.PROD_PATH }}/"
