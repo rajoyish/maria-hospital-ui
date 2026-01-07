@@ -70,13 +70,13 @@ class AppHeader extends HTMLElement {
                   </li>
 
                   <li>
-                    <a href="#" class="text-dark-navy hover:text-accent-navy focus-visible:ring-info rounded px-1 py-1 focus-visible:ring-2 focus-visible:outline-none">
+                    <a href="/" class="text-dark-navy hover:text-accent-navy focus-visible:ring-info rounded px-1 py-1 focus-visible:ring-2 focus-visible:outline-none">
                       FAQs </a>
                   </li>
 
                   <li>
-                    <a href="#" class="text-dark-navy hover:text-accent-navy focus-visible:ring-info rounded px-1 py-1 focus-visible:ring-2 focus-visible:outline-none">
-                      Testimonials </a>
+                    <a href="/" class="text-dark-navy hover:text-accent-navy focus-visible:ring-info rounded px-1 py-1 focus-visible:ring-2 focus-visible:outline-none">
+                      Care Journeys </a>
                   </li>
 
                   <li>
@@ -137,8 +137,8 @@ class AppHeader extends HTMLElement {
                   </ul>
                 </li>
 
-                <li><a href="#" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">FAQs</a></li>
-                <li><a href="#" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Testimonials</a></li>
+                <li><a href="/" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">FAQs</a></li>
+                <li><a href="/" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Care Journeys</a></li>
                 <li><a href="/contact-us.html" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Contact Us</a></li>
               </ul>
 
