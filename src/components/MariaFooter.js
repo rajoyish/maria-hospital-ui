@@ -44,7 +44,7 @@ class MariaFooter extends HTMLElement {
             <div>
               <h3 class="text-info mb-6 text-xl font-semibold">Quick Links</h3>
               <ul role="list" class="space-y-4">
-                <li><a href="/" class="hover:text-info text-gray-200 transition-colors">Urology/STD</a></li>
+                <li><a href="/urology-std-services-nepal.html" class="hover:text-info text-gray-200 transition-colors">Urology/STD</a></li>
                 <li><a href="/" class="hover:text-info text-gray-200 transition-colors">ENT (Ear, Nose & Throat)</a></li>
                 <li><a href="/" class="hover:text-info text-gray-200 transition-colors">Anorectal/Piles</a></li>
                 <li><a href="/" class="hover:text-info text-gray-200 transition-colors">Acupuncture</a></li>

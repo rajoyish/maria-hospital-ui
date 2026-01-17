@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap");
 
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @theme {
   --font-google-sans: "Google Sans", sans-serif;
@@ -17,4 +18,14 @@
 
 [x-cloak] {
   display: none;
+}
+
+.prose li::marker {
+  color: var(--color-info);
+}
+
+.prose h1,
+.prose h2,
+.prose h3 {
+  color: var(--color-accent-navy);
 }

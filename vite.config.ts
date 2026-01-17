@@ -10,6 +10,10 @@ export default defineConfig({
         main: resolve(__dirname, "index.html"),
         appointment: resolve(__dirname, "appointment.html"),
         contact: resolve(__dirname, "contact-us.html"),
+        urology_std_services: resolve(
+          __dirname,
+          "urology-std-services-nepal.html"
+        ),
       },
     },
   },
