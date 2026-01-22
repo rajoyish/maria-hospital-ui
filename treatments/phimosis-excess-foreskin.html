@@ -284,41 +284,9 @@
 
     <maria-footer></maria-footer>
 
-    <div
-        class="fixed bottom-0 left-0 z-50 w-full lg:right-auto lg:bottom-0 lg:left-1/2 lg:max-w-2xl lg:-translate-x-1/2">
-        <p
-            class="mx-auto max-w-fit rounded-tl-full rounded-tr-full bg-emerald-100 px-10 py-1 pt-2 text-center text-sm leading-tight text-emerald-800 uppercase inset-shadow-sm">
-            Connect with us online
-        </p>
-
-        <div class="bg-accent-navy lg:rounded-tl-full lg:rounded-tr-full">
-            <div class="mx-auto grid h-full max-w-lg grid-cols-4 font-medium lg:mx-0 lg:w-full lg:max-w-none">
-                <a href="https://m.me/mariahospitalnepal"
-                    class="group inline-flex flex-col items-center justify-center pt-2 transition-colors duration-300 hover:bg-white lg:rounded-tl-full">
-                    <img src="../images/social-icons/messanger-icon.svg" alt="Messenger Icon" />
-                    <span class="group-hover: pt-1 text-sm text-white">Messenger</span>
-                </a>
-
-                <a href="https://wa.me/9779851433833"
-                    class="group inline-flex flex-col items-center justify-center pt-2 transition-colors duration-300 hover:bg-white">
-                    <img src="../images/social-icons/whatsapp-icon.svg" alt="WhatsApp Icon" />
-                    <span class="group-hover: pt-1 text-sm text-white">WhatsApp</span>
-                </a>
-
-                <a href="https://www.tiktok.com/@mariahospitalnepal"
-                    class="group inline-flex flex-col items-center justify-center pt-2 transition-colors duration-300 hover:bg-white">
-                    <img src="../images/social-icons/tiktok-icon.svg" alt="TikTok Icon" />
-                    <span class="group-hover: pt-1 text-sm text-white">TikTok</span>
-                </a>
-
-                <a href="https://www.instagram.com/mariahospitalnp/"
-                    class="group inline-flex flex-col items-center justify-center pt-2 transition-colors duration-300 hover:bg-white lg:rounded-tr-full">
-                    <img src="../images/social-icons/instagram-icon.svg" alt="Instagram Icon" />
-                    <span class="group-hover: pt-1 text-sm text-white">Instagram</span>
-                </a>
-            </div>
-        </div>
-    </div>
+    <!-- FIXED BOTTOM SOCIAL NAV -->
+    <social-media-nav></social-media-nav>
+    <!-- FIXED BOTTOM SOCIAL NAV -->
 
     <div x-data="{ showScrollTop: false }" @scroll.window="showScrollTop = (window.pageYOffset > 300)">
         <button x-cloak x-show="showScrollTop" x-transition:enter="transition ease-out duration-300"

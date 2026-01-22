@@ -7,6 +7,7 @@ import { initTestimonialsSlider } from "./testimonials-slider";
 
 import "./components/header.js";
 import "./components/MariaFooter.js";
+import "./components/social-media-nav.js";
 
 Alpine.plugin(focus);
 window.Alpine = Alpine;
