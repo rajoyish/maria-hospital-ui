@@ -48,30 +48,30 @@ const HEADER_TEMPLATE = `
                     <a role="menuitem" href="/urology-std-services-nepal.html" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Urology<span class="text-info">/</span>STD</a>
                   </li>
                   <li role="none">
-                    <a role="menuitem" href="#" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">ENT (Ear, Nose & Throat)</a>
+                    <a role="menuitem" href="#ent" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">ENT (Ear, Nose & Throat)</a>
                   </li>
                   <li role="none">
-                    <a role="menuitem" href="#" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Anorectal<span class="text-info">/</span>Piles</a>
+                    <a role="menuitem" href="#anorectal-piles" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Anorectal<span class="text-info">/</span>Piles</a>
                   </li>
                   <li role="none">
-                    <a role="menuitem" href="#" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Acupuncture</a>
+                    <a role="menuitem" href="#acupuncture" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Acupuncture</a>
                   </li>
                   <li role="none">
-                    <a role="menuitem" href="#" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Gynecology</a>
+                    <a role="menuitem" href="#gynecology" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Gynecology</a>
                   </li>
                   <li role="none">
-                    <a role="menuitem" href="#" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">General Medicine<span class="text-info">/</span>Lab</a>
+                    <a role="menuitem" href="#general-medicine" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">General Medicine<span class="text-info">/</span>Lab</a>
                   </li>
                 </ul>
               </li>
 
               <li>
-                <a href="/" class="text-dark-navy hover:text-accent-navy focus-visible:ring-info rounded px-1 py-1 focus-visible:ring-2 focus-visible:outline-none">
+                <a href="#faqs" class="text-dark-navy hover:text-accent-navy focus-visible:ring-info rounded px-1 py-1 focus-visible:ring-2 focus-visible:outline-none">
                   FAQs </a>
               </li>
 
               <li>
-                <a href="/" class="text-dark-navy hover:text-accent-navy focus-visible:ring-info rounded px-1 py-1 focus-visible:ring-2 focus-visible:outline-none">
+                <a href="#care-journeys" class="text-dark-navy hover:text-accent-navy focus-visible:ring-info rounded px-1 py-1 focus-visible:ring-2 focus-visible:outline-none">
                   Care Journeys </a>
               </li>
 
@@ -125,11 +125,11 @@ const HEADER_TEMPLATE = `
               <ul id="mobile-services" role="menu" x-cloak x-show="servicesOpen" x-transition
                 class="mt-1 grid gap-1 pl-2">
                 <li role="none"><a role="menuitem" href="/urology-std-services-nepal.html" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Urology<span class="text-info">/</span>STD</a></li>
-                <li role="none"><a role="menuitem" href="#" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">ENT (Ear, Nose & Throat)</a></li>
-                <li role="none"><a role="menuitem" href="#" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Anorectal<span class="text-info">/</span>Piles</a></li>
-                <li role="none"><a role="menuitem" href="#" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Acupuncture</a></li>
-                <li role="none"><a role="menuitem" href="#" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Gynecology</a></li>
-                <li role="none"><a role="menuitem" href="#" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">General Medicine<span class="text-info">/</span>Lab</a></li>
+                <li role="none"><a role="menuitem" href="#ent" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">ENT (Ear, Nose & Throat)</a></li>
+                <li role="none"><a role="menuitem" href="#anorectal-piles" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Anorectal<span class="text-info">/</span>Piles</a></li>
+                <li role="none"><a role="menuitem" href="#acupuncture" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Acupuncture</a></li>
+                <li role="none"><a role="menuitem" href="#gynecology" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Gynecology</a></li>
+                <li role="none"><a role="menuitem" href="#general-medicine" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">General Medicine<span class="text-info">/</span>Lab</a></li>
               </ul>
             </li>
 
