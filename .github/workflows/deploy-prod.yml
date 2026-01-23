@@ -1,10 +1,7 @@
 name: Deploy to Production (npmariahospital.com)
 
 on:
-  # Trigger 1: Manually from GitHub Actions tab
   workflow_dispatch:
-  
-  # Trigger 2: When you push a tag starting with "v" (e.g., v1.0.0)
   push:
     tags:
       - 'v*'
@@ -13,7 +10,6 @@ jobs:
   deploy-production:
     runs-on: ubuntu-latest
     
-    # Environment allows you to require approval (optional, configurable in repo settings)
     environment: 
       name: Production
       url: https://npmariahospital.com
@@ -32,9 +28,10 @@ jobs:
         run: npm ci
 
       - name: Build (Vite)
+        # We pass the URL here so generate-sitemap-scan.js uses it correctly
+        env:
+          VITE_SITE_URL: "https://npmariahospital.com"
         run: npm run build
-        # Ensure your vite.config.js doesn't have a specific 'base' set for staging, 
-        # or defaults to '/'
 
       - name: Start SSH agent
         uses: webfactory/ssh-agent@v0.9.0
@@ -48,12 +45,11 @@ jobs:
 
       - name: Deploy to public_html
         run: |
-          # DANGER: --delete removes files in destination that are not in source.
-          # We use --exclude to protect cPanel specific files/folders inside public_html.
+          # NOTE: We removed --exclude '.htaccess' so your new Clean URL config is uploaded.
+          # We still exclude .well-known (SSL certs) and cgi-bin.
           
           rsync -az --delete \
             -e "ssh -p ${{ secrets.PROD_PORT }}" \
-            --exclude '.htaccess' \
             --exclude '.well-known' \
             --exclude 'cgi-bin' \
             --exclude 'cp_errordocument.shtml' \

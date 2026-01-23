@@ -1,0 +1,19 @@
+RewriteEngine On
+
+# 1. Force HTTPS (Optional but good practice)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# 2. Redirect external requests for .html to extension-less URL
+# e.g., Visitor types /contact.html -> Browser redirects to /contact
+RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
+RewriteRule ^ /%1 [NC,L,R=301]
+
+# 3. Internally map extension-less URLs to the .html file
+# e.g., Visitor types /contact -> Server serves contact.html
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html [L]
+
+# 4. Custom Error Page
+ErrorDocument 404 /404.html

@@ -1,114 +1,124 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { loadEnv } from "vite"; // Use Vite's built-in env loader
+
+// --- GET ENV VARS ---
+// Get mode from command line args (default to production)
+// Example usage: node generate-sitemap-scan.js staging
+const mode = process.argv[2] || "production";
+
+// Load env file based on mode (e.g., .env.staging, .env.production)
+const env = loadEnv(mode, process.cwd(), "");
 
 // --- CONFIGURATION ---
-const BASE_URL = "https://npmariahospital.com";
-const BUILD_DIR = path.resolve(
-  path.dirname(fileURLToPath(import.meta.url)),
-  "dist"
-);
-const OUTPUT_FILE = path.join(BUILD_DIR, "sitemap.xml");
+const CONFIG = {
+  // Uses VITE_SITE_URL from .env file, fallback to hardcoded
+  baseUrl: env.VITE_SITE_URL || "https://npmariahospital.com",
+  excludedFiles: ["404.html", "google-site-verification.html"],
+  outputDir: "dist",
+  outputFile: "sitemap.xml",
+  // Change to true if your host REQUIRES .html extensions in the URL
+  includeHtmlExtension: false,
+  priorities: {
+    home: "1.0",
+    services: "0.9",
+    default: "0.8",
+  },
+};
 
-// Files to exclude from the sitemap
-const EXCLUDED_FILES = ["404.html", "google-site-verification.html"];
+// Paths
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const BUILD_DIR = path.resolve(__dirname, CONFIG.outputDir);
+const OUTPUT_PATH = path.join(BUILD_DIR, CONFIG.outputFile);
 
 // --- HELPER FUNCTIONS ---
 
-// Recursively find all .html files in a directory
 const getHtmlFiles = (dir, fileList = []) => {
   if (!fs.existsSync(dir)) return [];
-
   const files = fs.readdirSync(dir);
 
-  files.forEach((file) => {
+  for (const file of files) {
     const filePath = path.join(dir, file);
     const stat = fs.statSync(filePath);
 
     if (stat.isDirectory()) {
       getHtmlFiles(filePath, fileList);
     } else {
-      if (file.endsWith(".html") && !EXCLUDED_FILES.includes(file)) {
-        // Store relative path from BUILD_DIR
+      if (file.endsWith(".html") && !CONFIG.excludedFiles.includes(file)) {
         fileList.push(path.relative(BUILD_DIR, filePath));
       }
     }
-  });
-
+  }
   return fileList;
 };
 
-// Convert file path to URL slug
-const toUrl = (filePath) => {
-  // Replace backslashes (Windows) with forward slashes
-  let slug = filePath.replace(/\\/g, "/");
+const toUrl = (relativePath) => {
+  let slug = relativePath.split(path.sep).join("/");
 
-  // Remove .html extension
-  slug = slug.replace(/\.html$/, "");
-
-  // Handle index (root)
-  if (slug === "index") {
-    return "/";
+  // Remove .html unless explicitly kept in config
+  if (!CONFIG.includeHtmlExtension) {
+    slug = slug.replace(/\.html$/, "");
   }
+
+  if (slug === "index") return "/";
+  if (slug.endsWith("/index")) return `/${slug.slice(0, -6)}/`;
 
   return `/${slug}`;
 };
 
+const getPriority = (url) => {
+  if (url === "/") return CONFIG.priorities.home;
+  if (url.includes("/treatments/") || url.includes("/care-services/")) {
+    return CONFIG.priorities.services;
+  }
+  return CONFIG.priorities.default;
+};
+
 // --- XML GENERATOR ---
+
 const generateSitemap = () => {
-  console.log(`🔍 Scanning directory: ${BUILD_DIR}`);
+  console.log(`\n🔍 Generating Sitemap for: ${mode.toUpperCase()}`);
+  console.log(`🌐 Base URL: ${CONFIG.baseUrl}`);
 
   const files = getHtmlFiles(BUILD_DIR);
 
   if (files.length === 0) {
-    console.warn("⚠️ No HTML files found! Did you run 'npm run build' first?");
-    return;
+    throw new Error("No HTML files found. Run 'npm run build' first.");
   }
 
-  const date = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+  const date = new Date().toISOString().split("T")[0];
 
-  const xmlUrls = files
-    .map((file) => {
-      const route = toUrl(file);
-      // Priority: Home is 1.0, others 0.8
-      const priority = route === "/" ? "1.0" : "0.8";
+  const urlTags = files.map((file) => {
+    const route = toUrl(file);
+    const priority = getPriority(route);
 
-      return `
-  <url>
-    <loc>${BASE_URL}${route}</loc>
+    return `  <url>
+    <loc>${CONFIG.baseUrl}${route}</loc>
     <lastmod>${date}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>${priority}</priority>
   </url>`;
-    })
-    .join("");
+  });
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${xmlUrls}
+${urlTags.join("\n")}
 </urlset>`;
 };
 
 // --- EXECUTION ---
+
 try {
-  // Ensure dist folder exists
   if (!fs.existsSync(BUILD_DIR)) {
-    console.error(
-      `❌ Error: 'dist' folder not found at ${BUILD_DIR}. \nPlease run 'npm run build' before generating the sitemap.`
-    );
+    console.error(`❌ Build directory not found: ${BUILD_DIR}`);
     process.exit(1);
   }
 
-  const sitemap = generateSitemap();
-
-  if (sitemap) {
-    fs.writeFileSync(OUTPUT_FILE, sitemap);
-    console.log(`✅ Sitemap generated successfully at: ${OUTPUT_FILE}`);
-
-    // Optional: Copy to public folder if you want to keep a record in source
-    // const publicPath = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "public/sitemap.xml");
-    // fs.copyFileSync(OUTPUT_FILE, publicPath);
-  }
+  const sitemapContent = generateSitemap();
+  fs.writeFileSync(OUTPUT_PATH, sitemapContent);
+  console.log(`✅ Sitemap generated at: ${OUTPUT_PATH}\n`);
 } catch (error) {
-  console.error("❌ Error generating sitemap:", error);
+  console.error("❌ Error:", error.message);
+  process.exit(1);
 }
