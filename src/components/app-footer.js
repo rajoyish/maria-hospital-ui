@@ -26,7 +26,7 @@ const FOOTER_TEMPLATE = `
         <div>
           <h3 class="text-info mb-6 text-xl font-semibold">Quick Links</h3>
           <ul role="list" class="space-y-4">
-            <li><a href="/urology-std-services-nepal.html" class="hover:text-info text-gray-200 transition-colors">Urology/STD</a></li>
+            <li><a href="/care-services/urology-std-services-nepal.html" class="hover:text-info text-gray-200 transition-colors">Urology/STD</a></li>
             <li><a href="#ent" class="hover:text-info text-gray-200 transition-colors">ENT (Ear, Nose & Throat)</a></li>
             <li><a href="#anorectal-piles" class="hover:text-info text-gray-200 transition-colors">Anorectal/Piles</a></li>
             <li><a href="#acupuncture" class="hover:text-info text-gray-200 transition-colors">Acupuncture</a></li>

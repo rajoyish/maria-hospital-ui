@@ -45,7 +45,7 @@ const HEADER_TEMPLATE = `
                   @click.outside="servicesOpen = false"
                   class="absolute top-full left-0 z-20 mt-2 w-64 rounded-lg bg-white p-2 shadow-2xl">
                   <li role="none">
-                    <a role="menuitem" href="/urology-std-services-nepal.html" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Urology<span class="text-info">/</span>STD</a>
+                    <a role="menuitem" href="/care-services/urology-std-services-nepal.html" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Urology<span class="text-info">/</span>STD</a>
                   </li>
                   <li role="none">
                     <a role="menuitem" href="#ent" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">ENT (Ear, Nose & Throat)</a>
