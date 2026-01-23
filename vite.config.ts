@@ -7,7 +7,25 @@ import { defineConfig } from "vite";
 const treatmentsDir = resolve(__dirname, "treatments");
 const careServicesDir = resolve(__dirname, "care-services");
 
-// Generic function to scan a directory and generate input objects
+// Helper: Scan root directory for HTML files (index, 404, contact, etc.)
+function getRootHtmlInputs() {
+  const inputs: Record<string, string> = {};
+  // Scan the current directory
+  const files = readdirSync(__dirname);
+
+  for (const file of files) {
+    // Only pick .html files
+    if (file.endsWith(".html")) {
+      // Use the filename (without extension) as the key
+      // e.g., 'contact-us.html' becomes 'contact-us'
+      const name = parse(file).name;
+      inputs[name] = resolve(__dirname, file);
+    }
+  }
+  return inputs;
+}
+
+// Helper: Scan sub-directories (treatments, care-services)
 function getDirectoryInputs(dirPath: string, prefix: string) {
   const inputs: Record<string, string> = {};
 
@@ -31,12 +49,13 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: resolve(__dirname, "index.html"),
-        appointment: resolve(__dirname, "appointment.html"),
-        contact: resolve(__dirname, "contact-us.html"),
-        // Dynamically add all HTML files from treatments directory
+        // 1. Dynamically add all Root HTML files (index, 404, appointment, etc.)
+        ...getRootHtmlInputs(),
+
+        // 2. Dynamically add all HTML files from treatments directory
         ...getDirectoryInputs(treatmentsDir, "treatment"),
-        // Dynamically add all HTML files from care-services directory
+
+        // 3. Dynamically add all HTML files from care-services directory
         ...getDirectoryInputs(careServicesDir, "care_service"),
       },
     },
