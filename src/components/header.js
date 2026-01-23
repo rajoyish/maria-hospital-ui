@@ -45,10 +45,10 @@ const HEADER_TEMPLATE = `
                   @click.outside="servicesOpen = false"
                   class="absolute top-full left-0 z-20 mt-2 w-64 rounded-lg bg-white p-2 shadow-2xl">
                   <li role="none">
-                    <a role="menuitem" href="/care-services/urology-std-services-nepal.html" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Urology<span class="text-info">/</span>STD</a>
+                    <a role="menuitem" href="/care-services/urology-std-services-nepal" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Urology<span class="text-info">/</span>STD</a>
                   </li>
                   <li role="none">
-                    <a role="menuitem" href="/care-services/ent-ear-nose-throat-nepal.html" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">ENT (Ear, Nose & Throat)</a>
+                    <a role="menuitem" href="/care-services/ent-ear-nose-throat-nepal" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">ENT (Ear, Nose & Throat)</a>
                   </li>
                   <li role="none">
                     <a role="menuitem" href="#anorectal-piles" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Anorectal<span class="text-info">/</span>Piles</a>
@@ -76,7 +76,7 @@ const HEADER_TEMPLATE = `
               </li>
 
               <li>
-                <a href="/contact-us.html" class="text-dark-navy hover:text-accent-navy focus-visible:ring-info rounded px-1 py-1 focus-visible:ring-2 focus-visible:outline-none">
+                <a href="/contact-us" class="text-dark-navy hover:text-accent-navy focus-visible:ring-info rounded px-1 py-1 focus-visible:ring-2 focus-visible:outline-none">
                   Contact Us </a>
               </li>
             </ul>
@@ -89,7 +89,7 @@ const HEADER_TEMPLATE = `
               <svg class="size-6" aria-hidden="true"><use href="#icon-search" /></svg>
             </button>
 
-            <a href="/appointment.html"
+            <a href="/appointment"
               class="bg-dark-navy hover:bg-accent-navy focus-visible:ring-info inline-flex items-center justify-center rounded-full px-6 py-2.5 text-white focus-visible:ring-2 focus-visible:outline-none">
               Book an Appointment </a>
           </div>
@@ -124,8 +124,8 @@ const HEADER_TEMPLATE = `
 
               <ul id="mobile-services" role="menu" x-cloak x-show="servicesOpen" x-transition
                 class="mt-1 grid gap-1 pl-2">
-                <li role="none"><a role="menuitem" href="/urology-std-services-nepal.html" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Urology<span class="text-info">/</span>STD</a></li>
-                <li role="none"><a role="menuitem" href="/care-services/ent-ear-nose-throat-nepal.html" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">ENT (Ear, Nose & Throat)</a></li>
+                <li role="none"><a role="menuitem" href="/urology-std-services-nepal" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Urology<span class="text-info">/</span>STD</a></li>
+                <li role="none"><a role="menuitem" href="/care-services/ent-ear-nose-throat-nepal" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">ENT (Ear, Nose & Throat)</a></li>
                 <li role="none"><a role="menuitem" href="#anorectal-piles" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Anorectal<span class="text-info">/</span>Piles</a></li>
                 <li role="none"><a role="menuitem" href="#acupuncture" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Acupuncture</a></li>
                 <li role="none"><a role="menuitem" href="#gynecology" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Gynecology</a></li>
@@ -135,7 +135,7 @@ const HEADER_TEMPLATE = `
 
             <li><a href="/" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">FAQs</a></li>
             <li><a href="/" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Care Journeys</a></li>
-            <li><a href="/contact-us.html" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Contact Us</a></li>
+            <li><a href="/contact-us" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Contact Us</a></li>
           </ul>
 
           <div class="mt-4 flex w-full items-center gap-3">
@@ -145,7 +145,7 @@ const HEADER_TEMPLATE = `
               <svg class="size-6" aria-hidden="true"><use href="#icon-search" /></svg>
             </button>
 
-            <a href="/appointment.html"
+            <a href="/appointment"
               class="bg-dark-navy hover:bg-accent-navy focus-visible:ring-info inline-flex flex-1 items-center justify-center rounded-full px-6 py-2.5 text-white focus-visible:ring-2 focus-visible:outline-none">
               Book an Appointment </a>
           </div>

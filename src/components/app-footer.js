@@ -26,8 +26,8 @@ const FOOTER_TEMPLATE = `
         <div>
           <h3 class="text-info mb-6 text-xl font-semibold">Quick Links</h3>
           <ul role="list" class="space-y-4">
-            <li><a href="/care-services/urology-std-services-nepal.html" class="hover:text-info text-gray-200 transition-colors">Urology/STD</a></li>
-            <li><a href="/care-services/ent-ear-nose-throat-nepal.html" class="hover:text-info text-gray-200 transition-colors">ENT (Ear, Nose & Throat)</a></li>
+            <li><a href="/care-services/urology-std-services-nepal" class="hover:text-info text-gray-200 transition-colors">Urology/STD</a></li>
+            <li><a href="/care-services/ent-ear-nose-throat-nepal" class="hover:text-info text-gray-200 transition-colors">ENT (Ear, Nose & Throat)</a></li>
             <li><a href="#anorectal-piles" class="hover:text-info text-gray-200 transition-colors">Anorectal/Piles</a></li>
             <li><a href="#acupuncture" class="hover:text-info text-gray-200 transition-colors">Acupuncture</a></li>
             <li><a href="#gynecology" class="hover:text-info text-gray-200 transition-colors">Gynecology</a></li>
@@ -40,8 +40,8 @@ const FOOTER_TEMPLATE = `
           <ul role="list" class="space-y-4">
             <li><a href="#faqs" class="hover:text-info text-gray-200 transition-colors">FAQs</a></li>
             <li><a href="#care-journeys" class="hover:text-info text-gray-200 transition-colors">Care Journeys</a></li>
-            <li><a href="/contact-us.html" class="hover:text-info text-gray-200 transition-colors">Contact Us</a></li>
-            <li><a href="/appointment.html" class="hover:text-info text-gray-200 transition-colors">Book an Appointment</a></li>
+            <li><a href="/contact-us" class="hover:text-info text-gray-200 transition-colors">Contact Us</a></li>
+            <li><a href="/appointment" class="hover:text-info text-gray-200 transition-colors">Book an Appointment</a></li>
           </ul>
         </div>
       </div>
