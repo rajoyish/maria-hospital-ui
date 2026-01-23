@@ -6,7 +6,7 @@ import { initHomeSlider } from "./home-slider";
 import { initTestimonialsSlider } from "./testimonials-slider";
 
 import "./components/header.js";
-import "./components/MariaFooter.js";
+import "./components/app-footer.js";
 import "./components/social-media-nav.js";
 import "./components/icon-sprite.js";
 import "./components/scroll-to-top.js";
