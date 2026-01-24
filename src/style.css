@@ -29,3 +29,9 @@
 .prose h3 {
   color: var(--color-accent-navy);
 }
+
+.prose a:hover {
+  color: var(--color-info);
+  transition: color 0.3s ease;
+  text-decoration: none;
+}
