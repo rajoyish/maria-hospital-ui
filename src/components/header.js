@@ -51,7 +51,7 @@ const HEADER_TEMPLATE = `
                     <a role="menuitem" href="/care-services/ent-ear-nose-throat-nepal" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">ENT (Ear, Nose & Throat)</a>
                   </li>
                   <li role="none">
-                    <a role="menuitem" href="#anorectal-piles" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Anorectal<span class="text-info">/</span>Piles</a>
+                    <a role="menuitem" href="/care-services/anorectal-piles-nepal" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Anorectal<span class="text-info">/</span>Piles</a>
                   </li>
                   <li role="none">
                     <a role="menuitem" href="#acupuncture" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Acupuncture</a>
@@ -126,7 +126,7 @@ const HEADER_TEMPLATE = `
                 class="mt-1 grid gap-1 pl-2">
                 <li role="none"><a role="menuitem" href="/care-services/urology-std-services-nepal" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Urology<span class="text-info">/</span>STD</a></li>
                 <li role="none"><a role="menuitem" href="/care-services/ent-ear-nose-throat-nepal" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">ENT (Ear, Nose & Throat)</a></li>
-                <li role="none"><a role="menuitem" href="#anorectal-piles" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Anorectal<span class="text-info">/</span>Piles</a></li>
+                <li role="none"><a role="menuitem" href="/care-services/anorectal-piles-nepal" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Anorectal<span class="text-info">/</span>Piles</a></li>
                 <li role="none"><a role="menuitem" href="#acupuncture" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Acupuncture</a></li>
                 <li role="none"><a role="menuitem" href="#gynecology" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Gynecology</a></li>
                 <li role="none"><a role="menuitem" href="#general-medicine" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">General Medicine<span class="text-info">/</span>Lab</a></li>
