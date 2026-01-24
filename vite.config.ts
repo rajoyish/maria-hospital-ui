@@ -1,14 +1,26 @@
 import { existsSync, readdirSync } from "node:fs";
-import { join, parse, relative, resolve } from "node:path";
+import { dirname, join, parse, relative, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, loadEnv } from "vite";
 
-const treatmentsDir = resolve(__dirname, "treatments");
-const careServicesDir = resolve(__dirname, "care-services");
+// --- Hoisted Regex & Constants ---
+const WINDOWS_PATH_REGEX = /\\/g;
+const TRAILING_SLASH_REGEX = /\/$/;
+const SITE_URL_PLACEHOLDER_REGEX = /%VITE_SITE_URL%/g;
 
-function getRootHtmlInputs() {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const TREATMENTS_DIR = resolve(__dirname, "treatments");
+const CARE_SERVICES_DIR = resolve(__dirname, "care-services");
+
+// --- Helper Functions ---
+
+function getRootHtmlInputs(): Record<string, string> {
   const inputs: Record<string, string> = {};
   const files = readdirSync(__dirname);
+
   for (const file of files) {
     if (file.endsWith(".html")) {
       inputs[parse(file).name] = resolve(__dirname, file);
@@ -17,8 +29,9 @@ function getRootHtmlInputs() {
   return inputs;
 }
 
-function getDirectoryInputs(dirPath: string) {
+function getDirectoryInputs(dirPath: string): Record<string, string> {
   const inputs: Record<string, string> = {};
+
   if (existsSync(dirPath)) {
     const files = readdirSync(dirPath);
     for (const file of files) {
@@ -26,7 +39,7 @@ function getDirectoryInputs(dirPath: string) {
         const key = join(
           relative(__dirname, dirPath),
           parse(file).name
-        ).replace(/\\/g, "/");
+        ).replace(WINDOWS_PATH_REGEX, "/");
         inputs[key] = join(dirPath, file);
       }
     }
@@ -34,12 +47,22 @@ function getDirectoryInputs(dirPath: string) {
   return inputs;
 }
 
+// --- Config Export ---
+
 export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), "");
+  const env = loadEnv(mode, process.cwd(), "VITE_");
+
+  const rawUrl =
+    env.VITE_SITE_URL ||
+    (mode === "development"
+      ? "http://localhost:5173"
+      : "https://npmariahospital.com");
+
+  const siteUrl = rawUrl.replace(TRAILING_SLASH_REGEX, "");
 
   return {
     define: {
-      "process.env.VITE_SITE_URL": JSON.stringify(env.VITE_SITE_URL),
+      "process.env.VITE_SITE_URL": JSON.stringify(siteUrl),
     },
     plugins: [
       tailwindcss(),
@@ -49,10 +72,7 @@ export default defineConfig(({ mode }) => {
         transformIndexHtml: {
           order: "pre",
           handler(html) {
-            const url =
-              env.VITE_SITE_URL ||
-              (mode === "development" ? "http://localhost:5173" : "");
-            return html.replace(/%VITE_SITE_URL%/g, url);
+            return html.replace(SITE_URL_PLACEHOLDER_REGEX, siteUrl);
           },
         },
       },
@@ -61,8 +81,8 @@ export default defineConfig(({ mode }) => {
       rollupOptions: {
         input: {
           ...getRootHtmlInputs(),
-          ...getDirectoryInputs(treatmentsDir),
-          ...getDirectoryInputs(careServicesDir),
+          ...getDirectoryInputs(TREATMENTS_DIR),
+          ...getDirectoryInputs(CARE_SERVICES_DIR),
         },
       },
     },
