@@ -1,19 +1,24 @@
 RewriteEngine On
 
-# 1. Force HTTPS (Optional but good practice)
-# RewriteCond %{HTTPS} off
-# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# 1. Force HTTPS (Highly recommended for SEO and security)
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-# 2. Redirect external requests for .html to extension-less URL
-# e.g., Visitor types /contact.html -> Browser redirects to /contact
+# 2. Redirect /index.html to root /
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.html\ HTTP/
+RewriteRule ^index\.html$ / [R=301,L]
+
+# 3. Redirect external requests for .html to extension-less URL
+# Added a check to ignore 'index.html' specifically here
 RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
+RewriteCond %{REQUEST_URI} !^/index\.html$
 RewriteRule ^ /%1 [NC,L,R=301]
 
-# 3. Internally map extension-less URLs to the .html file
-# e.g., Visitor types /contact -> Server serves contact.html
+# 4. Internally map extension-less URLs to .html
+# Added [NC] and handling for trailing slashes if they exist
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}.html -f
-RewriteRule ^(.*)$ $1.html [L]
+RewriteRule ^([^/]+)/?$ $1.html [L]
 
-# 4. Custom Error Page
+# 5. Custom Error Page
 ErrorDocument 404 /404.html

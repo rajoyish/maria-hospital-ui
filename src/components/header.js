@@ -124,7 +124,7 @@ const HEADER_TEMPLATE = `
 
               <ul id="mobile-services" role="menu" x-cloak x-show="servicesOpen" x-transition
                 class="mt-1 grid gap-1 pl-2">
-                <li role="none"><a role="menuitem" href="/urology-std-services-nepal" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Urology<span class="text-info">/</span>STD</a></li>
+                <li role="none"><a role="menuitem" href="/care-services/urology-std-services-nepal" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Urology<span class="text-info">/</span>STD</a></li>
                 <li role="none"><a role="menuitem" href="/care-services/ent-ear-nose-throat-nepal" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">ENT (Ear, Nose & Throat)</a></li>
                 <li role="none"><a role="menuitem" href="#anorectal-piles" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Anorectal<span class="text-info">/</span>Piles</a></li>
                 <li role="none"><a role="menuitem" href="#acupuncture" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Acupuncture</a></li>

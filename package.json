@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node generate-sitemap-scan.js production",
+    "build": "vite build --mode production && node generate-sitemap-scan.js production",
     "build:staging": "vite build --mode staging && node generate-sitemap-scan.js staging",
     "preview": "vite preview"
   },

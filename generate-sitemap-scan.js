@@ -1,24 +1,22 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { loadEnv } from "vite"; // Use Vite's built-in env loader
+import { loadEnv } from "vite";
 
-// --- GET ENV VARS ---
-// Get mode from command line args (default to production)
-// Example usage: node generate-sitemap-scan.js staging
 const mode = process.argv[2] || "production";
-
-// Load env file based on mode (e.g., .env.staging, .env.production)
 const env = loadEnv(mode, process.cwd(), "");
 
-// --- CONFIGURATION ---
+// Hoisted regex to top-level scope for performance
+const HTML_EXT_REGEX = /\.html$/;
+
 const CONFIG = {
-  // Uses VITE_SITE_URL from .env file, fallback to hardcoded
-  baseUrl: env.VITE_SITE_URL || "https://npmariahospital.com",
+  baseUrl:
+    process.env.VITE_SITE_URL ||
+    env.VITE_SITE_URL ||
+    "https://npmariahospital.com",
   excludedFiles: ["404.html", "google-site-verification.html"],
   outputDir: "dist",
   outputFile: "sitemap.xml",
-  // Change to true if your host REQUIRES .html extensions in the URL
   includeHtmlExtension: false,
   priorities: {
     home: "1.0",
@@ -27,15 +25,15 @@ const CONFIG = {
   },
 };
 
-// Paths
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const BUILD_DIR = path.resolve(__dirname, CONFIG.outputDir);
 const OUTPUT_PATH = path.join(BUILD_DIR, CONFIG.outputFile);
 
-// --- HELPER FUNCTIONS ---
-
 const getHtmlFiles = (dir, fileList = []) => {
-  if (!fs.existsSync(dir)) return [];
+  if (!fs.existsSync(dir)) {
+    return [];
+  }
+
   const files = fs.readdirSync(dir);
 
   for (const file of files) {
@@ -44,10 +42,8 @@ const getHtmlFiles = (dir, fileList = []) => {
 
     if (stat.isDirectory()) {
       getHtmlFiles(filePath, fileList);
-    } else {
-      if (file.endsWith(".html") && !CONFIG.excludedFiles.includes(file)) {
-        fileList.push(path.relative(BUILD_DIR, filePath));
-      }
+    } else if (file.endsWith(".html") && !CONFIG.excludedFiles.includes(file)) {
+      fileList.push(path.relative(BUILD_DIR, filePath));
     }
   }
   return fileList;
@@ -56,26 +52,32 @@ const getHtmlFiles = (dir, fileList = []) => {
 const toUrl = (relativePath) => {
   let slug = relativePath.split(path.sep).join("/");
 
-  // Remove .html unless explicitly kept in config
   if (!CONFIG.includeHtmlExtension) {
-    slug = slug.replace(/\.html$/, "");
+    slug = slug.replace(HTML_EXT_REGEX, "");
   }
 
-  if (slug === "index") return "/";
-  if (slug.endsWith("/index")) return `/${slug.slice(0, -6)}/`;
+  if (slug === "index") {
+    return "/";
+  }
+
+  if (slug.endsWith("/index")) {
+    return `/${slug.slice(0, -6)}/`;
+  }
 
   return `/${slug}`;
 };
 
 const getPriority = (url) => {
-  if (url === "/") return CONFIG.priorities.home;
+  if (url === "/") {
+    return CONFIG.priorities.home;
+  }
+
   if (url.includes("/treatments/") || url.includes("/care-services/")) {
     return CONFIG.priorities.services;
   }
+
   return CONFIG.priorities.default;
 };
-
-// --- XML GENERATOR ---
 
 const generateSitemap = () => {
   console.log(`\n🔍 Generating Sitemap for: ${mode.toUpperCase()}`);
@@ -106,8 +108,6 @@ const generateSitemap = () => {
 ${urlTags.join("\n")}
 </urlset>`;
 };
-
-// --- EXECUTION ---
 
 try {
   if (!fs.existsSync(BUILD_DIR)) {
