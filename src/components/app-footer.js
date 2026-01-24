@@ -38,7 +38,7 @@ const FOOTER_TEMPLATE = `
         <div>
           <h3 class="mb-6 text-xl font-semibold text-transparent select-none">&nbsp;</h3>
           <ul role="list" class="space-y-4">
-            <li><a href="#faqs" class="hover:text-info text-gray-200 transition-colors">FAQs</a></li>
+            <li><a href="/faqs" class="hover:text-info text-gray-200 transition-colors">FAQs</a></li>
             <li><a href="#care-journeys" class="hover:text-info text-gray-200 transition-colors">Care Journeys</a></li>
             <li><a href="/contact-us" class="hover:text-info text-gray-200 transition-colors">Contact Us</a></li>
             <li><a href="/appointment" class="hover:text-info text-gray-200 transition-colors">Book an Appointment</a></li>
