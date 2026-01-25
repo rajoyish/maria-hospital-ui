@@ -4,7 +4,10 @@ const FOOTER_TEMPLATE = `
       <div class="grid grid-cols-1 gap-12 lg:grid-cols-4 lg:gap-8">
         
         <div class="space-y-8 lg:col-span-2">
-          <img class="h-24" src="/images/maria-hospital-logo-light.svg" alt="Maria Hospital" />
+        <a href="/">
+        <img class="h-24" src="/images/maria-hospital-logo-light.svg" alt="Maria Hospital" />
+        </a>
+         
           <p class="max-w-sm text-gray-300 italic">International Quality You Can Trust</p>
           <div class="space-y-4">
             <div class="flex items-start gap-3">
@@ -39,7 +42,7 @@ const FOOTER_TEMPLATE = `
           <h3 class="mb-6 text-xl font-semibold text-transparent select-none">&nbsp;</h3>
           <ul role="list" class="space-y-4">
             <li><a href="/faqs" class="hover:text-info text-gray-200 transition-colors">FAQs</a></li>
-            <li><a href="#care-journeys" class="hover:text-info text-gray-200 transition-colors">Care Journeys</a></li>
+            <li><a href="/care-journeys" class="hover:text-info text-gray-200 transition-colors">Care Journeys</a></li>
             <li><a href="/contact-us" class="hover:text-info text-gray-200 transition-colors">Contact Us</a></li>
             <li><a href="/appointment" class="hover:text-info text-gray-200 transition-colors">Book an Appointment</a></li>
           </ul>
