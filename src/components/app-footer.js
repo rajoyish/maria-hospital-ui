@@ -32,7 +32,7 @@ const FOOTER_TEMPLATE = `
             <li><a href="/care-services/urology-std-nepal" class="hover:text-info text-gray-200 transition-colors">Urology/STD</a></li>
             <li><a href="/care-services/ent-ear-nose-throat-nepal" class="hover:text-info text-gray-200 transition-colors">ENT (Ear, Nose & Throat)</a></li>
             <li><a href="/care-services/anorectal-piles-nepal" class="hover:text-info text-gray-200 transition-colors">Anorectal/Piles</a></li>
-            <li><a href="#acupuncture" class="hover:text-info text-gray-200 transition-colors">Acupuncture</a></li>
+            <li><a href="/care-services/acupuncture-nepal" class="hover:text-info text-gray-200 transition-colors">Acupuncture</a></li>
             <li><a href="/care-services/gynecology-nepal" class="hover:text-info text-gray-200 transition-colors">Gynecology</a></li>
             <li><a href="#general-medicine" class="hover:text-info text-gray-200 transition-colors">General Medicine/Lab</a></li>
           </ul>
