@@ -53,5 +53,6 @@ jobs:
             --exclude '.well-known' \
             --exclude 'cgi-bin' \
             --exclude 'cp_errordocument.shtml' \
+            --exclude 'images' \
             dist/ \
             "${{ secrets.STAGING_USER }}@${{ secrets.STAGING_HOST }}:${{ secrets.STAGING_PATH }}/"

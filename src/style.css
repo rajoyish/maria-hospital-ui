@@ -25,9 +25,12 @@
 }
 
 .prose h1,
-.prose h2,
-.prose h3 {
+.prose h2 {
   color: var(--color-accent-navy);
+}
+
+.prose h3 {
+  color: var(--color-maria-black);
 }
 
 .prose a:hover {
