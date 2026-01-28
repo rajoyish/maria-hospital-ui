@@ -60,7 +60,7 @@ const HEADER_TEMPLATE = `
                     <a role="menuitem" href="/care-services/gynecology-nepal" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Gynecology</a>
                   </li>
                   <li role="none">
-                    <a role="menuitem" href="#general-medicine" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">General Medicine<span class="text-info">/</span>Lab</a>
+                    <a role="menuitem" href="/care-services/general-medicine-lab-nepal" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">General Medicine<span class="text-info">/</span>Lab</a>
                   </li>
                 </ul>
               </li>
@@ -129,7 +129,7 @@ const HEADER_TEMPLATE = `
                 <li role="none"><a role="menuitem" href="/care-services/anorectal-piles-nepal" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Anorectal<span class="text-info">/</span>Piles</a></li>
                 <li role="none"><a role="menuitem" href="/care-services/acupuncture-nepal" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Acupuncture</a></li>
                 <li role="none"><a role="menuitem" href="/care-services/gynecology-nepal" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Gynecology</a></li>
-                <li role="none"><a role="menuitem" href="#general-medicine" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">General Medicine<span class="text-info">/</span>Lab</a></li>
+                <li role="none"><a role="menuitem" href="/care-services/general-medicine-lab-nepal" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">General Medicine<span class="text-info">/</span>Lab</a></li>
               </ul>
             </li>
 
