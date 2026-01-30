@@ -10,7 +10,7 @@ const TEMPLATE = `
           <a href="https://m.me/mariahospitalnepal"
              class="group inline-flex flex-col items-center justify-center pt-2 transition-colors duration-300 hover:bg-white lg:rounded-tl-full">
              <img class="group-hover:-translate-y-0.5 transition-transform duration-300"
-                  src="/images/social-icons/messanger-icon.svg" width="24" height="24" loading="lazy"
+                  src="/images/messanger-icon.svg" width="24" height="24" loading="lazy"
                   alt="Messenger Icon" />
              <span class="text-sm text-white group-hover:text-accent-navy">Messenger</span>
           </a>
@@ -18,7 +18,7 @@ const TEMPLATE = `
           <a href="https://wa.me/9779851433833"
              class="group inline-flex flex-col items-center justify-center pt-2 transition-colors duration-300 hover:bg-white">
              <img class="group-hover:-translate-y-0.5 transition-transform duration-300"
-                  src="/images/social-icons/whatsapp-icon.svg" width="24" height="24" loading="lazy"
+                  src="/images/whatsapp-icon.svg" width="24" height="24" loading="lazy"
                   alt="WhatsApp Icon" />
              <span class="text-sm text-white group-hover:text-accent-navy">WhatsApp</span>
           </a>
@@ -26,7 +26,7 @@ const TEMPLATE = `
           <a href="https://www.tiktok.com/@mariahospitalnepal"
              class="group inline-flex flex-col items-center justify-center pt-2 transition-colors duration-300 hover:bg-white">
              <img class="group-hover:-translate-y-0.5 transition-transform duration-300"
-                  src="/images/social-icons/tiktok-icon.svg" width="24" height="24" loading="lazy"
+                  src="/images/tiktok-icon.svg" width="24" height="24" loading="lazy"
                   alt="TikTok Icon" />
              <span class="text-sm text-white group-hover:text-accent-navy">TikTok</span>
           </a>
@@ -34,7 +34,7 @@ const TEMPLATE = `
           <a href="https://www.instagram.com/mariahospitalnp/"
              class="group inline-flex flex-col items-center justify-center pt-2 transition-colors duration-300 hover:bg-white lg:rounded-tr-full">
              <img class="group-hover:-translate-y-0.5 transition-transform duration-300"
-                  src="/images/social-icons/instagram-icon.svg" width="24" height="24" loading="lazy"
+                  src="/images/instagram-icon.svg" width="24" height="24" loading="lazy"
                   alt="Instagram Icon" />
              <span class="text-sm text-white group-hover:text-accent-navy">Instagram</span>
           </a>
