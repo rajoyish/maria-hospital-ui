@@ -1,7 +1,6 @@
 import "./scrolling-treatments.css";
 import gsap from "gsap";
-// Linter Fix: Use lowercase 'observer' to match the file casing already included by your types
-import Observer from "gsap/observer";
+import Observer from "gsap/Observer";
 
 gsap.registerPlugin(Observer);
 
@@ -9,7 +8,7 @@ export async function initScrollingTreatments() {
   const railContainer = document.querySelector(".scrolling-text .rail ul");
 
   if (!railContainer) {
-    return null; // Return null if component is missing
+    return null;
   }
 
   try {
@@ -31,19 +30,20 @@ export async function initScrollingTreatments() {
 
     railContainer.innerHTML = itemsHTML;
 
-    // Use a Promise to handle the animation setup and return the cleanup function
     return new Promise((resolve) => {
       requestAnimationFrame(() => {
         const items = gsap.utils.toArray(".scrolling-text .rail li");
 
-        // Start the loop
+        if (items.length === 0) {
+          return;
+        }
+
         const loop = horizontalLoop(items, {
           repeat: -1,
           speed: 1,
           paddingRight: 0,
         });
 
-        // Start the observer
         const scrollObserver = Observer.create({
           onChangeY(self) {
             let factor = 2.0;
@@ -69,7 +69,6 @@ export async function initScrollingTreatments() {
           },
         });
 
-        // Return the controller object to main.js
         resolve({
           destroy() {
             loop.kill();
@@ -84,9 +83,6 @@ export async function initScrollingTreatments() {
   }
 }
 
-/**
- * GSAP Horizontal Loop Helper (Refactored for Biome/Modern Standards)
- */
 function horizontalLoop(items, config) {
   const elements = gsap.utils.toArray(items);
   const settings = config || {};
@@ -105,7 +101,6 @@ function horizontalLoop(items, config) {
   const widths = [];
   const xPercents = [];
 
-  // Use Number.parseFloat per linter rules
   const pixelsPerSecond = (settings.speed || 1) * 100;
 
   const snap =
@@ -179,7 +174,6 @@ function horizontalLoop(items, config) {
 
   function toIndex(index, vars) {
     const options = vars || {};
-    // biome-ignore lint/style/noParameterAssign: GSAP logic requires modifying index for loop direction
     let targetIndex = index;
 
     if (Math.abs(targetIndex - curIndex) > length / 2) {
