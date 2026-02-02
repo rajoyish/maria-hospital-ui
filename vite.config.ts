@@ -1,10 +1,10 @@
+import { exec } from "node:child_process";
 import { existsSync, readdirSync } from "node:fs";
 import { dirname, join, parse, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, loadEnv } from "vite";
 
-// --- Hoisted Regex & Constants ---
 const WINDOWS_PATH_REGEX = /\\/g;
 const TRAILING_SLASH_REGEX = /\/$/;
 const SITE_URL_PLACEHOLDER_REGEX = /%VITE_SITE_URL%/g;
@@ -14,8 +14,6 @@ const __dirname = dirname(__filename);
 
 const TREATMENTS_DIR = resolve(__dirname, "treatments");
 const CARE_SERVICES_DIR = resolve(__dirname, "care-services");
-
-// --- Helper Functions ---
 
 function getRootHtmlInputs(): Record<string, string> {
   const inputs: Record<string, string> = {};
@@ -47,18 +45,37 @@ function getDirectoryInputs(dirPath: string): Record<string, string> {
   return inputs;
 }
 
-// --- Config Export ---
+const generateTreatmentsPlugin = () => {
+  return {
+    name: "generate-treatments-dev",
+    apply: "serve",
+    buildStart() {
+      exec(
+        "node generate-treatments-json.js development",
+        (err, _stdout, stderr) => {
+          if (err) {
+            console.error("❌ JSON Gen Error:", stderr);
+          } else {
+            console.log("✅ Treatments JSON updated for Dev");
+          }
+        }
+      );
+    },
+    handleHotUpdate({ file }: { file: string }) {
+      if (file.endsWith(".html") && file.includes("treatments")) {
+        exec("node generate-treatments-json.js development", () => {
+          console.log("🔄 Treatments JSON refreshed");
+        });
+      }
+    },
+  };
+};
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "VITE_");
 
-  const rawUrl =
-    env.VITE_SITE_URL ||
-    (mode === "development"
-      ? "http://localhost:5173"
-      : "https://npmariahospital.com");
-
-  const siteUrl = rawUrl.replace(TRAILING_SLASH_REGEX, "");
+  // Automatically detects VITE_SITE_URL from .env files
+  const siteUrl = (env.VITE_SITE_URL || "").replace(TRAILING_SLASH_REGEX, "");
 
   return {
     define: {
@@ -66,6 +83,7 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [
       tailwindcss(),
+      generateTreatmentsPlugin(),
       {
         name: "html-transform",
         enforce: "pre",
