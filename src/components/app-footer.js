@@ -5,10 +5,10 @@ const FOOTER_TEMPLATE = `
         
         <div class="space-y-8 lg:col-span-2">
         <a href="/">
-        <img class="h-24" src="/images/maria-hospital-logo-light.svg" alt="Maria Hospital" />
+        <img class="h-24 mb-8" src="/images/maria-hospital-logo-light.svg" alt="Maria Hospital" />
         </a>
          
-          <p class="max-w-sm text-gray-300 italic">International Quality You Can Trust</p>
+          <p class="max-w-sm text-info italic">International Quality You Can Trust</p>
           <div class="space-y-4">
             <div class="flex items-start gap-3">
               <svg class="text-info size-6 shrink-0 font-bold" aria-hidden="true">
