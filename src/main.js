@@ -4,15 +4,17 @@ import focus from "@alpinejs/focus";
 import Alpine from "alpinejs";
 import { initHomeSlider } from "./home-slider";
 import { initTestimonialsSlider } from "./testimonials-slider";
-import { initScrollingTreatments } from "./ScrollingTreatments";
 
 import "./components/header.js";
 import "./components/app-footer.js";
 import "./components/social-media-nav.js";
 import "./components/icon-sprite.js";
 import "./components/scroll-to-top.js";
+import TreatmentMarquee from "./components/TreatmentMarquee.js";
 
 Alpine.plugin(focus);
+TreatmentMarquee();
+
 window.Alpine = Alpine;
 Alpine.start();
 
@@ -30,15 +32,8 @@ document.addEventListener("DOMContentLoaded", () => {
     loop: true,
   });
 
-  let scrollingTreatmentsControl = null;
-
-  initScrollingTreatments().then((control) => {
-    scrollingTreatmentsControl = control;
-  });
-
   window.addEventListener("beforeunload", () => {
     homeSlider?.destroy();
     testimonialsSlider?.destroy();
-    scrollingTreatmentsControl?.destroy();
   });
 });

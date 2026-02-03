@@ -1,86 +1,55 @@
-import "./scrolling-treatments.css";
 import gsap from "gsap";
 import Observer from "gsap/Observer";
 
 gsap.registerPlugin(Observer);
 
-export async function initScrollingTreatments() {
-  const railContainer = document.querySelector(".scrolling-text .rail ul");
+let currentLoop = null;
+let currentObserver = null;
 
-  if (!railContainer) {
-    return null;
+export function startMarquee() {
+  if (currentLoop) {
+    currentLoop.kill();
+  }
+  if (currentObserver) {
+    currentObserver.kill();
   }
 
-  try {
-    const response = await fetch("/treatments-data.json");
-    if (!response.ok) {
-      throw new Error("Failed to load treatments data");
-    }
+  const items = gsap.utils.toArray(".scrolling-text .rail li");
 
-    const data = await response.json();
-
-    const itemsHTML = [...data, ...data]
-      .map(
-        (item) => `
-        <li class="hover:text-info shrink-0 px-4 md:px-8">
-          <a href="${item.url}" class="block w-full h-full">${item.treatment}</a>
-        </li>`
-      )
-      .join("");
-
-    railContainer.innerHTML = itemsHTML;
-
-    return new Promise((resolve) => {
-      requestAnimationFrame(() => {
-        const items = gsap.utils.toArray(".scrolling-text .rail li");
-
-        if (items.length === 0) {
-          return;
-        }
-
-        const loop = horizontalLoop(items, {
-          repeat: -1,
-          speed: 1,
-          paddingRight: 0,
-        });
-
-        const scrollObserver = Observer.create({
-          onChangeY(self) {
-            let factor = 2.0;
-            if (self.deltaY < 0) {
-              factor *= -1;
-            }
-
-            gsap
-              .timeline({ defaults: { ease: "none" } })
-              .to(loop, {
-                timeScale: factor * 3,
-                duration: 0.2,
-                overwrite: true,
-              })
-              .to(
-                loop,
-                {
-                  timeScale: factor > 0 ? 1 : -1,
-                  duration: 1,
-                },
-                "+=0.3"
-              );
-          },
-        });
-
-        resolve({
-          destroy() {
-            loop.kill();
-            scrollObserver.kill();
-          },
-        });
-      });
-    });
-  } catch (error) {
-    console.error("ScrollingTreatments Error:", error);
-    return null;
+  if (!items.length) {
+    return;
   }
+
+  currentLoop = horizontalLoop(items, {
+    repeat: -1,
+    speed: 1,
+    paddingRight: 0,
+  });
+
+  currentObserver = Observer.create({
+    onChangeY(self) {
+      let factor = 2.0;
+      if (self.deltaY < 0) {
+        factor *= -1;
+      }
+
+      gsap
+        .timeline({ defaults: { ease: "none" } })
+        .to(currentLoop, {
+          timeScale: factor * 3,
+          duration: 0.2,
+          overwrite: true,
+        })
+        .to(
+          currentLoop,
+          {
+            timeScale: factor > 0 ? 1 : -1,
+            duration: 1,
+          },
+          "+=0.3"
+        );
+    },
+  });
 }
 
 function horizontalLoop(items, config) {
@@ -100,9 +69,7 @@ function horizontalLoop(items, config) {
   const times = [];
   const widths = [];
   const xPercents = [];
-
   const pixelsPerSecond = (settings.speed || 1) * 100;
-
   const snap =
     settings.snap === false ? (v) => v : gsap.utils.snap(settings.snap || 1);
 
@@ -110,10 +77,8 @@ function horizontalLoop(items, config) {
     xPercent: (i, el) => {
       const w = Number.parseFloat(gsap.getProperty(el, "width", "px"));
       widths[i] = w;
-
       const xProp = Number.parseFloat(gsap.getProperty(el, "x", "px"));
       const xPercentProp = gsap.getProperty(el, "xPercent");
-
       const val = snap((xProp / w) * 100 + xPercentProp);
       xPercents[i] = val;
       return val;
@@ -126,7 +91,6 @@ function horizontalLoop(items, config) {
   const lastItemWidth = widths[length - 1];
   const lastItemScaleX = gsap.getProperty(lastItem, "scaleX");
   const paddingRight = Number.parseFloat(settings.paddingRight) || 0;
-
   const totalWidth =
     lastItem.offsetLeft +
     (xPercents[length - 1] / 100) * lastItemWidth -
@@ -138,7 +102,6 @@ function horizontalLoop(items, config) {
     const item = elements[i];
     const width = widths[i];
     const itemScaleX = gsap.getProperty(item, "scaleX");
-
     const curX = (xPercents[i] / 100) * width;
     const distanceToStart = item.offsetLeft + curX - startX;
     const distanceToLoop = distanceToStart + width * itemScaleX;
@@ -171,34 +134,11 @@ function horizontalLoop(items, config) {
   }
 
   let curIndex = 0;
-
-  function toIndex(index, vars) {
-    const options = vars || {};
-    let targetIndex = index;
-
-    if (Math.abs(targetIndex - curIndex) > length / 2) {
-      targetIndex += targetIndex > curIndex ? -length : length;
-    }
-
-    const newIndex = gsap.utils.wrap(0, length, targetIndex);
-    let time = times[newIndex];
-
-    if (time > timeline.time() !== targetIndex > curIndex) {
-      options.modifiers = { time: gsap.utils.wrap(0, timeline.duration()) };
-      time += timeline.duration() * (targetIndex > curIndex ? 1 : -1);
-    }
-
-    curIndex = newIndex;
-    options.overwrite = true;
-    return timeline.tweenTo(time, options);
-  }
-
   timeline.next = (vars) => toIndex(curIndex + 1, vars);
   timeline.previous = (vars) => toIndex(curIndex - 1, vars);
   timeline.current = () => curIndex;
   timeline.toIndex = (index, vars) => toIndex(index, vars);
   timeline.times = times;
-
   timeline.progress(1, true).progress(0, true);
 
   if (settings.reversed) {
@@ -206,6 +146,23 @@ function horizontalLoop(items, config) {
       timeline.vars.onReverseComplete();
     }
     timeline.reverse();
+  }
+
+  function toIndex(index, vars) {
+    const options = vars || {};
+    let targetIndex = index;
+    if (Math.abs(targetIndex - curIndex) > length / 2) {
+      targetIndex += targetIndex > curIndex ? -length : length;
+    }
+    const newIndex = gsap.utils.wrap(0, length, targetIndex);
+    let time = times[newIndex];
+    if (time > timeline.time() !== targetIndex > curIndex) {
+      options.modifiers = { time: gsap.utils.wrap(0, timeline.duration()) };
+      time += timeline.duration() * (targetIndex > curIndex ? 1 : -1);
+    }
+    curIndex = newIndex;
+    options.overwrite = true;
+    return timeline.tweenTo(time, options);
   }
 
   return timeline;
