@@ -23,7 +23,7 @@ const TEMPLATE = `
              <span class="text-sm text-white group-hover:text-accent-navy">WhatsApp</span>
           </a>
 
-          <a href="https://www.tiktok.com/@mariahospitalnepal"
+          <a href="https://www.tiktok.com/@mariahospitalnep"
              class="group inline-flex flex-col items-center justify-center pt-2 transition-colors duration-300 hover:bg-white">
              <img class="group-hover:-translate-y-0.5 transition-transform duration-300"
                   src="/images/tiktok-icon.svg" width="24" height="24"
