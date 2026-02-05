@@ -8,7 +8,6 @@ const isDev = mode === "development";
 const env = loadEnv(mode, process.cwd(), "");
 
 const CONFIG = {
-  // Relies entirely on the environment variable, defaults to empty string if missing
   baseUrl: process.env.VITE_SITE_URL || env.VITE_SITE_URL || "",
   scanDir: isDev ? "." : "dist",
   outputDir: isDev ? "public" : "dist",
@@ -27,6 +26,8 @@ const TREATMENT_SUFFIX_REGEX = /\s+Treatment.*$/i;
 const NEPAL_SUFFIX_REGEX = /\s+Nepal$/i;
 const TITLE_TAG_REGEX = /<title[^>]*>([\s\S]*?)<\/title>/i;
 const WHITESPACE_REGEX = /\s+/g;
+
+const normalizePath = (p) => p.split(path.sep).join("/");
 
 const getHtmlFiles = (dir, fileList = []) => {
   if (!fs.existsSync(dir)) {
@@ -53,7 +54,7 @@ const getHtmlFiles = (dir, fileList = []) => {
 };
 
 const toUrl = (relativePath) => {
-  let slug = relativePath.split(path.sep).join("/");
+  let slug = normalizePath(relativePath);
   slug = slug.replace(HTML_EXT_REGEX, "");
 
   if (slug === "index") {
@@ -68,14 +69,11 @@ const toUrl = (relativePath) => {
 
 const cleanTitle = (rawTitle) => {
   let title = rawTitle;
-
   if (title.includes("|")) {
     title = title.split("|")[0];
   }
-
   title = title.replace(TREATMENT_SUFFIX_REGEX, "");
   title = title.replace(NEPAL_SUFFIX_REGEX, "");
-
   return title.trim();
 };
 
@@ -83,7 +81,6 @@ const getTitleFromHtml = (filePath) => {
   try {
     const content = fs.readFileSync(filePath, "utf-8");
     const titleMatch = content.match(TITLE_TAG_REGEX);
-
     if (titleMatch?.[1]) {
       const rawTitle = titleMatch[1].replace(WHITESPACE_REGEX, " ").trim();
       return cleanTitle(rawTitle);
@@ -96,11 +93,9 @@ const getTitleFromHtml = (filePath) => {
 
 const formatSlugToTitle = (slug) => {
   const words = slug.split("/").pop()?.split("-");
-
   if (!words) {
     return "";
   }
-
   return words
     .filter((w) => w.toLowerCase() !== "nepal")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
@@ -128,10 +123,15 @@ const generateJson = () => {
   const treatments = [];
 
   for (const file of files) {
-    const route = toUrl(file);
+    let route = toUrl(file);
+
+    if (route.includes(CONFIG.targetFolder)) {
+      const parts = route.split(CONFIG.targetFolder);
+      route = CONFIG.targetFolder + parts[1];
+    }
 
     const isTargetFolder =
-      route.includes(CONFIG.targetFolder) &&
+      route.startsWith(CONFIG.targetFolder) &&
       route !== CONFIG.targetFolder &&
       route !== CONFIG.targetFolder.slice(0, -1);
 
