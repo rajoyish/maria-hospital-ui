@@ -27,8 +27,8 @@ const HEADER_TEMPLATE = `
         <div class="flex gap-28">
           <nav class="hidden lg:flex" aria-label="Primary">
             <ul class="flex items-center gap-6">
-              <li class="border-info border-b-4">
-                <a href="/" class="text-dark-navy hover:text-accent-navy focus-visible:ring-info rounded px-1 py-1 font-bold focus-visible:ring-2 focus-visible:outline-none">
+              <li class="border-b-4 border-transparent">
+                <a href="/" class="text-dark-navy hover:text-accent-navy focus-visible:ring-info rounded px-1 py-1 focus-visible:ring-2 focus-visible:outline-none">
                   Home </a>
               </li>
 
@@ -65,17 +65,17 @@ const HEADER_TEMPLATE = `
                 </ul>
               </li>
 
-              <li>
+              <li class="border-b-4 border-transparent">
                 <a href="/faqs" class="text-dark-navy hover:text-accent-navy focus-visible:ring-info rounded px-1 py-1 focus-visible:ring-2 focus-visible:outline-none">
                   FAQs </a>
               </li>
 
-              <li>
+              <li class="border-b-4 border-transparent">
                 <a href="/care-journeys" class="text-dark-navy hover:text-accent-navy focus-visible:ring-info rounded px-1 py-1 focus-visible:ring-2 focus-visible:outline-none">
                   Care Journeys </a>
               </li>
 
-              <li>
+              <li class="border-b-4 border-transparent">
                 <a href="/contact-us" class="text-dark-navy hover:text-accent-navy focus-visible:ring-info rounded px-1 py-1 focus-visible:ring-2 focus-visible:outline-none">
                   Contact Us </a>
               </li>
@@ -188,6 +188,37 @@ export class AppHeader extends HTMLElement {
   connectedCallback() {
     if (!this.innerHTML) {
       this.innerHTML = HEADER_TEMPLATE;
+    }
+    this.setActiveRoute();
+  }
+
+  setActiveRoute() {
+    const currentPath = window.location.pathname;
+    const desktopNav = this.querySelector("nav.hidden.lg\\:flex");
+
+    if (!desktopNav) {
+      return;
+    }
+
+    const links = desktopNav.querySelectorAll("a");
+
+    for (const link of links) {
+      const linkPath = link.getAttribute("href");
+
+      if (linkPath === currentPath) {
+        const parentLi = link.closest("li");
+        const isDropdownItem = link.closest("#services-menu");
+
+        if (isDropdownItem) {
+          link.classList.add("bg-soft-blue", "text-accent-navy", "font-bold");
+        } else {
+          if (parentLi) {
+            parentLi.classList.remove("border-transparent");
+            parentLi.classList.add("border-info");
+          }
+          link.classList.add("font-bold");
+        }
+      }
     }
   }
 }
