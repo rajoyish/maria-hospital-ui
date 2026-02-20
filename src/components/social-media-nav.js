@@ -1,8 +1,12 @@
 const TEMPLATE = `
   <div class="fixed bottom-0 left-0 z-50 w-full lg:right-auto lg:bottom-0 lg:left-1/2 lg:max-w-2xl lg:-translate-x-1/2">
-    <p class="mx-auto max-w-fit rounded-tl-full rounded-tr-full bg-emerald-100 px-10 py-1 pt-2 text-center text-sm leading-tight text-emerald-800 uppercase shadow-inner">
-        Connect with us online
-    </p>
+<p class="mx-auto flex max-w-fit items-center justify-center gap-2 rounded-tl-full rounded-tr-full bg-emerald-100 px-10 py-1 pt-2 text-center text-sm leading-tight text-emerald-800 uppercase shadow-inner">
+  Chat with us now
+  <span class="-mt-0.5 relative flex size-4 items-center justify-center">
+    <span class="absolute inline-flex size-full animate-[ping_2s_infinite] rounded-full bg-emerald-500 opacity-70"></span>
+    <span class="relative inline-flex size-2 rounded-full bg-emerald-500"></span>
+  </span>
+</p>
 
     <div class="bg-accent-navy lg:rounded-tl-full lg:rounded-tr-full">
        <div class="mx-auto grid h-full max-w-lg grid-cols-4 font-medium lg:mx-0 lg:w-full lg:max-w-none">
