@@ -10,10 +10,10 @@ import "./components/app-footer.js";
 import "./components/social-media-nav.js";
 import "./components/icon-sprite.js";
 import "./components/scroll-to-top.js";
-import TreatmentMarquee from "./components/TreatmentMarquee.js";
+import setupTreatmentMarquee from "./components/TreatmentMarquee.js";
 
 Alpine.plugin(focus);
-TreatmentMarquee();
+setupTreatmentMarquee();
 
 window.Alpine = Alpine;
 Alpine.start();
@@ -33,7 +33,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   window.addEventListener("beforeunload", () => {
-    homeSlider?.destroy();
-    testimonialsSlider?.destroy();
+    if (homeSlider) {
+      homeSlider.destroy();
+    }
+    if (testimonialsSlider) {
+      testimonialsSlider.destroy();
+    }
   });
 });
