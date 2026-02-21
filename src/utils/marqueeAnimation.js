@@ -1,24 +1,103 @@
 import gsap from "gsap";
+import Draggable from "gsap/Draggable";
 import Observer from "gsap/Observer";
 
-gsap.registerPlugin(Observer);
+gsap.registerPlugin(Observer, Draggable);
 
 let currentLoop = null;
 let currentObserver = null;
+let currentDraggable = null;
+let railContainer = null;
+let isHovered = false;
+let currentDirection = 1;
+let listenersAttached = false;
+let resizeTimeout = null;
 
-export function startMarquee() {
+const handleMouseEnter = () => {
+  isHovered = true;
+
+  if (!currentLoop) {
+    return;
+  }
+  if (currentDraggable?.isPressed) {
+    return;
+  }
+
+  gsap.killTweensOf(currentLoop);
+  gsap.to(currentLoop, {
+    timeScale: 0,
+    duration: 0.5,
+    ease: "power2.out",
+    overwrite: true,
+  });
+};
+
+const handleMouseLeave = () => {
+  isHovered = false;
+
+  if (!currentLoop) {
+    return;
+  }
+  if (currentDraggable?.isPressed) {
+    return;
+  }
+
+  gsap.to(currentLoop, {
+    timeScale: currentDirection,
+    duration: 0.5,
+    ease: "power2.in",
+    overwrite: true,
+  });
+};
+
+const handleResize = () => {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(() => {
+    if (railContainer) {
+      startMarquee();
+    }
+  }, 250);
+};
+
+export function killMarquee() {
   if (currentLoop) {
     currentLoop.kill();
   }
   if (currentObserver) {
     currentObserver.kill();
   }
+  if (currentDraggable) {
+    currentDraggable.kill();
+  }
+
+  if (railContainer && listenersAttached) {
+    railContainer.removeEventListener("mouseenter", handleMouseEnter);
+    railContainer.removeEventListener("mouseleave", handleMouseLeave);
+    window.removeEventListener("resize", handleResize);
+  }
+
+  clearTimeout(resizeTimeout);
+  listenersAttached = false;
+  currentLoop = null;
+  currentObserver = null;
+  currentDraggable = null;
+  railContainer = null;
+}
+
+export function startMarquee() {
+  killMarquee();
 
   const items = gsap.utils.toArray(".scrolling-text .rail li");
+  railContainer = document.querySelector(".scrolling-text .rail");
 
-  if (!items.length) {
+  if (items.length === 0) {
     return;
   }
+  if (!railContainer) {
+    return;
+  }
+
+  gsap.set(items, { clearProps: "all" });
 
   currentLoop = horizontalLoop(items, {
     repeat: -1,
@@ -26,35 +105,92 @@ export function startMarquee() {
     paddingRight: 0,
   });
 
+  if (!listenersAttached) {
+    railContainer.addEventListener("mouseenter", handleMouseEnter);
+    railContainer.addEventListener("mouseleave", handleMouseLeave);
+    window.addEventListener("resize", handleResize);
+    listenersAttached = true;
+  }
+
+  const proxy = document.createElement("div");
+  [currentDraggable] = Draggable.create(proxy, {
+    trigger: railContainer,
+    type: "x",
+    onPress() {
+      gsap.killTweensOf(currentLoop);
+      gsap.to(currentLoop, { timeScale: 0, duration: 0.2, overwrite: true });
+    },
+    onDrag() {
+      const dragRatio = 1 / currentLoop.pixelsPerSecond;
+      const wrap = gsap.utils.wrap(0, currentLoop.duration());
+      currentLoop.time(wrap(currentLoop.time() - this.deltaX * dragRatio));
+    },
+    onRelease() {
+      const dir = this.getDirection("x");
+      if (dir === "left") {
+        currentDirection = 1;
+      } else if (dir === "right") {
+        currentDirection = -1;
+      }
+
+      if (isHovered) {
+        return;
+      }
+
+      gsap.to(currentLoop, {
+        timeScale: currentDirection,
+        duration: 0.5,
+        ease: "power1.in",
+        overwrite: true,
+      });
+    },
+  });
+
   currentObserver = Observer.create({
+    type: "wheel,touch,pointer",
     onChangeY(self) {
+      if (isHovered) {
+        return;
+      }
+      if (currentDraggable?.isPressed) {
+        return;
+      }
+
       let factor = 2.0;
       if (self.deltaY < 0) {
         factor *= -1;
       }
 
-      gsap
-        .timeline({ defaults: { ease: "none" } })
-        .to(currentLoop, {
-          timeScale: factor * 3,
-          duration: 0.2,
-          overwrite: true,
-        })
-        .to(
-          currentLoop,
-          {
-            timeScale: factor > 0 ? 1 : -1,
+      currentDirection = factor > 0 ? 1 : -1;
+
+      gsap.killTweensOf(currentLoop);
+      gsap.to(currentLoop, {
+        timeScale: factor * 3,
+        duration: 0.2,
+        ease: "none",
+        overwrite: true,
+        onComplete: () => {
+          if (isHovered) {
+            return;
+          }
+          if (currentDraggable?.isPressed) {
+            return;
+          }
+
+          gsap.to(currentLoop, {
+            timeScale: currentDirection,
             duration: 1,
-          },
-          "+=0.3"
-        );
+            ease: "power1.out",
+          });
+        },
+      });
     },
   });
 }
 
 function horizontalLoop(items, config) {
   const elements = gsap.utils.toArray(items);
-  const settings = config || {};
+  const settings = config ?? {};
   const timeline = gsap.timeline({
     repeat: settings.repeat,
     paused: settings.paused,
@@ -69,9 +205,14 @@ function horizontalLoop(items, config) {
   const times = [];
   const widths = [];
   const xPercents = [];
-  const pixelsPerSecond = (settings.speed || 1) * 100;
+  const pixelsPerSecond = (settings.speed ?? 1) * 100;
+
   const snap =
-    settings.snap === false ? (v) => v : gsap.utils.snap(settings.snap || 1);
+    settings.snap === false
+      ? (v) => {
+          return v;
+        }
+      : gsap.utils.snap(settings.snap ?? 1);
 
   gsap.set(elements, {
     xPercent: (i, el) => {
@@ -90,7 +231,8 @@ function horizontalLoop(items, config) {
   const lastItem = elements[length - 1];
   const lastItemWidth = widths[length - 1];
   const lastItemScaleX = gsap.getProperty(lastItem, "scaleX");
-  const paddingRight = Number.parseFloat(settings.paddingRight) || 0;
+  const parsedPadding = Number.parseFloat(settings.paddingRight);
+  const paddingRight = Number.isNaN(parsedPadding) ? 0 : parsedPadding;
   const totalWidth =
     lastItem.offsetLeft +
     (xPercents[length - 1] / 100) * lastItemWidth -
@@ -134,10 +276,18 @@ function horizontalLoop(items, config) {
   }
 
   let curIndex = 0;
-  timeline.next = (vars) => toIndex(curIndex + 1, vars);
-  timeline.previous = (vars) => toIndex(curIndex - 1, vars);
-  timeline.current = () => curIndex;
-  timeline.toIndex = (index, vars) => toIndex(index, vars);
+  timeline.next = (vars) => {
+    return toIndex(curIndex + 1, vars);
+  };
+  timeline.previous = (vars) => {
+    return toIndex(curIndex - 1, vars);
+  };
+  timeline.current = () => {
+    return curIndex;
+  };
+  timeline.toIndex = (index, vars) => {
+    return toIndex(index, vars);
+  };
   timeline.times = times;
   timeline.progress(1, true).progress(0, true);
 
@@ -149,13 +299,14 @@ function horizontalLoop(items, config) {
   }
 
   function toIndex(index, vars) {
-    const options = vars || {};
+    const options = vars ?? {};
     let targetIndex = index;
     if (Math.abs(targetIndex - curIndex) > length / 2) {
       targetIndex += targetIndex > curIndex ? -length : length;
     }
     const newIndex = gsap.utils.wrap(0, length, targetIndex);
     let time = times[newIndex];
+
     if (time > timeline.time() !== targetIndex > curIndex) {
       options.modifiers = { time: gsap.utils.wrap(0, timeline.duration()) };
       time += timeline.duration() * (targetIndex > curIndex ? 1 : -1);
@@ -165,5 +316,6 @@ function horizontalLoop(items, config) {
     return timeline.tweenTo(time, options);
   }
 
+  timeline.pixelsPerSecond = pixelsPerSecond;
   return timeline;
 }

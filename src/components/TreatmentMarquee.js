@@ -1,82 +1,118 @@
 import Alpine from "alpinejs";
-import { startMarquee } from "../utils/marqueeAnimation";
+import { killMarquee, startMarquee } from "../utils/marqueeAnimation";
 
-export default function () {
-  Alpine.data("treatmentMarquee", () => ({
-    items: [],
+export default function setupTreatmentMarquee() {
+  Alpine.data("treatmentMarquee", () => {
+    return {
+      items: [],
 
-    async init() {
-      try {
-        const isDev = import.meta.env.DEV;
-        const url = isDev
-          ? `/treatments-data.json?t=${Date.now()}`
-          : "/treatments-data.json";
-
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error("Failed to load data");
-        }
-
-        const freshData = await response.json();
-        const fingerprint = `${freshData.length}_${freshData[0]?.url}`;
-
-        this.items = this.getSortedData(freshData, fingerprint, isDev);
-
-        this.$nextTick(() => {
-          startMarquee();
-        });
-      } catch (error) {
-        console.error("Marquee Error:", error);
-      }
-    },
-
-    getSortedData(data, currentFingerprint, isDev) {
-      const STORAGE_KEY = "treatments_order";
-      const HASH_KEY = "treatments_hash";
-
-      if (isDev) {
-        const shuffled = this.shuffle([...data]);
-        return [...shuffled, ...shuffled];
-      }
-
-      const cachedOrder = sessionStorage.getItem(STORAGE_KEY);
-      const cachedHash = sessionStorage.getItem(HASH_KEY);
-
-      if (cachedOrder && cachedHash === currentFingerprint) {
+      async init() {
         try {
-          const orderMap = JSON.parse(cachedOrder);
-          const sortedData = orderMap
-            .map((url) => data.find((item) => item.url === url))
-            .filter((item) => item !== undefined);
+          const isDev = import.meta.env.DEV;
+          const url = isDev
+            ? `/treatments-data.json?t=${Date.now()}`
+            : "/treatments-data.json";
 
-          return [...sortedData, ...sortedData];
-        } catch {
-          // Fall through to reshuffle
+          const response = await fetch(url);
+          if (!response.ok) {
+            throw new Error("Failed to load data");
+          }
+
+          const freshData = await response.json();
+          const fingerprint = `${freshData.length}_${freshData[0]?.url}`;
+
+          this.items = this.getSortedData(freshData, fingerprint, isDev);
+
+          this.$nextTick(() => {
+            if (document.fonts) {
+              document.fonts.ready
+                .then(() => {
+                  requestAnimationFrame(() => {
+                    startMarquee();
+                  });
+                })
+                .catch(() => {
+                  requestAnimationFrame(() => {
+                    startMarquee();
+                  });
+                });
+            } else {
+              requestAnimationFrame(() => {
+                startMarquee();
+              });
+            }
+          });
+        } catch (error) {
+          console.error("Marquee Error:", error);
         }
-      }
+      },
 
-      const shuffled = this.shuffle([...data]);
-      const newOrder = shuffled.map((item) => item.url);
+      destroy() {
+        killMarquee();
+      },
 
-      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(newOrder));
-      sessionStorage.setItem(HASH_KEY, currentFingerprint);
+      getSortedData(data, currentFingerprint, isDev) {
+        const STORAGE_KEY = "treatments_order";
+        const HASH_KEY = "treatments_hash";
 
-      return [...shuffled, ...shuffled];
-    },
+        if (isDev) {
+          const shuffled = this.shuffle([...data]);
+          return [...shuffled, ...shuffled];
+        }
 
-    shuffle(array) {
-      let currentIndex = array.length;
-      let randomIndex;
+        const cachedOrder = sessionStorage.getItem(STORAGE_KEY);
+        const cachedHash = sessionStorage.getItem(HASH_KEY);
 
-      while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex--;
-        [array[currentIndex], array[randomIndex]] = [
-          array[randomIndex],
-          array[currentIndex],
-        ];
-      }
-      return array;
-    },
-  }));
+        if (cachedOrder && cachedHash === currentFingerprint) {
+          try {
+            const orderMap = JSON.parse(cachedOrder);
+            const sortedData = orderMap
+              .map((url) => {
+                return data.find((item) => {
+                  return item.url === url;
+                });
+              })
+              .filter((item) => {
+                return item !== undefined;
+              });
+
+            return [...sortedData, ...sortedData];
+          } catch (_error) {
+            const shuffled = this.shuffle([...data]);
+            const newOrder = shuffled.map((item) => {
+              return item.url;
+            });
+            sessionStorage.setItem(STORAGE_KEY, JSON.stringify(newOrder));
+            sessionStorage.setItem(HASH_KEY, currentFingerprint);
+            return [...shuffled, ...shuffled];
+          }
+        }
+
+        const shuffled = this.shuffle([...data]);
+        const newOrder = shuffled.map((item) => {
+          return item.url;
+        });
+
+        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(newOrder));
+        sessionStorage.setItem(HASH_KEY, currentFingerprint);
+
+        return [...shuffled, ...shuffled];
+      },
+
+      shuffle(array) {
+        let currentIndex = array.length;
+        let randomIndex;
+
+        while (currentIndex !== 0) {
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex -= 1;
+          [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex],
+            array[currentIndex],
+          ];
+        }
+        return array;
+      },
+    };
+  });
 }
