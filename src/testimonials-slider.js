@@ -2,11 +2,17 @@ import EmblaCarousel from "embla-carousel";
 
 const addTogglePrevNextBtnsActive = (emblaApi, prevBtn, nextBtn) => {
   const togglePrevNextBtnsState = () => {
-    if (emblaApi.canScrollPrev()) prevBtn.removeAttribute("disabled");
-    else prevBtn.setAttribute("disabled", "disabled");
+    if (emblaApi.canScrollPrev()) {
+      prevBtn.removeAttribute("disabled");
+    } else {
+      prevBtn.setAttribute("disabled", "disabled");
+    }
 
-    if (emblaApi.canScrollNext()) nextBtn.removeAttribute("disabled");
-    else nextBtn.setAttribute("disabled", "disabled");
+    if (emblaApi.canScrollNext()) {
+      nextBtn.removeAttribute("disabled");
+    } else {
+      nextBtn.setAttribute("disabled", "disabled");
+    }
   };
 
   emblaApi
@@ -21,8 +27,13 @@ const addTogglePrevNextBtnsActive = (emblaApi, prevBtn, nextBtn) => {
 };
 
 const addPrevNextBtnsClickHandlers = (emblaApi, prevBtn, nextBtn) => {
-  const scrollPrev = () => emblaApi.scrollPrev();
-  const scrollNext = () => emblaApi.scrollNext();
+  const scrollPrev = () => {
+    emblaApi.scrollPrev();
+  };
+
+  const scrollNext = () => {
+    emblaApi.scrollNext();
+  };
 
   prevBtn.addEventListener("click", scrollPrev, false);
   nextBtn.addEventListener("click", scrollNext, false);
@@ -40,18 +51,53 @@ const addPrevNextBtnsClickHandlers = (emblaApi, prevBtn, nextBtn) => {
   };
 };
 
+const shuffleSlides = (containerNode) => {
+  if (!containerNode) {
+    return;
+  }
+
+  const slides = Array.from(containerNode.children);
+
+  for (let i = slides.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [slides[i], slides[j]] = [slides[j], slides[i]];
+  }
+
+  const fragment = document.createDocumentFragment();
+  for (const slide of slides) {
+    fragment.appendChild(slide);
+  }
+
+  containerNode.appendChild(fragment);
+};
+
 export const initTestimonialsSlider = () => {
   const emblaNode = document.querySelector(".embla-testimonials");
-  // Safety check 1: Exit if container is missing
-  if (!emblaNode) return null;
+
+  if (!emblaNode) {
+    return null;
+  }
 
   const viewportNode = emblaNode.querySelector(".embla-testimonials__viewport");
-  // Safety check 2: Exit if viewport is missing (required for Embla)
-  if (!viewportNode) return null;
+
+  if (!viewportNode) {
+    return null;
+  }
+
+  const containerNode = emblaNode.querySelector(
+    ".embla-testimonials__container"
+  );
+
+  if (!containerNode) {
+    return null;
+  }
+
+  shuffleSlides(containerNode);
 
   const prevBtnNode = emblaNode.querySelector(
     ".embla-testimonials__button--prev"
   );
+
   const nextBtnNode = emblaNode.querySelector(
     ".embla-testimonials__button--next"
   );
@@ -65,8 +111,9 @@ export const initTestimonialsSlider = () => {
 
   const emblaApi = EmblaCarousel(viewportNode, options);
 
-  // Safety check 3: Only attach handlers if buttons exist
-  if (prevBtnNode && nextBtnNode) {
+  const hasButtons = prevBtnNode && nextBtnNode;
+
+  if (hasButtons) {
     const removePrevNextBtnsClickHandlers = addPrevNextBtnsClickHandlers(
       emblaApi,
       prevBtnNode,
@@ -75,5 +122,10 @@ export const initTestimonialsSlider = () => {
     emblaApi.on("destroy", removePrevNextBtnsClickHandlers);
   }
 
-  return emblaApi;
+  return {
+    emblaApi,
+    destroy: () => {
+      emblaApi.destroy();
+    },
+  };
 };
