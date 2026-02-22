@@ -14,6 +14,13 @@ const HEADER_TEMPLATE = `
       closeSearch() {
         this.searchOpen = false
         this.$nextTick(() => this.lastFocusEl?.focus?.())
+      },
+      submitSearch() {
+        const val = this.$refs.searchInput.value.trim();
+        if (val.length >= 3) {
+          const formattedQuery = encodeURIComponent(val.toLowerCase().split(' ').filter(Boolean).join('-'));
+          window.location.href = \`/search/\${formattedQuery}\`;
+        }
       }
     }" @keydown.escape.window="
       if (searchOpen) { closeSearch(); return }
@@ -159,10 +166,10 @@ const HEADER_TEMPLATE = `
         <div class="pointer-events-none relative flex min-h-dvh flex-col items-center justify-center p-4">
           <div x-trap.noscroll="searchOpen" class="pointer-events-auto w-full max-w-2xl rounded-xl bg-white shadow-xl">
             <div class="p-4">
-              <form action="#" method="get" class="mx-auto w-full">
+              <form @submit.prevent="submitSearch()" class="mx-auto w-full">
                 <label for="site-search" class="sr-only">Search</label>
                 <div class="flex w-full items-center gap-2">
-                  <input id="site-search" x-ref="searchInput" name="q" type="search" placeholder="Search…"
+                  <input id="site-search" x-ref="searchInput" type="search" placeholder="Search…"
                     class="text-maria-black focus:ring-accent-navy w-full rounded-md border border-slate-300 bg-white px-3 py-3 placeholder:text-slate-400 focus:ring-2 focus:outline-none" />
                   <button type="submit"
                     class="bg-dark-navy hover:bg-accent-navy focus-visible:ring-info shrink-0 cursor-pointer rounded-md px-4 py-3 text-white focus-visible:ring-2 focus-visible:outline-none">Search</button>

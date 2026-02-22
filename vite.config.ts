@@ -1,4 +1,4 @@
-// biome-ignore assist/source/organizeImports: imports are intentionally not organized
+import tailwindcss from "@tailwindcss/vite";
 import { exec } from "node:child_process";
 import {
   existsSync,
@@ -9,7 +9,6 @@ import {
 } from "node:fs";
 import { dirname, join, parse, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import tailwindcss from "@tailwindcss/vite";
 import { type ViteDevServer, defineConfig, loadEnv } from "vite";
 
 const WINDOWS_PATH_REGEX = /\\/g;
@@ -104,7 +103,7 @@ function moveCategoryFiles(
       rmSync(categoryDirInDist, { recursive: true, force: true });
     }
   } catch (_e) {
-    // Ignore cleanup errors
+    // Ignored cleanup errors
   }
 }
 
@@ -114,6 +113,11 @@ const structuralRewritePlugin = () => {
 
     configureServer(server: ViteDevServer) {
       server.middlewares.use((req, _res, next) => {
+        if (req.url?.startsWith("/search/")) {
+          req.url = "/search.html";
+          return next();
+        }
+
         if (req.url?.startsWith("/treatments/")) {
           const cleanName = req.url
             .replace("/treatments/", "")

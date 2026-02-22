@@ -1,23 +1,20 @@
 Options -MultiViews
 RewriteEngine On
 
-# 1. Force HTTPS
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-# 2. Redirect /index.html to root /
 RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.html\ HTTP/
 RewriteRule ^index\.html$ / [R=301,L]
 
-# 3. Redirect external requests for .html to extension-less URL
 RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
 RewriteCond %{REQUEST_URI} !^/index\.html$
 RewriteRule ^ /%1 [NC,L,R=301]
 
-# 4. Internally map extension-less URLs to .html (Handles Subdirectories)
+RewriteRule ^search/([^/]+)/?$ /search.html [L]
+
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^(.*)$ $1.html [L]
 
-# 5. Custom Error Page
 ErrorDocument 404 /404.html

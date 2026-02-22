@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="%VITE_SITE_URL%/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" href="%VITE_SITE_URL%/favicon-96x96.png" sizes="96x96">
+    <link rel="apple-touch-icon" href="%VITE_SITE_URL%/apple-touch-icon.png">
+    <link rel="manifest" href="%VITE_SITE_URL%/site.webmanifest">
+
+    <title>Search | Maria Hospital Kathmandu</title>
+    <meta name="msapplication-config" content="%VITE_SITE_URL%/browserconfig.xml">
+    <meta name="description"
+        content="Search for medical treatments and care services at Maria Hospital in Kathmandu, Nepal.">
+    <meta name="keywords" content="search, Maria Hospital Kathmandu, treatments, medical services">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="%VITE_SITE_URL%/search">
+    <meta name="theme-color" content="#002B53">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="%VITE_SITE_URL%/search">
+    <meta property="og:title" content="Search | Maria Hospital Kathmandu">
+    <meta property="og:description"
+        content="Search for medical treatments and care services at Maria Hospital in Kathmandu, Nepal.">
+    <meta property="og:image" content="%VITE_SITE_URL%/images/social/maria-hospital.png">
+    <meta property="og:site_name" content="Maria Hospital">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="%VITE_SITE_URL%/search">
+    <meta name="twitter:title" content="Search | Maria Hospital Kathmandu">
+    <meta name="twitter:description"
+        content="Search for medical treatments and care services at Maria Hospital in Kathmandu, Nepal.">
+    <meta name="twitter:image" content="%VITE_SITE_URL%/images/social/maria-hospital.png">
+
+    <meta name="geo.region" content="NP">
+    <meta name="geo.placename" content="Kathmandu">
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": []
+      }
+    </script>
+</head>
+
+<body class="font-google-sans bg-white-pearl scroll-smooth text-lg antialiased">
+    <icon-sprite></icon-sprite>
+    <app-header></app-header>
+
+    <main class="bg-soft-blue relative z-10 px-8 py-16 md:p-28 min-h-[60vh]" x-data="searchResults()">
+
+        <header class="mb-12 text-center lg:mb-16" x-show="!hasError" x-cloak>
+            <h1 class="text-accent-navy text-4xl font-bold tracking-tight lg:text-5xl italic">
+                Search Results for <span class="text-info capitalize not-italic" x-text="query"></span>
+            </h1>
+        </header>
+
+        <section class="relative flex flex-col gap-16 max-w-4xl mx-auto" x-show="!isLoading && !hasError" x-cloak>
+            <div class="flex flex-col gap-16">
+                <template x-for="item in paginatedResults" :key="item.url">
+                    <a :href="item.url"
+                        class="group relative flex flex-col items-start gap-4 rounded-xl bg-white p-5 shadow-sm ring-1 ring-zinc-200/50 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md hover:ring-zinc-300/70 active:translate-y-0 active:shadow-sm sm:flex-row">
+                        <img :src="replaceEnv(item.ogImage)" :alt="item.treatment"
+                            class="aspect-4/3 flex-none rounded-lg object-cover sm:w-50" />
+
+                        <div class="grow">
+                            <h3 class="font-semibold text-2xl text-dark-navy group-hover:text-accent-navy mb-4"
+                                x-text="item.treatment"></h3>
+                            <div class="mt-1 flex flex-wrap items-center gap-1 text-maria-gray">
+                                <p x-text="item.description"></p>
+                            </div>
+
+                            <span
+                                class="mt-4 flex w-full items-center justify-center rounded-full bg-dark-navy px-4 py-2 font-medium text-white-pearl transition-colors group-hover:bg-accent-navy sm:hidden">
+                                Read More </span>
+                        </div>
+
+                        <svg
+                            class="hi-micro hi-chevron-right hidden size-5 flex-none text-maria-gray group-hover:translate-x-0.5 group-hover:text-dark-navy sm:inline-block">
+                            <use href="#icon-chevron-right" />
+                        </svg>
+                    </a>
+                </template>
+            </div>
+
+            <div class="flex items-center justify-between px-4 py-3 sm:px-6" x-show="totalPages > 1">
+                <div class="flex flex-1 justify-between sm:hidden">
+                    <a href="#" @click.prevent="goToPage(currentPage - 1)"
+                        :class="{'pointer-events-none opacity-50': currentPage === 1}"
+                        class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 font-medium text-gray-700 hover:bg-gray-50">Previous</a>
+                    <a href="#" @click.prevent="goToPage(currentPage + 1)"
+                        :class="{'pointer-events-none opacity-50': currentPage === totalPages}"
+                        class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 font-medium text-gray-700 hover:bg-gray-50">Next</a>
+                </div>
+                <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+                    <div>
+                        <p class="text-gray-700">
+                            Showing
+                            <span class="font-medium" x-text="startIndex"></span>
+                            to
+                            <span class="font-medium" x-text="endIndex"></span>
+                            of
+                            <span class="font-medium" x-text="totalResults"></span>
+                            results
+                        </p>
+                    </div>
+                    <div>
+                        <nav aria-label="Pagination" class="isolate inline-flex -space-x-px rounded-md shadow-xs">
+                            <a href="#" @click.prevent="goToPage(currentPage - 1)"
+                                :class="{'pointer-events-none opacity-50': currentPage === 1}"
+                                class="relative inline-flex items-center rounded-l-md bg-white px-2 py-2 text-gray-400 inset-ring inset-ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
+                                <span class="sr-only">Previous</span>
+                                <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true"
+                                    class="size-5">
+                                    <path
+                                        d="M11.78 5.22a.75.75 0 0 1 0 1.06L8.06 10l3.72 3.72a.75.75 0 1 1-1.06 1.06l-4.25-4.25a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Z"
+                                        clip-rule="evenodd" fill-rule="evenodd" />
+                                </svg>
+                            </a>
+
+                            <template x-for="page in getPaginationPages()" :key="page">
+                                <a href="#" @click.prevent="goToPage(page)" x-text="page"
+                                    :aria-current="page === currentPage ? 'page' : null"
+                                    :class="page === currentPage ? 'relative z-10 inline-flex items-center bg-accent-navy px-4 py-2 font-semibold text-white focus:z-20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600' : page === '...' ? 'relative inline-flex items-center bg-white px-4 py-2 font-semibold text-gray-700 inset-ring inset-ring-gray-300 focus:outline-offset-0' : 'relative inline-flex items-center bg-white px-4 py-2 font-semibold text-gray-900 inset-ring inset-ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0'"></a>
+                            </template>
+
+                            <a href="#" @click.prevent="goToPage(currentPage + 1)"
+                                :class="{'pointer-events-none opacity-50': currentPage === totalPages}"
+                                class="relative inline-flex items-center rounded-r-md bg-white px-2 py-2 text-gray-400 inset-ring inset-ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0">
+                                <span class="sr-only">Next</span>
+                                <svg viewBox="0 0 20 20" fill="currentColor" data-slot="icon" aria-hidden="true"
+                                    class="size-5">
+                                    <path
+                                        d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
+                                        clip-rule="evenodd" fill-rule="evenodd" />
+                                </svg>
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid place-items-center py-12 text-center" x-show="hasError" x-cloak>
+            <img src="/images/404.svg" alt="No Results Found" class="mx-auto size-64 mb-8 opacity-80">
+            <h2 class="text-4xl font-semibold tracking-tight text-maria-black sm:text-5xl mb-4">No results found</h2>
+            <p class="text-lg font-medium text-maria-gray max-w-lg mx-auto mb-10" x-text="errorMessage"></p>
+
+            <div class="flex items-center justify-center gap-x-6">
+                <button
+                    @click="$dispatch('keydown.escape.window'); $nextTick(() => document.querySelector('[aria-label=\'Open search\']').click())"
+                    class="bg-dark-navy hover:bg-accent-navy focus-visible:ring-info inline-flex items-center justify-center rounded-full px-6 py-2.5 text-white focus-visible:ring-2 focus-visible:outline-none cursor-pointer">
+                    Try another search
+                </button>
+                <a href="/contact-us"
+                    class="text-accent-navy hover:text-info inline-flex items-center gap-1 font-bold transition-colors group">
+                    <span
+                        class="border-b-4 border-current transition-colors duration-300 group-hover:border-transparent">Contact
+                        us</span>
+                    <svg
+                        class="size-5 text-info -translate-x-2 opacity-0 transition-all duration-300 ease-out group-hover:translate-x-0 group-hover:opacity-100">
+                        <use href="#icon-arrow-right"></use>
+                    </svg>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <app-footer></app-footer>
+    <social-media-nav></social-media-nav>
+    <scroll-to-top></scroll-to-top>
+
+    <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>

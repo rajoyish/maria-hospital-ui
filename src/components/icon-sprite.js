@@ -6,6 +6,12 @@ const SPRITE_TEMPLATE = `
         clip-rule="evenodd" />
     </symbol>
 
+    <symbol id="icon-chevron-right" viewBox="0 0 16 16" fill="currentColor">
+      <path fill-rule="evenodd"
+        d="M6.22 4.22a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06l-3.25 3.25a.75.75 0 0 1-1.06-1.06L8.94 8 6.22 5.28a.75.75 0 0 1 0-1.06Z"
+        clip-rule="evenodd" />
+    </symbol>
+
     <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
       <path stroke-linecap="round" stroke-linejoin="round"
         d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
@@ -63,7 +69,6 @@ const SPRITE_TEMPLATE = `
 
 export class IconSprite extends HTMLElement {
   connectedCallback() {
-    // Only inject if not already present
     if (!this.innerHTML) {
       this.innerHTML = SPRITE_TEMPLATE;
     }

@@ -24,21 +24,7 @@ const TREATMENT_SUFFIX_REGEX = /\s+Treatment.*$/i;
 const NEPAL_SUFFIX_REGEX = /\s+Nepal$/i;
 const TITLE_TAG_REGEX = /<title[^>]*>([\s\S]*?)<\/title>/i;
 const WHITESPACE_REGEX = /\s+/g;
-
-const META_REGEXES = {
-  description: [
-    /<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)["']/i,
-    /<meta[^>]+content=["']([^"']*)["'][^>]+name=["']description["']/i,
-  ],
-  keywords: [
-    /<meta[^>]+name=["']keywords["'][^>]+content=["']([^"']*)["']/i,
-    /<meta[^>]+content=["']([^"']*)["'][^>]+name=["']keywords["']/i,
-  ],
-  "og:image": [
-    /<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']*)["']/i,
-    /<meta[^>]+content=["']([^"']*)["'][^>]+property=["']og:image["']/i,
-  ],
-};
+const CONTENT_ATTR_REGEX = /content=(["'])([\s\S]*?)\1|content=([^\s>]+)/i;
 
 const normalizePath = (p) => p.split(path.sep).join("/");
 
@@ -102,17 +88,23 @@ const formatSlugToTitle = (slug) => {
 };
 
 const extractMetaContent = (html, metaKey) => {
-  const regexes = META_REGEXES[metaKey];
+  const isOg = metaKey === "og:image";
+  const attr = isOg ? "property" : "name";
 
-  if (!regexes) {
+  const tagRegex = new RegExp(
+    `<meta(?:\\s+[^>]*?)?(?:${attr}=["']${metaKey}["']|${attr}=${metaKey})(?:\\s+[^>]*?)?>`,
+    "i"
+  );
+  const match = html.match(tagRegex);
+
+  if (!match) {
     return "";
   }
 
-  for (const regex of regexes) {
-    const match = html.match(regex);
-    if (match?.[1]) {
-      return match[1].trim();
-    }
+  const contentMatch = match[0].match(CONTENT_ATTR_REGEX);
+
+  if (contentMatch) {
+    return (contentMatch[2] || contentMatch[3] || "").trim();
   }
 
   return "";
