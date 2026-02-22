@@ -1,6 +1,5 @@
 import fs from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { loadEnv } from "vite";
 
 const mode = process.argv[2] || "production";
@@ -16,9 +15,8 @@ const CONFIG = {
   ignoreDirs: ["node_modules", "dist", "public", ".git", ".vscode", ".idea"],
 };
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const SCAN_DIR = path.resolve(__dirname, CONFIG.scanDir);
-const OUTPUT_DIR = path.resolve(__dirname, CONFIG.outputDir);
+const SCAN_DIR = path.resolve(process.cwd(), CONFIG.scanDir);
+const OUTPUT_DIR = path.resolve(process.cwd(), CONFIG.outputDir);
 const OUTPUT_PATH = path.join(OUTPUT_DIR, CONFIG.outputFile);
 
 const HTML_EXT_REGEX = /\.html$/;
@@ -26,6 +24,21 @@ const TREATMENT_SUFFIX_REGEX = /\s+Treatment.*$/i;
 const NEPAL_SUFFIX_REGEX = /\s+Nepal$/i;
 const TITLE_TAG_REGEX = /<title[^>]*>([\s\S]*?)<\/title>/i;
 const WHITESPACE_REGEX = /\s+/g;
+
+const META_REGEXES = {
+  description: [
+    /<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)["']/i,
+    /<meta[^>]+content=["']([^"']*)["'][^>]+name=["']description["']/i,
+  ],
+  keywords: [
+    /<meta[^>]+name=["']keywords["'][^>]+content=["']([^"']*)["']/i,
+    /<meta[^>]+content=["']([^"']*)["'][^>]+name=["']keywords["']/i,
+  ],
+  "og:image": [
+    /<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']*)["']/i,
+    /<meta[^>]+content=["']([^"']*)["'][^>]+property=["']og:image["']/i,
+  ],
+};
 
 const normalizePath = (p) => p.split(path.sep).join("/");
 
@@ -77,20 +90,6 @@ const cleanTitle = (rawTitle) => {
   return title.trim();
 };
 
-const getTitleFromHtml = (filePath) => {
-  try {
-    const content = fs.readFileSync(filePath, "utf-8");
-    const titleMatch = content.match(TITLE_TAG_REGEX);
-    if (titleMatch?.[1]) {
-      const rawTitle = titleMatch[1].replace(WHITESPACE_REGEX, " ").trim();
-      return cleanTitle(rawTitle);
-    }
-  } catch {
-    console.warn(`⚠️ Could not read title from ${filePath}`);
-  }
-  return null;
-};
-
 const formatSlugToTitle = (slug) => {
   const words = slug.split("/").pop()?.split("-");
   if (!words) {
@@ -100,6 +99,63 @@ const formatSlugToTitle = (slug) => {
     .filter((w) => w.toLowerCase() !== "nepal")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
+};
+
+const extractMetaContent = (html, metaKey) => {
+  const regexes = META_REGEXES[metaKey];
+
+  if (!regexes) {
+    return "";
+  }
+
+  for (const regex of regexes) {
+    const match = html.match(regex);
+    if (match?.[1]) {
+      return match[1].trim();
+    }
+  }
+
+  return "";
+};
+
+const extractPageData = (filePath, route) => {
+  const data = {
+    title: "",
+    description: "",
+    keywords: [],
+    ogImage: "",
+  };
+
+  try {
+    const content = fs.readFileSync(filePath, "utf-8");
+
+    const titleMatch = content.match(TITLE_TAG_REGEX);
+    if (titleMatch?.[1]) {
+      const rawTitle = titleMatch[1].replace(WHITESPACE_REGEX, " ").trim();
+      data.title = cleanTitle(rawTitle);
+    }
+
+    if (!data.title) {
+      data.title = formatSlugToTitle(route);
+    }
+
+    data.description = extractMetaContent(content, "description");
+
+    const rawKeywords = extractMetaContent(content, "keywords");
+    if (rawKeywords) {
+      data.keywords = rawKeywords
+        .split(",")
+        .map((k) => k.trim())
+        .filter(Boolean);
+    }
+
+    data.ogImage = extractMetaContent(content, "og:image");
+  } catch {
+    console.warn(`⚠️ Could not read file data from ${filePath}`);
+    data.title = formatSlugToTitle(route);
+  }
+
+  return data;
 };
 
 const generateJson = () => {
@@ -137,15 +193,14 @@ const generateJson = () => {
 
     if (isTargetFolder) {
       const absoluteFilePath = path.join(SCAN_DIR, file);
-      let title = getTitleFromHtml(absoluteFilePath);
-
-      if (!title || title.length === 0) {
-        title = formatSlugToTitle(route);
-      }
+      const pageData = extractPageData(absoluteFilePath, route);
 
       treatments.push({
-        treatment: title,
+        treatment: pageData.title,
         url: `${CONFIG.baseUrl}${route}`,
+        description: pageData.description,
+        keywords: pageData.keywords,
+        ogImage: pageData.ogImage,
       });
     }
   }

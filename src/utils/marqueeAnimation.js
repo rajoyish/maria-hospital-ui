@@ -70,6 +70,11 @@ export function killMarquee() {
     currentDraggable.kill();
   }
 
+  if (railContainer) {
+    const items = gsap.utils.toArray(".scrolling-text .rail li");
+    gsap.set(items, { clearProps: "all" });
+  }
+
   if (railContainer && listenersAttached) {
     railContainer.removeEventListener("mouseenter", handleMouseEnter);
     railContainer.removeEventListener("mouseleave", handleMouseLeave);

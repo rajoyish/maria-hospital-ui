@@ -37,9 +37,11 @@ export default function setupTreatmentMarquee() {
                   });
                 });
             } else {
-              requestAnimationFrame(() => {
-                startMarquee();
-              });
+              setTimeout(() => {
+                requestAnimationFrame(() => {
+                  startMarquee();
+                });
+              }, 100);
             }
           });
         } catch (error) {
