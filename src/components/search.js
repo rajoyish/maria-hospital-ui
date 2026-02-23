@@ -7,7 +7,8 @@ export function searchResults() {
     hasError: false,
     errorMessage: "",
     skippedKeywords: ["maria", "kathmandu", "in nepal", "hospital"],
-    cacheKey: "treatments_data_cache_v3",
+    // biome-ignore lint/correctness/noUndeclaredVariables: Injected globally by Vite
+    cacheKey: `treatments_data_${typeof __BUILD_TIMESTAMP__ !== "undefined" ? __BUILD_TIMESTAMP__ : "dev"}`,
     currentPage: 1,
     itemsPerPage: 5,
 
@@ -163,14 +164,39 @@ export function searchResults() {
     },
 
     async fetchTreatments() {
-      if (sessionStorage.getItem(this.cacheKey)) {
-        return JSON.parse(sessionStorage.getItem(this.cacheKey));
+      if (import.meta.env.DEV) {
+        try {
+          const res = await fetch("/treatments-data.json");
+          return await res.json();
+        } catch {
+          return [];
+        }
       }
 
+      const cached = localStorage.getItem(this.cacheKey);
+      if (cached) {
+        try {
+          return JSON.parse(cached);
+        } catch (error) {
+          console.warn("Failed to parse cached treatments data", error);
+        }
+      }
+
+      return this.fetchAndCache();
+    },
+
+    async fetchAndCache() {
       try {
         const response = await fetch("/treatments-data.json");
         const data = await response.json();
-        sessionStorage.setItem(this.cacheKey, JSON.stringify(data));
+
+        for (const key of Object.keys(localStorage)) {
+          if (key.startsWith("treatments_data_")) {
+            localStorage.removeItem(key);
+          }
+        }
+
+        localStorage.setItem(this.cacheKey, JSON.stringify(data));
         return data;
       } catch {
         return [];
@@ -195,8 +221,22 @@ export function searchResults() {
       this.results = data.filter((item) => {
         const matchTreatment = regex.test(item.treatment);
         const matchDescription = regex.test(item.description);
-        const matchKeywords = item.keywords.some((kw) => regex.test(kw));
-        return matchTreatment || matchDescription || matchKeywords;
+
+        let matchKeywords = false;
+        if (Array.isArray(item.keywords)) {
+          matchKeywords = item.keywords.some((kw) => regex.test(kw));
+        }
+
+        const matchCareServices = item.care_services
+          ? regex.test(item.care_services)
+          : false;
+
+        return (
+          matchTreatment ||
+          matchDescription ||
+          matchKeywords ||
+          matchCareServices
+        );
       });
 
       if (this.results.length === 0) {

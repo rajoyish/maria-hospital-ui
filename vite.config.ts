@@ -1,4 +1,3 @@
-import tailwindcss from "@tailwindcss/vite";
 import { exec } from "node:child_process";
 import {
   existsSync,
@@ -9,6 +8,7 @@ import {
 } from "node:fs";
 import { dirname, join, parse, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import tailwindcss from "@tailwindcss/vite";
 import { type ViteDevServer, defineConfig, loadEnv } from "vite";
 
 const WINDOWS_PATH_REGEX = /\\/g;
@@ -102,8 +102,8 @@ function moveCategoryFiles(
     if (readdirSync(categoryDirInDist).length === 0) {
       rmSync(categoryDirInDist, { recursive: true, force: true });
     }
-  } catch (_e) {
-    // Ignored cleanup errors
+  } catch {
+    return;
   }
 }
 
@@ -186,10 +186,12 @@ const generateTreatmentsPlugin = () => {
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "VITE_");
   const siteUrl = (env.VITE_SITE_URL || "").replace(TRAILING_SLASH_REGEX, "");
+  const buildTimestamp = Date.now();
 
   return {
     define: {
       "process.env.VITE_SITE_URL": JSON.stringify(siteUrl),
+      __BUILD_TIMESTAMP__: buildTimestamp,
     },
     plugins: [
       tailwindcss(),
