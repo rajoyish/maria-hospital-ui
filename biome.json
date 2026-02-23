@@ -5,5 +5,8 @@
     }
   },
   "extends": ["ultracite/core"],
-  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json"
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "formatter": {
+    "includes": ["!**/*.html"]
+  }
 }
