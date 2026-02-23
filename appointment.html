@@ -1,45 +1,74 @@
 <!doctype html>
 <html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- FAVICONS & WEB MANIFEST -->
+    <link rel="icon" href="%VITE_SITE_URL%/favicon.ico" sizes="any">
+    <link
+      rel="icon"
+      type="image/png"
+      href="%VITE_SITE_URL%/favicon-96x96.png"
+      sizes="96x96"
+    >
+    <link rel="apple-touch-icon" href="%VITE_SITE_URL%/apple-touch-icon.png">
+    <link rel="manifest" href="%VITE_SITE_URL%/site.webmanifest">
+    <!-- END FAVICONS & WEB MANIFEST -->
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- FAVICONS & WEB MANIFEST -->
-  <link rel="icon" href="%VITE_SITE_URL%/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" href="%VITE_SITE_URL%/favicon-96x96.png" sizes="96x96">
-  <link rel="apple-touch-icon" href="%VITE_SITE_URL%/apple-touch-icon.png">
-  <link rel="manifest" href="%VITE_SITE_URL%/site.webmanifest">
-  <!-- END FAVICONS & WEB MANIFEST -->
+    <title>
+      Book an Appointment | Maria Hospital Kathmandu | Specialized Medical Care
+    </title>
+    <meta
+      name="msapplication-config"
+      content="%VITE_SITE_URL%/browserconfig.xml"
+    >
+    <meta
+      name="description"
+      content="Book an appointment at Maria Hospital Kathmandu. We provide expert care in Urology, STDs, Piles (Anorectal), ENT, and Gynecology with modern, private facilities."
+    >
+    <meta
+      name="keywords"
+      content="book hospital appointment Kathmandu, Maria Hospital appointment, Urology clinic Nepal, Piles treatment Kathmandu, ENT specialist Kathmandu, STD checkup Nepal"
+    >
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="%VITE_SITE_URL%/appointment">
+    <meta name="theme-color" content="#002B53">
 
-  <title>Book an Appointment | Maria Hospital Kathmandu | Specialized Medical Care</title>
-  <meta name="msapplication-config" content="%VITE_SITE_URL%/browserconfig.xml">
-  <meta name="description"
-    content="Book an appointment at Maria Hospital Kathmandu. We provide expert care in Urology, STDs, Piles (Anorectal), ENT, and Gynecology with modern, private facilities.">
-  <meta name="keywords"
-    content="book hospital appointment Kathmandu, Maria Hospital appointment, Urology clinic Nepal, Piles treatment Kathmandu, ENT specialist Kathmandu, STD checkup Nepal">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="%VITE_SITE_URL%/appointment">
-  <meta name="theme-color" content="#002B53">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="%VITE_SITE_URL%/appointment">
+    <meta
+      property="og:title"
+      content="Book an Appointment | Maria Hospital Kathmandu"
+    >
+    <meta
+      property="og:description"
+      content="Need medical assistance? Schedule your visit at Maria Hospital for specialized care in Piles, Urology, and ENT in a confidential environment."
+    >
+    <meta
+      property="og:image"
+      content="%VITE_SITE_URL%/images/sliders/Urology-STDs.avif"
+    >
+    <meta property="og:site_name" content="Maria Hospital">
 
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="%VITE_SITE_URL%/appointment">
-  <meta property="og:title" content="Book an Appointment | Maria Hospital Kathmandu">
-  <meta property="og:description"
-    content="Need medical assistance? Schedule your visit at Maria Hospital for specialized care in Piles, Urology, and ENT in a confidential environment.">
-  <meta property="og:image" content="%VITE_SITE_URL%/images/sliders/Urology-STDs.avif">
-  <meta property="og:site_name" content="Maria Hospital">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="%VITE_SITE_URL%/appointment">
+    <meta
+      name="twitter:title"
+      content="Book an Appointment | Maria Hospital Kathmandu"
+    >
+    <meta
+      name="twitter:description"
+      content="Specialized medical care for Piles, Urology, STDs, and ENT. Book your appointment today at Maria Hospital, Gairidhara."
+    >
+    <meta
+      name="twitter:image"
+      content="%VITE_SITE_URL%/images/sliders/Urology-STDs.avif"
+    >
 
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="%VITE_SITE_URL%/appointment">
-  <meta name="twitter:title" content="Book an Appointment | Maria Hospital Kathmandu">
-  <meta name="twitter:description"
-    content="Specialized medical care for Piles, Urology, STDs, and ENT. Book your appointment today at Maria Hospital, Gairidhara.">
-  <meta name="twitter:image" content="%VITE_SITE_URL%/images/sliders/Urology-STDs.avif">
+    <meta name="geo.region" content="NP">
+    <meta name="geo.placename" content="Kathmandu">
 
-  <meta name="geo.region" content="NP">
-  <meta name="geo.placename" content="Kathmandu">
-
-  <script type="application/ld+json">
+    <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@graph": [
@@ -100,47 +129,61 @@
     ]
   }
   </script>
-</head>
+  </head>
 
-<body class="font-google-sans bg-white-pearl scroll-smooth text-lg antialiased">
-  <!-- SVG ICON SPRITE -->
-  <icon-sprite></icon-sprite>
-  <!-- END SVG ICON SPRITE -->
+  <body
+    class="font-google-sans bg-white-pearl scroll-smooth text-lg antialiased"
+  >
+    <!-- SVG ICON SPRITE -->
+    <icon-sprite></icon-sprite>
+    <!-- END SVG ICON SPRITE -->
 
-  <!-- APP HEADER -->
-  <app-header></app-header>
-  <!-- END APP HEADER -->
+    <!-- APP HEADER -->
+    <app-header></app-header>
+    <!-- END APP HEADER -->
 
-  <main class="bg-soft-blue grid min-h-full place-items-center px-6 py-24 sm:py-32 lg:px-8">
-    <div class="max-w-4xl text-center">
-      <img class="mx-auto mb-16 lg:w-1/2" src="./images/appointment-avatar.svg" />
-      <h1 class="text-accent-navy mb-8 text-4xl font-bold tracking-tight lg:text-5xl">Need an <span
-          class="text-info">appointment?</span></h1>
-      <p class="leading-relaxed">Our appointment booking feature is coming soon! Until then, we are happy to assist you
-        directly. You can find links to our Telephone, WhatsApp, and social media channels (Facebook, TikTok, Instagram)
-        in the website footer. Just drop us a quick "Hi," and our team will take care of the rest. Thank you for bearing
-        with us!</p>
-      <div class="mt-10 flex items-center justify-center gap-x-6">
-        <a href="/"
-          class="bg-dark-navy hover:bg-accent-navy focus-visible:ring-info inline-flex items-center justify-center rounded-full px-6 py-2.5 text-white focus-visible:ring-2 focus-visible:outline-none">Go
-          back home</a>
+    <main
+      class="bg-soft-blue grid min-h-full place-items-center px-6 py-24 sm:py-32 lg:px-8"
+    >
+      <div class="max-w-4xl text-center">
+        <img
+          class="mx-auto mb-16 lg:w-1/2"
+          src="./images/appointment-avatar.svg"
+        >
+        <h1
+          class="text-accent-navy mb-8 text-4xl font-bold tracking-tight lg:text-5xl"
+        >
+          Need an <span class="text-info">appointment?</span>
+        </h1>
+        <p class="leading-relaxed">
+          Our appointment booking feature is coming soon! Until then, we are
+          happy to assist you directly. You can find links to our Telephone,
+          WhatsApp, and social media channels (Facebook, TikTok, Instagram) in
+          the website footer. Just drop us a quick "Hi," and our team will take
+          care of the rest. Thank you for bearing with us!
+        </p>
+        <div class="mt-10 flex items-center justify-center gap-x-6">
+          <a
+            href="/"
+            class="bg-dark-navy hover:bg-accent-navy focus-visible:ring-info inline-flex items-center justify-center rounded-full px-6 py-2.5 text-white focus-visible:ring-2 focus-visible:outline-none"
+            >Go back home</a
+          >
+        </div>
       </div>
-    </div>
-  </main>
+    </main>
 
-  <!-- FOOTER -->
-  <app-footer></app-footer>
-  <!-- FOOTER END -->
+    <!-- FOOTER -->
+    <app-footer></app-footer>
+    <!-- FOOTER END -->
 
-  <!-- FIXED BOTTOM SOCIAL NAV -->
-  <social-media-nav></social-media-nav>
-  <!-- FIXED BOTTOM SOCIAL NAV -->
+    <!-- FIXED BOTTOM SOCIAL NAV -->
+    <social-media-nav></social-media-nav>
+    <!-- FIXED BOTTOM SOCIAL NAV -->
 
-  <!-- SCROLL TO TOP -->
-  <scroll-to-top></scroll-to-top>
-  <!-- SCROLL TO TOP -->
+    <!-- SCROLL TO TOP -->
+    <scroll-to-top></scroll-to-top>
+    <!-- SCROLL TO TOP -->
 
-  <script type="module" src="/src/main.js"></script>
-</body>
-
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>

@@ -2,9 +2,9 @@ import "./style.css";
 
 import focus from "@alpinejs/focus";
 import Alpine from "alpinejs";
+import { searchResults } from "./components/search.js";
 import { initHomeSlider } from "./home-slider";
 import { initTestimonialsSlider } from "./testimonials-slider";
-import { searchResults } from "./components/search.js";
 
 import "./components/header.js";
 import "./components/app-footer.js";

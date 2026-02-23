@@ -9,7 +9,7 @@ import {
 import { dirname, join, parse, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import tailwindcss from "@tailwindcss/vite";
-import { type ViteDevServer, defineConfig, loadEnv } from "vite";
+import { defineConfig, loadEnv, type ViteDevServer } from "vite";
 
 const WINDOWS_PATH_REGEX = /\\/g;
 const TRAILING_SLASH_REGEX = /\/$/;
