@@ -9,16 +9,14 @@ export default function setupTreatmentMarquee() {
       async init() {
         try {
           const isDev = import.meta.env.DEV;
-          const url = isDev
-            ? `/treatments-data.json?t=${Date.now()}`
-            : "/treatments-data.json";
 
-          const response = await fetch(url);
-          if (!response.ok) {
-            throw new Error("Failed to load data");
+          await Alpine.store("treatmentsData").fetch();
+          const freshData = Alpine.store("treatmentsData").items;
+
+          if (!freshData || freshData.length === 0) {
+            return;
           }
 
-          const freshData = await response.json();
           const fingerprint = `${freshData.length}_${freshData[0]?.url}`;
 
           this.items = this.getSortedData(freshData, fingerprint, isDev);
