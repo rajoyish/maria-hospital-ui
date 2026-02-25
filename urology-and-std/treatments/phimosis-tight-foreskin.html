@@ -240,51 +240,7 @@
     </div>
   </main>
   <!-- RELATED TREATMENTS -->
-  <div x-data="relatedTreatments" x-show="treatments.length > 0" style="display: none;"
-    class="bg-soft-blue px-8 py-16 pb-30 md:p-28 overflow-hidden" @mouseenter="isHovering = true; stopAutoplay()"
-    @mouseleave="isHovering = false; startAutoplay()">
-
-    <h2 class="text-accent-navy mb-16 text-4xl font-bold tracking-tight text-center">
-      Related <span class="text-info">Treatments</span>
-    </h2>
-
-    <div class="relative max-w-7xl mx-auto">
-      <ul role="list" class="relative grid gap-16 grid-cols-1 lg:grid-cols-3 overflow-hidden p-4" x-ref="list">
-        <template x-for="(item, index) in treatments" :key="item.url">
-          <li class="relative treatment-card w-full" :data-flip-id="item.url" x-show="index < visibleCount">
-            <a :href="item.url"
-              class="group relative flex w-full flex-col overflow-hidden rounded-2xl active:opacity-75 cursor-pointer">
-              <div class="relative aspect-10/7 w-full overflow-hidden rounded-lg">
-                <img :src="item.ogImage" :alt="item.treatment"
-                  class="aspect-10/7 w-full object-cover outline -outline-offset-1 outline-black/5 transition duration-300 ease-out group-hover:scale-105" />
-                <div class="absolute inset-0 bg-black/0 transition duration-300 ease-out group-hover:bg-black/5"></div>
-              </div>
-              <p class="mt-8 block text-2xl text-center font-medium text-gray-900 transition-colors group-hover:text-accent-navy"
-                x-text="item.treatment"></p>
-            </a>
-          </li>
-        </template>
-      </ul>
-
-      <div class="mt-16 flex items-center justify-center gap-6" x-show="treatments.length > visibleCount"
-        style="display: none;">
-        <button @click="prev()"
-          class="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md transition-transform hover:scale-110 text-accent-navy focus:outline-hidden cursor-pointer">
-          <span class="sr-only">Previous</span>
-          <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-          </svg>
-        </button>
-        <button @click="next()"
-          class="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md transition-transform hover:scale-110 text-accent-navy focus:outline-hidden cursor-pointer">
-          <span class="sr-only">Next</span>
-          <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-          </svg>
-        </button>
-      </div>
-    </div>
-  </div>
+  <related-treatments></related-treatments>
   <!-- END RELATED TREATMENTS -->
   <app-footer></app-footer>
   <social-media-nav></social-media-nav>

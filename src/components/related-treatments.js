@@ -1,17 +1,105 @@
 import gsap from "gsap";
-import { Flip } from "gsap/Flip";
+import { Flip } from "gsap/flip";
 
 gsap.registerPlugin(Flip);
 
-document.addEventListener('alpine:init', () => {
-  Alpine.store('treatmentsData', {
+const TRAILING_SLASH_REGEX = /\/$/;
+
+function extractNameFromSchema(schemaObj) {
+  if (schemaObj["@type"] === "BreadcrumbList" && Array.isArray(schemaObj.itemListElement)) {
+    const item = schemaObj.itemListElement.find((el) => el.position === 2);
+    if (item?.name) {
+      return item.name;
+    }
+  }
+  return null;
+}
+
+function extractNameFromGraph(data) {
+  if (data["@graph"] && Array.isArray(data["@graph"])) {
+    for (const graphItem of data["@graph"]) {
+      const name = extractNameFromSchema(graphItem);
+      if (name) {
+        return name;
+      }
+    }
+  } else {
+    const name = extractNameFromSchema(data);
+    if (name) {
+      return name;
+    }
+  }
+  return null;
+}
+
+const TEMPLATE = `
+  <div x-data="relatedTreatments" x-show="treatments.length > 0" style="display: none;"
+    class="bg-soft-blue px-8 py-16 pb-30 md:p-28 overflow-hidden" @mouseenter="isHovering = true; stopAutoplay()"
+    @mouseleave="isHovering = false; startAutoplay()">
+
+    <h2 class="text-accent-navy mb-16 text-4xl font-bold tracking-tight text-center">
+      Related <span class="text-info">Treatments</span>
+    </h2>
+
+    <div class="relative max-w-7xl mx-auto">
+      <ul role="list" class="relative grid gap-16 grid-cols-1 lg:grid-cols-3 overflow-hidden p-4" x-ref="list">
+        <template x-for="(item, index) in treatments" :key="item.url">
+          <li class="relative treatment-card w-full" :data-flip-id="item.url" x-show="index < visibleCount">
+            <a :href="item.url"
+              class="group relative flex w-full flex-col overflow-hidden rounded-2xl active:opacity-75 cursor-pointer">
+              <div class="relative aspect-10/7 w-full overflow-hidden rounded-lg">
+                <img :src="item.ogImage" :alt="item.treatment"
+                  class="aspect-10/7 w-full object-cover outline -outline-offset-1 outline-black/5 transition duration-300 ease-out group-hover:scale-105" />
+                <div class="absolute inset-0 bg-black/0 transition duration-300 ease-out group-hover:bg-black/5"></div>
+              </div>
+              <p class="mt-8 block text-2xl text-center font-medium text-gray-900 transition-colors group-hover:text-accent-navy"
+                x-text="item.treatment"></p>
+            </a>
+          </li>
+        </template>
+      </ul>
+
+      <div class="mt-16 flex items-center justify-center gap-6" x-show="treatments.length > visibleCount"
+        style="display: none;">
+        <button @click="prev()"
+          class="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md transition-transform hover:scale-110 text-accent-navy focus:outline-hidden cursor-pointer">
+          <span class="sr-only">Previous</span>
+          <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+          </svg>
+        </button>
+        <button @click="next()"
+          class="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md transition-transform hover:scale-110 text-accent-navy focus:outline-hidden cursor-pointer">
+          <span class="sr-only">Next</span>
+          <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+`;
+
+export class RelatedTreatmentsElement extends HTMLElement {
+  connectedCallback() {
+    if (!this.innerHTML.trim()) {
+      this.innerHTML = TEMPLATE;
+    }
+  }
+}
+customElements.define("related-treatments", RelatedTreatmentsElement);
+
+document.addEventListener("alpine:init", () => {
+  window.Alpine.store("treatmentsData", {
     items: [],
     isLoaded: false,
     isLoading: false,
 
     async fetch() {
-      if (this.isLoaded || this.isLoading) return;
-      
+      if (this.isLoaded || this.isLoading) {
+        return;
+      }
+
       this.isLoading = true;
       try {
         // biome-ignore lint/correctness/noUndeclaredVariables: Injected globally by Vite
@@ -24,25 +112,28 @@ document.addEventListener('alpine:init', () => {
       } finally {
         this.isLoading = false;
       }
-    }
+    },
   });
-});
 
-export function relatedTreatments() {
-  return {
+  window.Alpine.data("relatedTreatments", () => ({
     treatments: [],
     isAnimating: false,
     autoplayTimer: null,
     ctx: null,
     visibleCount: 1,
     isHovering: false,
+    _resizeHandler: null,
 
     async init() {
       this.updateVisibleCount();
-      window.addEventListener('resize', () => this.updateVisibleCount());
+
+      this._resizeHandler = this.updateVisibleCount.bind(this);
+      window.addEventListener("resize", this._resizeHandler);
 
       const serviceName = this.getCareServiceName();
-      if (!serviceName) return;
+      if (!serviceName) {
+        return;
+      }
 
       await this.fetchAndFilterData(serviceName);
 
@@ -55,82 +146,77 @@ export function relatedTreatments() {
     },
 
     updateVisibleCount() {
-      this.visibleCount = window.matchMedia('(min-width: 1024px)').matches ? 3 : 1;
+      this.visibleCount = window.matchMedia("(min-width: 1024px)").matches ? 3 : 1;
     },
 
     getCareServiceName() {
       const scripts = document.querySelectorAll('script[type="application/ld+json"]');
-      
+
       for (const script of scripts) {
         try {
           const data = JSON.parse(script.textContent);
-
-          const extractName = (schemaObj) => {
-            if (schemaObj['@type'] === 'BreadcrumbList' && Array.isArray(schemaObj.itemListElement)) {
-              const item = schemaObj.itemListElement.find(el => el.position === 2);
-              if (item && item.name) return item.name;
-            }
-            return null;
-          };
-
-          if (data['@graph'] && Array.isArray(data['@graph'])) {
-            for (const graphItem of data['@graph']) {
-              const name = extractName(graphItem);
-              if (name) return name;
-            }
-          } else {
-            const name = extractName(data);
-            if (name) return name;
+          const name = extractNameFromGraph(data);
+          if (name) {
+            return name;
           }
-        } catch (err) {}
+        } catch (err) {
+          console.debug("Error parsing JSON-LD script", err);
+        }
       }
       return null;
     },
 
     async fetchAndFilterData(serviceName) {
-      await Alpine.store('treatmentsData').fetch();
-      const allTreatments = Alpine.store('treatmentsData').items;
+      await window.Alpine.store("treatmentsData").fetch();
+      const allTreatments = window.Alpine.store("treatmentsData").items;
 
-      if (!allTreatments || allTreatments.length === 0) return;
+      if (!allTreatments || allTreatments.length === 0) {
+        return;
+      }
 
-      const currentPath = window.location.pathname.replace(/\/$/, "");
+      const currentPath = window.location.pathname.replace(TRAILING_SLASH_REGEX, "");
 
-      const filteredTreatments = allTreatments.filter(item => {
-        const itemPath = new URL(item.url, window.location.origin).pathname.replace(/\/$/, "");
+      const filteredTreatments = allTreatments.filter((item) => {
+        const itemPath = new URL(item.url, window.location.origin).pathname.replace(TRAILING_SLASH_REGEX, "");
         return item.care_services === serviceName && itemPath !== currentPath;
       });
 
-      this.treatments = filteredTreatments.map(item => ({
+      this.treatments = filteredTreatments.map((item) => ({
         ...item,
-        ogImage: item.ogImage.replace('%VITE_SITE_URL%', import.meta.env.VITE_SITE_URL || '')
+        ogImage: item.ogImage.replace("%VITE_SITE_URL%", import.meta.env.VITE_SITE_URL || ""),
       }));
     },
 
     animateInitialCards() {
       this.ctx = gsap.context(() => {
-        const visibleCards = gsap.utils.toArray('.treatment-card', this.$refs.list).filter(el => el.style.display !== 'none');
-        gsap.fromTo(visibleCards,
+        const visibleCards = gsap.utils.toArray(".treatment-card", this.$refs.list).filter((el) => el.style.display !== "none");
+        gsap.fromTo(
+          visibleCards,
           { y: 30, opacity: 0 },
           {
             y: 0,
             opacity: 1,
             duration: 0.8,
             stagger: 0.15,
-            ease: 'power3.out',
-            clearProps: 'y,opacity' 
+            ease: "power3.out",
+            clearProps: "y,opacity",
           }
         );
       }, this.$refs.list);
     },
 
     next() {
-      if (this.isAnimating || this.treatments.length <= this.visibleCount) return;
+      if (this.isAnimating || this.treatments.length <= this.visibleCount) {
+        return;
+      }
       this.stopAutoplay();
       this.updateCaterpillar(true);
     },
 
     prev() {
-      if (this.isAnimating || this.treatments.length <= this.visibleCount) return;
+      if (this.isAnimating || this.treatments.length <= this.visibleCount) {
+        return;
+      }
       this.stopAutoplay();
       this.updateCaterpillar(false);
     },
@@ -138,7 +224,7 @@ export function relatedTreatments() {
     updateCaterpillar(forward) {
       this.isAnimating = true;
 
-      const cards = gsap.utils.toArray('.treatment-card', this.$refs.list);
+      const cards = gsap.utils.toArray(".treatment-card", this.$refs.list);
       const state = Flip.getState(cards);
 
       if (forward) {
@@ -148,7 +234,7 @@ export function relatedTreatments() {
       }
 
       this.$nextTick(() => {
-        const updatedCards = gsap.utils.toArray('.treatment-card', this.$refs.list);
+        const updatedCards = gsap.utils.toArray(".treatment-card", this.$refs.list);
 
         Flip.from(state, {
           targets: updatedCards,
@@ -157,16 +243,16 @@ export function relatedTreatments() {
           duration: 0.5,
           ease: "power2.out",
           onEnter: (els) => {
-            gsap.set(els, { 
-              opacity: 0, 
-              scale: 0, 
-              transformOrigin: forward ? "bottom right" : "bottom left" 
+            gsap.set(els, {
+              opacity: 0,
+              scale: 0,
+              transformOrigin: forward ? "bottom right" : "bottom left",
             });
             return gsap.to(els, {
               opacity: 1,
               scale: 1,
               duration: 0.5,
-              ease: "power2.out"
+              ease: "power2.out",
             });
           },
           onLeave: (els) => {
@@ -175,14 +261,14 @@ export function relatedTreatments() {
               scale: 0,
               transformOrigin: forward ? "bottom left" : "bottom right",
               duration: 0.5,
-              ease: "power2.out"
+              ease: "power2.out",
             });
           },
           onComplete: () => {
             gsap.set(updatedCards, { clearProps: "scale,opacity,transform,transformOrigin" });
             this.isAnimating = false;
             this.startAutoplay();
-          }
+          },
         });
       });
     },
@@ -191,7 +277,8 @@ export function relatedTreatments() {
       this.stopAutoplay();
       if (this.treatments.length > this.visibleCount && !this.isHovering) {
         this.autoplayTimer = setTimeout(() => {
-          if (!document.hidden && !this.isAnimating) {
+          const canAutoplay = !(document.hidden || this.isAnimating);
+          if (canAutoplay) {
             this.updateCaterpillar(true);
           } else {
             this.startAutoplay();
@@ -208,9 +295,14 @@ export function relatedTreatments() {
     },
 
     destroy() {
-      if (this.ctx) this.ctx.revert();
+      if (this.ctx) {
+        this.ctx.revert();
+      }
       this.stopAutoplay();
-      window.removeEventListener('resize', () => this.updateVisibleCount());
-    }
-  };
-}
+
+      if (this._resizeHandler) {
+        window.removeEventListener("resize", this._resizeHandler);
+      }
+    },
+  }));
+});

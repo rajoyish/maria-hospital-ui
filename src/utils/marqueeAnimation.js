@@ -1,6 +1,6 @@
 import gsap from "gsap";
-import Draggable from "gsap/Draggable";
-import Observer from "gsap/Observer";
+import Draggable from "gsap/draggable";
+import Observer from "gsap/observer";
 
 gsap.registerPlugin(Observer, Draggable);
 
