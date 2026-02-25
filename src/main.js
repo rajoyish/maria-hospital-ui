@@ -3,6 +3,7 @@ import "./style.css";
 import focus from "@alpinejs/focus";
 import Alpine from "alpinejs";
 import { searchResults } from "./components/search.js";
+import { relatedTreatments } from "./components/related-treatments.js";
 import { initHomeSlider } from "./home-slider";
 import { initTestimonialsSlider } from "./testimonials-slider";
 
@@ -15,6 +16,7 @@ import setupTreatmentMarquee from "./components/TreatmentMarquee.js";
 
 Alpine.plugin(focus);
 Alpine.data("searchResults", searchResults);
+Alpine.data("relatedTreatments", relatedTreatments);
 
 setupTreatmentMarquee();
 
