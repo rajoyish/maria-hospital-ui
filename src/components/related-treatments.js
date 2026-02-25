@@ -59,22 +59,29 @@ const TEMPLATE = `
         </template>
       </ul>
 
-      <div class="mt-16 flex items-center justify-center gap-6" x-show="treatments.length > visibleCount"
+      <div class="mt-16 flex items-center justify-center gap-8" x-show="treatments.length > visibleCount"
         style="display: none;">
-        <button @click="prev()"
-          class="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md transition-transform hover:scale-110 text-accent-navy focus:outline-hidden cursor-pointer">
-          <span class="sr-only">Previous</span>
-          <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+        
+        <button
+          @click="prev()"
+          :disabled="isAnimating"
+          class="embla-testimonials__button embla-testimonials__button--prev border-accent-navy text-accent-navy hover:bg-accent-navy focus:ring-info pointer-events-auto cursor-pointer rounded-full border-2 bg-transparent p-2 transition-all duration-300 hover:scale-110 hover:text-white focus:ring-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-40"
+          type="button" aria-label="Previous testimonial">
+          <svg class="size-6" aria-hidden="true">
+            <use href="#icon-previous"></use>
           </svg>
         </button>
-        <button @click="next()"
-          class="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-md transition-transform hover:scale-110 text-accent-navy focus:outline-hidden cursor-pointer">
-          <span class="sr-only">Next</span>
-          <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+
+        <button
+          @click="next()"
+          :disabled="isAnimating"
+          class="embla-testimonials__button embla-testimonials__button--next border-accent-navy text-accent-navy hover:bg-accent-navy focus:ring-info pointer-events-auto cursor-pointer rounded-full border-2 bg-transparent p-2 transition-all duration-300 hover:scale-110 hover:text-white focus:ring-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-40"
+          type="button" aria-label="Next testimonial">
+          <svg class="size-6" aria-hidden="true">
+            <use href="#icon-next"></use>
           </svg>
         </button>
+
       </div>
     </div>
   </div>
