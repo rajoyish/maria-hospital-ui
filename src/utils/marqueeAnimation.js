@@ -1,6 +1,5 @@
-import gsap from "gsap";
-import Draggable from "gsap/draggable";
-import Observer from "gsap/observer";
+// biome-ignore assist/source/organizeImports: intentional order for gsap plugin registration
+import { gsap, Draggable, Observer } from "gsap/all";
 
 gsap.registerPlugin(Observer, Draggable);
 

@@ -1,5 +1,5 @@
-import gsap from "gsap";
-import { Flip } from "gsap/flip";
+// biome-ignore assist/source/organizeImports: imports are organized as needed
+import { gsap, Flip } from "gsap/all";
 
 gsap.registerPlugin(Flip);
 
