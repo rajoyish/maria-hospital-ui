@@ -3,7 +3,30 @@ import { Flip } from "gsap/Flip";
 
 gsap.registerPlugin(Flip);
 
-let memoryCache = null;
+document.addEventListener('alpine:init', () => {
+  Alpine.store('treatmentsData', {
+    items: [],
+    isLoaded: false,
+    isLoading: false,
+
+    async fetch() {
+      if (this.isLoaded || this.isLoading) return;
+      
+      this.isLoading = true;
+      try {
+        // biome-ignore lint/correctness/noUndeclaredVariables: Injected globally by Vite
+        const version = typeof __BUILD_TIMESTAMP__ !== "undefined" ? __BUILD_TIMESTAMP__ : Date.now();
+        const response = await fetch(`/treatments-data.json?v=${version}`);
+        this.items = await response.json();
+        this.isLoaded = true;
+      } catch (error) {
+        console.error("Failed to load treatments:", error);
+      } finally {
+        this.isLoading = false;
+      }
+    }
+  });
+});
 
 export function relatedTreatments() {
   return {
@@ -65,20 +88,14 @@ export function relatedTreatments() {
     },
 
     async fetchAndFilterData(serviceName) {
-      if (!memoryCache) {
-        try {
-          const response = await fetch('/treatments-data.json');
-          if (!response.ok) throw new Error('Network response was not ok');
-          memoryCache = await response.json();
-        } catch (error) {
-          console.error(error);
-          return;
-        }
-      }
+      await Alpine.store('treatmentsData').fetch();
+      const allTreatments = Alpine.store('treatmentsData').items;
+
+      if (!allTreatments || allTreatments.length === 0) return;
 
       const currentPath = window.location.pathname.replace(/\/$/, "");
 
-      const filteredTreatments = memoryCache.filter(item => {
+      const filteredTreatments = allTreatments.filter(item => {
         const itemPath = new URL(item.url, window.location.origin).pathname.replace(/\/$/, "");
         return item.care_services === serviceName && itemPath !== currentPath;
       });
@@ -91,7 +108,6 @@ export function relatedTreatments() {
 
     animateInitialCards() {
       this.ctx = gsap.context(() => {
-        // Target only the elements without display: none for initial loading animation
         const visibleCards = gsap.utils.toArray('.treatment-card', this.$refs.list).filter(el => el.style.display !== 'none');
         gsap.fromTo(visibleCards,
           { y: 30, opacity: 0 },
@@ -122,25 +138,22 @@ export function relatedTreatments() {
     updateCaterpillar(forward) {
       this.isAnimating = true;
 
-      // 1. Snapshot ALL rendered items (both visible and hidden) scoped strictly to the container
       const cards = gsap.utils.toArray('.treatment-card', this.$refs.list);
       const state = Flip.getState(cards);
 
-      // 2. Shift items visually
       if (forward) {
         this.treatments.push(this.treatments.shift());
       } else {
         this.treatments.unshift(this.treatments.pop());
       }
 
-      // 3. Wait for Alpine to toggle 'display: none' via x-show
       this.$nextTick(() => {
         const updatedCards = gsap.utils.toArray('.treatment-card', this.$refs.list);
 
         Flip.from(state, {
           targets: updatedCards,
           absoluteOnLeave: true,
-          fade: true, // Let Flip manage cross-fading base states behind the scenes
+          fade: true,
           duration: 0.5,
           ease: "power2.out",
           onEnter: (els) => {
