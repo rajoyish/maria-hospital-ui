@@ -166,8 +166,8 @@ export function searchResults() {
     },
 
     async performSearch() {
-      await Alpine.store('treatmentsData').fetch();
-      const data = Alpine.store('treatmentsData').items;
+      await window.Alpine.store('treatmentsData').fetch();
+      const data = window.Alpine.store('treatmentsData').items;
 
       if (!data || data.length === 0) {
         this.showError("Unable to load treatment data at this time.");

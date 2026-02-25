@@ -12,7 +12,7 @@ import "./components/social-media-nav.js";
 import "./components/icon-sprite.js";
 import "./components/scroll-to-top.js";
 import "./components/related-treatments.js";
-import setupTreatmentMarquee from "./components/TreatmentMarquee.js";
+import setupTreatmentMarquee from "./components/treatment-marquee.js";
 
 Alpine.plugin(focus);
 Alpine.data("searchResults", searchResults);

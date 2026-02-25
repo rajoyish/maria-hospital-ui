@@ -1,5 +1,5 @@
 import Alpine from "alpinejs";
-import { killMarquee, startMarquee } from "../utils/marqueeAnimation";
+import { killMarquee, startMarquee } from "../utils/marquee-animation";
 
 export default function setupTreatmentMarquee() {
   Alpine.data("treatmentMarquee", () => {
