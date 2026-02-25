@@ -32,6 +32,15 @@ function extractNameFromGraph(data) {
   return null;
 }
 
+function shuffleArray(array) {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
 const TEMPLATE = `
   <div x-data="relatedTreatments" x-show="treatments.length > 0" style="display: none;"
     class="bg-soft-blue px-8 py-16 pb-30 md:p-28 overflow-hidden" @mouseenter="isHovering = true; stopAutoplay()"
@@ -188,7 +197,9 @@ document.addEventListener("alpine:init", () => {
         return item.care_services === serviceName && itemPath !== currentPath;
       });
 
-      this.treatments = filteredTreatments.map((item) => ({
+      const randomizedTreatments = shuffleArray(filteredTreatments);
+
+      this.treatments = randomizedTreatments.map((item) => ({
         ...item,
         ogImage: item.ogImage.replace("%VITE_SITE_URL%", import.meta.env.VITE_SITE_URL || ""),
       }));
