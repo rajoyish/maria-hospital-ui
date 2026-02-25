@@ -1,6 +1,5 @@
 <IfModule mod_headers.c>
-    # Applies the CSP globally to all files served by Apache
-    Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:;"
+    Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:;"
 </IfModule>
 
 Options -MultiViews
