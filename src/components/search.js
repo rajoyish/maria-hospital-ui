@@ -7,8 +7,6 @@ export function searchResults() {
     hasError: false,
     errorMessage: "",
     skippedKeywords: ["maria", "kathmandu", "in nepal", "hospital"],
-    // biome-ignore lint/correctness/noUndeclaredVariables: Injected globally by Vite
-    cacheKey: `treatments_data_${typeof __BUILD_TIMESTAMP__ !== "undefined" ? __BUILD_TIMESTAMP__ : "dev"}`,
     currentPage: 1,
     itemsPerPage: 5,
 
@@ -163,52 +161,13 @@ export function searchResults() {
       this.isLoading = false;
     },
 
-    async fetchTreatments() {
-      if (import.meta.env.DEV) {
-        try {
-          const res = await fetch("/treatments-data.json");
-          return await res.json();
-        } catch {
-          return [];
-        }
-      }
-
-      const cached = localStorage.getItem(this.cacheKey);
-      if (cached) {
-        try {
-          return JSON.parse(cached);
-        } catch (error) {
-          console.warn("Failed to parse cached treatments data", error);
-        }
-      }
-
-      return this.fetchAndCache();
-    },
-
-    async fetchAndCache() {
-      try {
-        const response = await fetch("/treatments-data.json");
-        const data = await response.json();
-
-        for (const key of Object.keys(localStorage)) {
-          if (key.startsWith("treatments_data_")) {
-            localStorage.removeItem(key);
-          }
-        }
-
-        localStorage.setItem(this.cacheKey, JSON.stringify(data));
-        return data;
-      } catch {
-        return [];
-      }
-    },
-
     escapeRegExp(string) {
       return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     },
 
     async performSearch() {
-      const data = await this.fetchTreatments();
+      await Alpine.store('treatmentsData').fetch();
+      const data = Alpine.store('treatmentsData').items;
 
       if (!data || data.length === 0) {
         this.showError("Unable to load treatment data at this time.");

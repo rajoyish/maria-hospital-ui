@@ -1,3 +1,31 @@
+document.addEventListener('alpine:init', () => {
+  // biome-ignore lint/correctness/noUndeclaredVariables: Alpine is injected globally
+  Alpine.store('treatmentsData', {
+    items: [],
+    isLoaded: false,
+    isLoading: false,
+
+    async fetch() {
+      if (this.isLoaded || this.isLoading) {
+        return;
+      }
+      
+      this.isLoading = true;
+      try {
+        // biome-ignore lint/correctness/noUndeclaredVariables: Injected globally by Vite
+        const version = typeof __BUILD_TIMESTAMP__ !== "undefined" ? __BUILD_TIMESTAMP__ : Date.now();
+        const response = await fetch(`/treatments-data.json?v=${version}`);
+        this.items = await response.json();
+        this.isLoaded = true;
+      } catch (error) {
+        console.error("Failed to load treatments:", error);
+      } finally {
+        this.isLoading = false;
+      }
+    }
+  });
+});
+
 const HEADER_TEMPLATE = `
   <header class="bg-white py-4 shadow-xl xl:px-28">
     <div class="mx-auto px-4 py-4" x-data="{
@@ -10,6 +38,7 @@ const HEADER_TEMPLATE = `
         this.lastFocusEl = document.activeElement
         this.searchOpen = true
         this.$nextTick(() => this.$refs.searchInput?.focus())
+        Alpine.store('treatmentsData').fetch();
       },
       closeSearch() {
         this.searchOpen = false
