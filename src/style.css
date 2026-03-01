@@ -20,6 +20,11 @@
   display: none;
 }
 
+::selection {
+  background-color: var(--color-dark-navy);
+  color: var(--color-soft-blue);
+}
+
 .prose li::marker {
   color: var(--color-info);
 }
@@ -31,6 +36,10 @@
 
 .prose h3 {
   color: var(--color-maria-black);
+}
+
+.prose a {
+  text-decoration-color: var(--color-info);
 }
 
 .prose a:hover {
