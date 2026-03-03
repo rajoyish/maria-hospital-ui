@@ -2,18 +2,112 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shorts</title>
-    <script async src="https://www.tiktok.com/embed.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shorts | Maria Hospital</title>
+    <meta name="msapplication-config" content="%VITE_SITE_URL%/browserconfig.xml" />
+    <meta name="description"
+        content="Watch quick, informative health shorts, medical tips, and patient updates from Maria Hospital. Swipe through our latest healthcare videos." />
+    <meta name="keywords"
+        content="Maria Hospital shorts, medical videos, health tips, healthcare shorts, hospital updates Kathmandu, short medical clips" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="%VITE_SITE_URL%/shorts" />
+    <meta name="theme-color" content="#002B53" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="%VITE_SITE_URL%/shorts" />
+    <meta property="og:title" content="Shorts | Maria Hospital" />
+    <meta property="og:description"
+        content="Watch quick, informative health shorts, medical tips, and patient updates from Maria Hospital. Swipe through our latest healthcare videos." />
+    <meta property="og:image" content="%VITE_SITE_URL%/images/social/shorts.png" />
+    <meta property="og:site_name" content="Maria Hospital" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="%VITE_SITE_URL%/shorts" />
+    <meta name="twitter:title" content="Shorts | Maria Hospital" />
+    <meta name="twitter:description"
+        content="Watch quick, informative health shorts, medical tips, and patient updates from Maria Hospital. Swipe through our latest healthcare videos." />
+    <meta name="twitter:image" content="%VITE_SITE_URL%/images/social/shorts.png" />
+
+    <meta name="geo.region" content="NP" />
+    <meta name="geo.placename" content="Kathmandu" />
+    <style>
+        #tiktok-container iframe {
+            display: block;
+            max-height: 80vh !important;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 640px) {
+            #tiktok-container iframe {
+                max-height: 85vh !important;
+            }
+        }
+    </style>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "MedicalWebPage",
+            "@id": "%VITE_SITE_URL%/shorts",
+            "name": "Shorts | Maria Hospital",
+            "description": "Watch quick, informative health shorts, medical tips, and patient updates from Maria Hospital.",
+            "url": "%VITE_SITE_URL%/shorts",
+            "primaryImageOfPage": {
+              "@type": "ImageObject",
+              "url": "%VITE_SITE_URL%/images/social/shorts.png"
+            },
+            "specialty": [
+              {
+                "@type": "MedicalSpecialty",
+                "name": "PublicHealth"
+              },
+              {
+                "@type": "MedicalSpecialty",
+                "name": "PrimaryCare"
+              }
+            ],
+            "provider": {
+              "@type": "Hospital",
+              "name": "Maria Hospital",
+              "url": "%VITE_SITE_URL%",
+              "telephone": "+977-9851433833",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Kathmandu",
+                "addressLocality": "Kathmandu",
+                "addressCountry": "NP"
+              }
+            }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "%VITE_SITE_URL%"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Shorts",
+                "item": "%VITE_SITE_URL%/shorts"
+              }
+            ]
+          }
+        ]
+      }
+    </script>
 </head>
 
 <body>
-
     <div x-data="tiktokViewer" @keydown.window.prevent="handleKeydown($event)" @touchstart="handleTouchStart($event)"
         @touchend="handleTouchEnd($event)"
         class="relative w-full h-dvh bg-white text-gray-900 overflow-hidden flex items-center justify-center">
-
         <div x-show="isLoading" class="absolute inset-0 flex items-center justify-center bg-white z-50">
             <div class="animate-spin rounded-full size-12 border-t-2 border-b-2 border-dark-navy"></div>
         </div>
@@ -23,7 +117,6 @@
         </div>
 
         <div x-show="!isLoading" class="absolute right-3 sm:right-8 top-1/2 -translate-y-1/2 flex flex-col gap-6 z-40">
-
             <a href="/"
                 class="flex items-center justify-center size-12 bg-dark-navy hover:bg-accent-navy rounded-lg transition"
                 aria-label="Go Home">
@@ -49,7 +142,6 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
                 </svg>
             </button>
-
         </div>
 
         <div x-show="!isLoading"

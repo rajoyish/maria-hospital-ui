@@ -102,6 +102,11 @@ const HEADER_TEMPLATE = `
               </li>
 
               <li class="border-b-4 border-transparent">
+                <a href="/shorts" class="text-dark-navy hover:text-accent-navy focus-visible:ring-info rounded px-1 py-1 focus-visible:ring-2 focus-visible:outline-none">
+                  Shorts </a>
+              </li>
+
+              <li class="border-b-4 border-transparent">
                 <a href="/faqs" class="text-dark-navy hover:text-accent-navy focus-visible:ring-info rounded px-1 py-1 focus-visible:ring-2 focus-visible:outline-none">
                   FAQs </a>
               </li>
