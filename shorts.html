@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shorts</title>
+    <script async src="https://www.tiktok.com/embed.js"></script>
+</head>
+
+<body>
+
+    <div x-data="tiktokViewer" @keydown.window.prevent="handleKeydown($event)" @touchstart="handleTouchStart($event)"
+        @touchend="handleTouchEnd($event)"
+        class="relative w-full h-dvh bg-white text-gray-900 overflow-hidden flex items-center justify-center">
+
+        <div x-show="isLoading" class="absolute inset-0 flex items-center justify-center bg-white z-50">
+            <div class="animate-spin rounded-full size-12 border-t-2 border-b-2 border-dark-navy"></div>
+        </div>
+
+        <div id="tiktok-container"
+            class="w-full max-w-[320px] sm:max-w-95 h-[80vh] sm:h-[85vh] bg-white rounded-2xl overflow-hidden flex items-center justify-center relative z-10 transition-transform duration-300">
+        </div>
+
+        <div x-show="!isLoading" class="absolute right-3 sm:right-8 top-1/2 -translate-y-1/2 flex flex-col gap-6 z-40">
+
+            <a href="/"
+                class="flex items-center justify-center size-12 bg-dark-navy hover:bg-accent-navy rounded-lg transition"
+                aria-label="Go Home">
+                <svg class="size-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                    </path>
+                </svg>
+            </a>
+
+            <button @click="prev()" :disabled="currentIndex === 0"
+                class="flex items-center justify-center size-12 bg-dark-navy text-white rounded-lg transition disabled:opacity-40 disabled:cursor-not-allowed hover:bg-accent-navy disabled:hover:bg-dark-navy"
+                aria-label="Previous Video">
+                <svg class="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7"></path>
+                </svg>
+            </button>
+
+            <button @click="next()" :disabled="currentIndex === videos.length - 1"
+                class="flex items-center justify-center size-12 bg-dark-navy text-white rounded-lg transition disabled:opacity-40 disabled:cursor-not-allowed hover:bg-accent-navy disabled:hover:bg-dark-navy"
+                aria-label="Next Video">
+                <svg class="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </button>
+
+        </div>
+
+        <div x-show="!isLoading"
+            class="absolute left-6 bottom-6 text-sm font-mono opacity-80 z-40 bg-white px-3 py-1 rounded-full shadow-sm border border-gray-200">
+            <span x-text="currentIndex + 1"></span> / <span x-text="videos.length"></span>
+        </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>

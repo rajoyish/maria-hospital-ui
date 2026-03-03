@@ -5,6 +5,7 @@ import Alpine from "alpinejs";
 import { searchResults } from "./components/search.js";
 import { initHomeSlider } from "./home-slider";
 import { initTestimonialsSlider } from "./testimonials-slider";
+import { tiktokViewer } from "./components/tiktok-viewer.js";
 
 import "./components/header.js";
 import "./components/app-footer.js";
@@ -16,6 +17,8 @@ import setupTreatmentMarquee from "./components/treatment-marquee.js";
 
 Alpine.plugin(focus);
 Alpine.data("searchResults", searchResults);
+
+Alpine.data("tiktokViewer", tiktokViewer);
 
 setupTreatmentMarquee();
 

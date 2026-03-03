@@ -1,5 +1,5 @@
 <IfModule mod_headers.c>
-    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://npmariahospital.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; frame-src 'self' https://www.google.com https://maps.google.com https://googleusercontent.com;"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline' https://npmariahospital.com https://static.cloudflareinsights.com https://www.tiktok.com https://*.ttwstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.ttwstatic.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; frame-src 'self' https://www.google.com https://maps.google.com https://googleusercontent.com https://www.tiktok.com;"
 </IfModule>
 
 Options -MultiViews
