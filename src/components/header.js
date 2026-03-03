@@ -174,6 +174,7 @@ const HEADER_TEMPLATE = `
               </ul>
             </li>
 
+            <li><a href="/shorts" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Shorts</a></li>
             <li><a href="/faqs" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">FAQs</a></li>
             <li><a href="/care-journeys" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Care Journeys</a></li>
             <li><a href="/contact-us" class="text-dark-navy hover:bg-soft-blue focus-visible:ring-info block rounded-md px-3 py-2 focus-visible:ring-2 focus-visible:outline-none">Contact Us</a></li>

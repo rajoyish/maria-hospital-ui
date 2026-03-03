@@ -1,4 +1,3 @@
-// src/components/tiktok-viewer.js
 export function tiktokViewer() {
   const THROTTLE_MS = 600;
   const SWIPE_THRESHOLD = 50;
@@ -8,6 +7,7 @@ export function tiktokViewer() {
     currentIndex: 0,
     touchStartY: 0,
     isLoading: true,
+    videoLoading: false,
     lastActionTime: 0,
 
     async init() {
@@ -80,9 +80,10 @@ export function tiktokViewer() {
       try {
         const url = new URL(node.src);
         url.searchParams.set("autoplay", "1");
+        url.searchParams.set("mute", "0");
         node.src = url.toString();
-      } catch {
-        // Ignore any errors in URL parsing or manipulation
+      } catch  {
+        // Ignore invalid iframe src URLs
       }
     },
 
@@ -92,7 +93,11 @@ export function tiktokViewer() {
           for (const node of mutation.addedNodes) {
             if (node.nodeName === "IFRAME") {
               this.patchIframeSrc(node);
+              node.addEventListener("load", () => {
+                this.videoLoading = false;
+              });
               observer.disconnect();
+              return;
             }
           }
         }
@@ -107,6 +112,7 @@ export function tiktokViewer() {
         return;
       }
 
+      this.videoLoading = true;
       container.innerHTML = "";
       this.patchAutoplay(container);
 

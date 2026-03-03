@@ -31,6 +31,7 @@
 
     <meta name="geo.region" content="NP" />
     <meta name="geo.placename" content="Kathmandu" />
+
     <style>
         #tiktok-container iframe {
             display: block;
@@ -108,12 +109,21 @@
     <div x-data="tiktokViewer" @keydown.window.prevent="handleKeydown($event)" @touchstart="handleTouchStart($event)"
         @touchend="handleTouchEnd($event)"
         class="relative w-full h-dvh bg-white text-gray-900 overflow-hidden flex items-center justify-center">
+
         <div x-show="isLoading" class="absolute inset-0 flex items-center justify-center bg-white z-50">
             <div class="animate-spin rounded-full size-12 border-t-2 border-b-2 border-dark-navy"></div>
         </div>
 
-        <div id="tiktok-container"
-            class="w-full max-w-[320px] sm:max-w-95 h-[80vh] sm:h-[85vh] bg-white rounded-2xl overflow-hidden flex items-center justify-center relative z-10 transition-transform duration-300">
+        <div class="relative w-full max-w-[320px] sm:max-w-95 h-[80vh] sm:h-[85vh]">
+            <div x-show="videoLoading" x-transition.opacity
+                class="absolute inset-0 flex flex-col items-center justify-center bg-white/80 backdrop-blur-sm rounded-2xl z-20 gap-3">
+                <div class="animate-spin rounded-full size-10 border-t-2 border-b-2 border-dark-navy"></div>
+                <p class="text-sm font-medium text-gray-600 tracking-wide">Loading&hellip; Please wait.</p>
+            </div>
+
+            <div id="tiktok-container"
+                class="w-full h-full bg-white rounded-2xl overflow-hidden flex items-center justify-center relative z-10 transition-transform duration-300">
+            </div>
         </div>
 
         <div x-show="!isLoading" class="absolute right-3 sm:right-8 top-1/2 -translate-y-1/2 flex flex-col gap-6 z-40">
@@ -127,7 +137,7 @@
                 </svg>
             </a>
 
-            <button @click="prev()" :disabled="currentIndex === 0"
+            <button @click="prev()" :disabled="currentIndex === 0 || videoLoading"
                 class="flex items-center justify-center size-12 bg-dark-navy text-white rounded-lg transition disabled:opacity-40 disabled:cursor-not-allowed hover:bg-accent-navy disabled:hover:bg-dark-navy"
                 aria-label="Previous Video">
                 <svg class="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -135,7 +145,7 @@
                 </svg>
             </button>
 
-            <button @click="next()" :disabled="currentIndex === videos.length - 1"
+            <button @click="next()" :disabled="currentIndex === videos.length - 1 || videoLoading"
                 class="flex items-center justify-center size-12 bg-dark-navy text-white rounded-lg transition disabled:opacity-40 disabled:cursor-not-allowed hover:bg-accent-navy disabled:hover:bg-dark-navy"
                 aria-label="Next Video">
                 <svg class="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
