@@ -61,7 +61,7 @@ const TEMPLATE = `
                   class="aspect-10/7 w-full object-cover outline -outline-offset-1 outline-black/5 transition duration-300 ease-out group-hover:scale-105" />
                 <div class="absolute inset-0 bg-black/0 transition duration-300 ease-out group-hover:bg-black/5"></div>
               </div>
-              <p class="mt-8 block text-2xl text-center font-medium text-gray-900 transition-colors group-hover:text-accent-navy"
+              <p class="mt-8 block text-2xl text-center font-medium text-accent-navy transition-colors group-hover:text-info"
                 x-text="item.treatment"></p>
             </a>
           </li>
