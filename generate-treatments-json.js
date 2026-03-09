@@ -11,7 +11,8 @@ const CONFIG = {
   scanDir: isDev ? "." : "dist",
   outputDir: isDev ? "public" : "dist",
   outputFile: "treatments-data.json",
-  targetFolder: "/treatments/",
+  treatmentsFolder: "/treatments/",
+  careServicesFolder: "/care-services/",
   ignoreDirs: ["node_modules", "dist", "public", ".git", ".vscode", ".idea"],
 };
 
@@ -227,6 +228,66 @@ const extractPageData = (filePath, route) => {
   return data;
 };
 
+
+const cleanCareServiceName = (name) => {
+  const cleanedName = name
+    .replace(/\s*Services in Nepal/gi, "")
+    .replace(/\s*in Nepal/gi, "")
+    .replace(/\s+(Services in|in)$/gi, "")
+    .trim();
+  
+  return cleanedName || name;
+};
+
+const extractRouteInfo = (file) => {
+  let route = toUrl(file);
+
+  if (route.includes(CONFIG.treatmentsFolder)) {
+    const parts = route.split(CONFIG.treatmentsFolder);
+    route = CONFIG.treatmentsFolder + parts[1];
+  }
+
+  const isTreatment =
+    route.startsWith(CONFIG.treatmentsFolder) &&
+    route !== CONFIG.treatmentsFolder &&
+    route !== CONFIG.treatmentsFolder.slice(0, -1);
+
+  const isCareService =
+    route.startsWith(CONFIG.careServicesFolder) &&
+    route !== CONFIG.careServicesFolder &&
+    route !== CONFIG.careServicesFolder.slice(0, -1);
+
+  return { route, isTreatment, isCareService };
+};
+
+const processHtmlFile = (file) => {
+  const { route, isTreatment, isCareService } = extractRouteInfo(file);
+
+  if (!(isTreatment || isCareService)) {
+    return null;
+  }
+
+  const absoluteFilePath = path.join(SCAN_DIR, file);
+  const pageData = extractPageData(absoluteFilePath, route);
+
+  let treatmentName = pageData.title;
+
+  if (isCareService) {
+    treatmentName = cleanCareServiceName(treatmentName);
+  }
+
+  return {
+    title: treatmentName,
+    type: isTreatment ? "treatment" : "care-service",
+    url: `${CONFIG.baseUrl}${route}`,
+    description: pageData.description,
+    keywords: pageData.keywords,
+    ogImage: pageData.ogImage,
+    care_services: pageData.care_services,
+  };
+};
+
+
 const generateJson = () => {
   if (!fs.existsSync(OUTPUT_DIR)) {
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
@@ -238,35 +299,9 @@ const generateJson = () => {
     throw new Error("No HTML files found in dist. Run build first.");
   }
 
-  const treatments = [];
-
-  for (const file of files) {
-    let route = toUrl(file);
-
-    if (route.includes(CONFIG.targetFolder)) {
-      const parts = route.split(CONFIG.targetFolder);
-      route = CONFIG.targetFolder + parts[1];
-    }
-
-    const isTargetFolder =
-      route.startsWith(CONFIG.targetFolder) &&
-      route !== CONFIG.targetFolder &&
-      route !== CONFIG.targetFolder.slice(0, -1);
-
-    if (isTargetFolder) {
-      const absoluteFilePath = path.join(SCAN_DIR, file);
-      const pageData = extractPageData(absoluteFilePath, route);
-
-      treatments.push({
-        treatment: pageData.title,
-        url: `${CONFIG.baseUrl}${route}`,
-        description: pageData.description,
-        keywords: pageData.keywords,
-        ogImage: pageData.ogImage,
-        care_services: pageData.care_services,
-      });
-    }
-  }
+  const treatments = files
+    .map(processHtmlFile)
+    .filter((item) => item !== null);
 
   return JSON.stringify(treatments, null, 2);
 };

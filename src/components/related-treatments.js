@@ -57,12 +57,12 @@ const TEMPLATE = `
             <a :href="item.url"
               class="group relative flex w-full flex-col overflow-hidden rounded-2xl active:opacity-75 cursor-pointer">
               <div class="relative aspect-10/7 w-full overflow-hidden rounded-lg">
-                <img :src="item.ogImage" :alt="item.treatment"
+                <img :src="item.ogImage" :alt="item.title"
                   class="aspect-10/7 w-full object-cover outline -outline-offset-1 outline-black/5 transition duration-300 ease-out group-hover:scale-105" />
                 <div class="absolute inset-0 bg-black/0 transition duration-300 ease-out group-hover:bg-black/5"></div>
               </div>
               <p class="mt-8 block text-2xl text-center font-medium text-accent-navy transition-colors group-hover:text-info"
-                x-text="item.treatment"></p>
+                x-text="item.title"></p>
             </a>
           </li>
         </template>
@@ -106,31 +106,6 @@ export class RelatedTreatmentsElement extends HTMLElement {
 customElements.define("related-treatments", RelatedTreatmentsElement);
 
 document.addEventListener("alpine:init", () => {
-  window.Alpine.store("treatmentsData", {
-    items: [],
-    isLoaded: false,
-    isLoading: false,
-
-    async fetch() {
-      if (this.isLoaded || this.isLoading) {
-        return;
-      }
-
-      this.isLoading = true;
-      try {
-        // biome-ignore lint/correctness/noUndeclaredVariables: Injected globally by Vite
-        const version = typeof __BUILD_TIMESTAMP__ !== "undefined" ? __BUILD_TIMESTAMP__ : Date.now();
-        const response = await fetch(`/treatments-data.json?v=${version}`);
-        this.items = await response.json();
-        this.isLoaded = true;
-      } catch (error) {
-        console.error("Failed to load treatments:", error);
-      } finally {
-        this.isLoading = false;
-      }
-    },
-  });
-
   window.Alpine.data("relatedTreatments", () => ({
     treatments: [],
     isAnimating: false,
@@ -194,7 +169,7 @@ document.addEventListener("alpine:init", () => {
 
       const filteredTreatments = allTreatments.filter((item) => {
         const itemPath = new URL(item.url, window.location.origin).pathname.replace(TRAILING_SLASH_REGEX, "");
-        return item.care_services === serviceName && itemPath !== currentPath;
+        return item.type === "treatment" && item.care_services === serviceName && itemPath !== currentPath;
       });
 
       const randomizedTreatments = shuffleArray(filteredTreatments);

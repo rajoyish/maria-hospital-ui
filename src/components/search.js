@@ -178,7 +178,7 @@ export function searchResults() {
       const regex = new RegExp(`\\b${escapedQuery}`, "i");
 
       this.results = data.filter((item) => {
-        const matchTreatment = regex.test(item.treatment);
+        const matchTitle = regex.test(item.title);
         const matchDescription = regex.test(item.description);
 
         let matchKeywords = false;
@@ -191,7 +191,7 @@ export function searchResults() {
           : false;
 
         return (
-          matchTreatment ||
+          matchTitle ||
           matchDescription ||
           matchKeywords ||
           matchCareServices

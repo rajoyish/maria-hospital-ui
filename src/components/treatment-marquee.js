@@ -11,9 +11,16 @@ export default function setupTreatmentMarquee() {
           const isDev = import.meta.env.DEV;
 
           await Alpine.store("treatmentsData").fetch();
-          const freshData = Alpine.store("treatmentsData").items;
+          const allData = Alpine.store("treatmentsData").items;
 
-          if (!freshData || freshData.length === 0) {
+          if (!allData || allData.length === 0) {
+            return;
+          }
+
+          // Filter for treatments only
+          const freshData = allData.filter((item) => item.type === "treatment");
+
+          if (freshData.length === 0) {
             return;
           }
 

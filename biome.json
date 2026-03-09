@@ -1,11 +1,14 @@
 {
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": ["ultracite/core"],
   "css": {
     "parser": {
       "tailwindDirectives": true
     }
   },
-  "extends": ["ultracite/core"],
-  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "javascript": {
+    "globals": ["__BUILD_TIMESTAMP__"]
+  },
   "formatter": {
     "includes": ["!**/*.html"]
   }

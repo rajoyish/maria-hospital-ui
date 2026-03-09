@@ -12,7 +12,6 @@ document.addEventListener('alpine:init', () => {
       
       this.isLoading = true;
       try {
-        // biome-ignore lint/correctness/noUndeclaredVariables: Injected globally by Vite
         const version = typeof __BUILD_TIMESTAMP__ !== "undefined" ? __BUILD_TIMESTAMP__ : Date.now();
         const response = await fetch(`/treatments-data.json?v=${version}`);
         this.items = await response.json();
