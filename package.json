@@ -6,8 +6,8 @@
   "author": "Rajesh Budhathoki",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --mode production && node generate-sitemap-scan.js production && node generate-treatments-json.js production",
-    "build:staging": "vite build --mode staging && node generate-sitemap-scan.js staging && node generate-treatments-json.js staging",
+  "build": "node generate-videos.js && vite build --mode production && node generate-sitemap-scan.js production && node generate-treatments-json.js production",
+    "build:staging": "node generate-videos.js && vite build --mode staging && node generate-sitemap-scan.js staging && node generate-treatments-json.js staging",
     "preview": "vite preview",
     "lint": "biome check .",
     "lint:fix": "biome check --write ."

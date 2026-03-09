@@ -9,10 +9,15 @@ export function tiktokViewer() {
     isLoading: true,
     videoLoading: false,
     lastActionTime: 0,
+    interacted: false,
 
     async init() {
       try {
-        const response = await fetch("/videos.json");
+        const version =
+          typeof __BUILD_TIMESTAMP__ !== "undefined"
+            ? __BUILD_TIMESTAMP__
+            : Date.now();
+        const response = await fetch(`/videos.json?v=${version}`);
         if (!response.ok) {
           throw new Error("Failed to load videos");
         }
@@ -23,9 +28,13 @@ export function tiktokViewer() {
         }
         this.$watch("currentIndex", () => this.renderVideo());
       } catch (error) {
-        console.error("Error loading TikTok data:", error);
         this.isLoading = false;
       }
+    },
+
+    startInteraction() {
+      this.interacted = true;
+      this.renderVideo();
     },
 
     throttled(fn) {
@@ -79,12 +88,14 @@ export function tiktokViewer() {
     patchIframeSrc(node) {
       try {
         const url = new URL(node.src);
-        url.searchParams.set("autoplay", "1");
-        url.searchParams.set("mute", "0");
+        if (this.interacted) {
+          url.searchParams.set("autoplay", "1");
+          url.searchParams.set("mute", "0");
+        } else {
+          url.searchParams.set("autoplay", "0");
+        }
         node.src = url.toString();
-      } catch  {
-        // Ignore invalid iframe src URLs
-      }
+      } catch {}
     },
 
     patchAutoplay(container) {
@@ -133,7 +144,7 @@ export function tiktokViewer() {
           typeof window.tiktokEmbed.render === "function"
         ) {
           window.tiktokEmbed.render(
-            document.querySelectorAll(".tiktok-embed"),
+            document.querySelectorAll(".tiktok-embed")
           );
         } else {
           const script = document.createElement("script");
