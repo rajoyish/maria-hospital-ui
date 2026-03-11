@@ -164,7 +164,7 @@ const generateTreatmentsPlugin = () => {
     apply: "serve" as const,
     buildStart() {
       exec(
-        "node generate-treatments-json.js development",
+        "node scripts/generate-treatments-json.js development",
         (err, _stdout, stderr) => {
           if (err) {
             console.error("❌ JSON Gen Error:", stderr);
@@ -176,7 +176,7 @@ const generateTreatmentsPlugin = () => {
     },
     handleHotUpdate({ file }: { file: string }) {
       if (file.endsWith(".html") && file.includes("treatments")) {
-        exec("node generate-treatments-json.js development", () => {
+        exec("node scripts/generate-treatments-json.js development", () => {
           console.log("🔄 Treatments JSON refreshed");
         });
       }

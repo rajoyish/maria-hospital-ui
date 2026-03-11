@@ -26,7 +26,7 @@ const CONFIG = {
 };
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const BUILD_DIR = path.resolve(__dirname, CONFIG.outputDir);
+const BUILD_DIR = path.resolve(__dirname, "..", CONFIG.outputDir);
 const OUTPUT_PATH = path.join(BUILD_DIR, CONFIG.outputFile);
 
 const getHtmlFiles = (dir, fileList = []) => {

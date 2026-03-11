@@ -6,9 +6,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 try {
-  const txtPath = resolve(__dirname, "videos.txt");
-  const jsonPath = resolve(__dirname, "public", "videos.json");
-  const publicDir = resolve(__dirname, "public");
+const txtPath = resolve(__dirname, "..", "videos.txt");
+  const jsonPath = resolve(__dirname, "..", "public", "videos.json");
+  const publicDir = resolve(__dirname, "..", "public");
 
   if (!existsSync(publicDir)) {
     mkdirSync(publicDir, { recursive: true });
