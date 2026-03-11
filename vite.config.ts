@@ -95,7 +95,6 @@ function moveCategoryFiles(
     const srcFile = join(srcDir, file);
     const destFile = join(targetTreatmentsDir, file);
     renameSync(srcFile, destFile);
-    console.log(`✨ Organized: ${file} moved to /treatments/`);
   }
 
   try {
@@ -165,20 +164,27 @@ const generateTreatmentsPlugin = () => {
     buildStart() {
       exec(
         "node scripts/generate-treatments-json.js development",
-        (err, _stdout, stderr) => {
-          if (err) {
-            console.error("❌ JSON Gen Error:", stderr);
-          } else {
-            console.log("✅ Treatments JSON updated for Dev");
-          }
-        }
+        () => {}
       );
     },
     handleHotUpdate({ file }: { file: string }) {
       if (file.endsWith(".html") && file.includes("treatments")) {
-        exec("node scripts/generate-treatments-json.js development", () => {
-          console.log("🔄 Treatments JSON refreshed");
-        });
+        exec("node scripts/generate-treatments-json.js development");
+      }
+    },
+  };
+};
+
+const generateVideosPlugin = () => {
+  return {
+    name: "generate-videos-dev",
+    apply: "serve" as const,
+    buildStart() {
+      exec("node scripts/generate-videos.js", () => {});
+    },
+    handleHotUpdate({ file }: { file: string }) {
+      if (file.endsWith("videos.txt")) {
+        exec("node scripts/generate-videos.js");
       }
     },
   };
@@ -197,6 +203,7 @@ export default defineConfig(({ mode }) => {
     plugins: [
       tailwindcss(),
       generateTreatmentsPlugin(),
+      generateVideosPlugin(),
       structuralRewritePlugin(),
       {
         name: "html-transform",

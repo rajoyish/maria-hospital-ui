@@ -114,21 +114,8 @@
             <div class="animate-spin rounded-full size-12 border-t-2 border-b-2 border-dark-navy"></div>
         </div>
 
-        <div x-show="!isLoading && !interacted"
-            class="absolute inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-            <button @click="startInteraction()"
-                class="flex flex-col items-center gap-4 text-white hover:scale-105 transition-transform">
-                <div class="flex items-center justify-center size-20 bg-dark-navy rounded-full shadow-lg">
-                    <svg class="size-10 translate-x-0.5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z"></path>
-                    </svg>
-                </div>
-                <span class="text-xl font-bold tracking-wide">Tap to Play Shorts</span>
-            </button>
-        </div>
-
         <div class="relative w-full max-w-[320px] sm:max-w-95 h-[80vh] sm:h-[85vh]">
-            <div x-show="videoLoading && interacted" x-transition.opacity
+            <div x-show="videoLoading" x-transition.opacity
                 class="absolute inset-0 flex flex-col items-center justify-center bg-white/80 backdrop-blur-sm rounded-2xl z-20 gap-3">
                 <div class="animate-spin rounded-full size-10 border-t-2 border-b-2 border-dark-navy"></div>
                 <p class="text-sm font-medium text-gray-600 tracking-wide">Loading&hellip;</p>
@@ -150,7 +137,7 @@
                 </svg>
             </a>
 
-            <button @click="prev()" :disabled="currentIndex === 0 || videoLoading || !interacted"
+            <button @click="prev()" :disabled="currentIndex === 0 || videoLoading"
                 class="flex items-center justify-center size-12 bg-dark-navy text-white rounded-lg transition disabled:opacity-40 disabled:cursor-not-allowed hover:bg-accent-navy disabled:hover:bg-dark-navy"
                 aria-label="Previous Video">
                 <svg class="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -158,18 +145,13 @@
                 </svg>
             </button>
 
-            <button @click="next()" :disabled="currentIndex === videos.length - 1 || videoLoading || !interacted"
+            <button @click="next()" :disabled="currentIndex === videos.length - 1 || videoLoading"
                 class="flex items-center justify-center size-12 bg-dark-navy text-white rounded-lg transition disabled:opacity-40 disabled:cursor-not-allowed hover:bg-accent-navy disabled:hover:bg-dark-navy"
                 aria-label="Next Video">
                 <svg class="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
                 </svg>
             </button>
-        </div>
-
-        <div x-show="!isLoading"
-            class="absolute left-6 bottom-6 text-sm font-mono opacity-80 z-40 bg-white px-3 py-1 rounded-full shadow-sm border border-gray-200">
-            <span x-text="currentIndex + 1"></span> / <span x-text="videos.length"></span>
         </div>
     </div>
 

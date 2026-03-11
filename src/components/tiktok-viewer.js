@@ -9,7 +9,7 @@ export function tiktokViewer() {
     isLoading: true,
     videoLoading: false,
     lastActionTime: 0,
-    interacted: false,
+    observer: null,
 
     async init() {
       try {
@@ -18,23 +18,29 @@ export function tiktokViewer() {
             ? __BUILD_TIMESTAMP__
             : Date.now();
         const response = await fetch(`/videos.json?v=${version}`);
+        
         if (!response.ok) {
           throw new Error("Failed to load videos");
         }
-        this.videos = await response.json();
+        
+        let data = await response.json();
+
+        for (let i = data.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [data[i], data[j]] = [data[j], data[i]];
+        }
+
+        this.videos = data;
         this.isLoading = false;
+
         if (this.videos.length > 0) {
           this.renderVideo();
         }
+
         this.$watch("currentIndex", () => this.renderVideo());
       } catch (error) {
         this.isLoading = false;
       }
-    },
-
-    startInteraction() {
-      this.interacted = true;
-      this.renderVideo();
     },
 
     throttled(fn) {
@@ -88,39 +94,44 @@ export function tiktokViewer() {
     patchIframeSrc(node) {
       try {
         const url = new URL(node.src);
-        if (this.interacted) {
-          url.searchParams.set("autoplay", "1");
-          url.searchParams.set("mute", "0");
-        } else {
-          url.searchParams.set("autoplay", "0");
-        }
+        url.searchParams.set("autoplay", "1");
         node.src = url.toString();
       } catch {}
     },
 
     patchAutoplay(container) {
-      const observer = new MutationObserver((mutations) => {
+      if (this.observer) {
+        this.observer.disconnect();
+      }
+
+      this.observer = new MutationObserver((mutations) => {
         for (const mutation of mutations) {
           for (const node of mutation.addedNodes) {
             if (node.nodeName === "IFRAME") {
               this.patchIframeSrc(node);
               node.addEventListener("load", () => {
                 this.videoLoading = false;
-              });
-              observer.disconnect();
+              }, { once: true });
+              this.observer.disconnect();
               return;
             }
           }
         }
       });
-      observer.observe(container, { childList: true, subtree: true });
+      
+      this.observer.observe(container, { childList: true, subtree: true });
     },
 
     renderVideo() {
       const container = document.getElementById("tiktok-container");
       const video = this.videos[this.currentIndex];
+      
       if (!(container && video)) {
         return;
+      }
+
+      if (this.observer) {
+        this.observer.disconnect();
       }
 
       this.videoLoading = true;
@@ -154,5 +165,11 @@ export function tiktokViewer() {
         }
       });
     },
+
+    destroy() {
+      if (this.observer) {
+        this.observer.disconnect();
+      }
+    }
   };
 }
