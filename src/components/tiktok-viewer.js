@@ -23,7 +23,7 @@ export function tiktokViewer() {
           throw new Error("Failed to load videos");
         }
         
-        let data = await response.json();
+        const data = await response.json();
 
         for (let i = data.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
@@ -38,7 +38,7 @@ export function tiktokViewer() {
         }
 
         this.$watch("currentIndex", () => this.renderVideo());
-      } catch (error) {
+      } catch {
         this.isLoading = false;
       }
     },
@@ -96,7 +96,10 @@ export function tiktokViewer() {
         const url = new URL(node.src);
         url.searchParams.set("autoplay", "1");
         node.src = url.toString();
-      } catch {}
+        node.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share");
+      } catch {
+        return;
+      }
     },
 
     patchAutoplay(container) {
@@ -129,6 +132,8 @@ export function tiktokViewer() {
       if (!(container && video)) {
         return;
       }
+
+      console.log(`Now Playing - ID: ${video.id} | Author: ${video.author}`);
 
       if (this.observer) {
         this.observer.disconnect();

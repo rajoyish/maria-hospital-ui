@@ -1,9 +1,11 @@
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
-import { resolve, dirname } from "node:path";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+const VIDEO_URL_REGEX = /@([^/]+)\/video\/(\d+)/;
 
 try {
   const txtPath = resolve(__dirname, "..", "videos.txt");
@@ -25,12 +27,12 @@ try {
 
   const videos = urls
     .map((url) => {
-      const match = url.match(/@([^/]+)\/video\/(\d+)/);
+      const match = url.match(VIDEO_URL_REGEX);
       return match ? { id: match[2], author: `@${match[1]}` } : null;
     })
     .filter(Boolean);
 
   writeFileSync(jsonPath, JSON.stringify(videos, null, 2));
-} catch (error) {
+} catch {
   process.exit(1);
 }
