@@ -24,6 +24,7 @@ const CATEGORY_FOLDERS = [
   "ent",
   "anorectal-and-piles",
   "gynecology",
+  "acupuncture-therapy",
 ];
 const CARE_SERVICES_DIR = resolve(__dirname, "care-services");
 
