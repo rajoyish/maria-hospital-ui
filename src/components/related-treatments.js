@@ -41,13 +41,13 @@ function shuffleArray(array) {
   return shuffled;
 }
 
-const TEMPLATE = `
+const getTemplate = (prefix, highlight) => `
   <div x-data="relatedTreatments" x-show="treatments.length > 0" style="display: none;"
     class="bg-soft-blue px-8 py-16 pb-30 md:p-28 overflow-hidden" @mouseenter="isHovering = true; stopAutoplay()"
     @mouseleave="isHovering = false; startAutoplay()">
 
     <h2 class="text-accent-navy mb-16 text-4xl font-bold tracking-tight text-center">
-      Related <span class="text-info">Treatments</span>
+      ${prefix} ${highlight ? `<span class="text-info">${highlight}</span>` : ''}
     </h2>
 
     <div class="relative max-w-7xl mx-auto">
@@ -99,7 +99,10 @@ const TEMPLATE = `
 export class RelatedTreatmentsElement extends HTMLElement {
   connectedCallback() {
     if (!this.innerHTML.trim()) {
-      this.innerHTML = TEMPLATE;
+      const prefix = this.getAttribute("data-prefix") || "Related";
+      const highlight = this.getAttribute("data-highlight") || "Treatments";
+      
+      this.innerHTML = getTemplate(prefix, highlight);
     }
   }
 }
