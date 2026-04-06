@@ -21,8 +21,6 @@ const OUTPUT_DIR = path.resolve(process.cwd(), CONFIG.outputDir);
 const OUTPUT_PATH = path.join(OUTPUT_DIR, CONFIG.outputFile);
 
 const HTML_EXT_REGEX = /\.html$/;
-const TREATMENT_SUFFIX_REGEX = /\s+Treatment.*$/i;
-const NEPAL_SUFFIX_REGEX = /\s+Nepal$/i;
 const TITLE_TAG_REGEX = /<title[^>]*>([\s\S]*?)<\/title>/i;
 const WHITESPACE_REGEX = /\s+/g;
 const CONTENT_ATTR_REGEX = /content=(["'])([\s\S]*?)\1|content=([^\s>]+)/i;
@@ -35,7 +33,25 @@ const FALLBACK_PATTERNS = [
   /"position"\s*:\s*["']?2["']?[\s\S]{1,100}?"name"\s*:\s*"([^"]+)"/i,
 ];
 
+const TITLE_STRIP_PATTERNS = [
+  /\s+Treatment.*$/i,
+  /\s+Nepal$/i,
+  /\s*in Nepal/gi
+];
+
+const CARE_SERVICE_STRIP_PATTERNS = [
+  /\s*Services in Nepal/gi,
+  /\s*in Nepal/gi,
+  /\s+(Services in|in)$/gi
+];
+
 const normalizePath = (p) => p.split(path.sep).join("/");
+
+const cleanString = (str, patterns) => {
+  return patterns
+    .reduce((acc, pattern) => acc.replace(pattern, ""), str)
+    .trim();
+};
 
 const getHtmlFiles = (dir, fileList = []) => {
   if (!fs.existsSync(dir)) {
@@ -76,13 +92,8 @@ const toUrl = (relativePath) => {
 };
 
 const cleanTitle = (rawTitle) => {
-  let title = rawTitle;
-  if (title.includes("|")) {
-    title = title.split("|")[0];
-  }
-  title = title.replace(TREATMENT_SUFFIX_REGEX, "");
-  title = title.replace(NEPAL_SUFFIX_REGEX, "");
-  return title.trim();
+  const title = rawTitle.includes("|") ? rawTitle.split("|")[0] : rawTitle;
+  return cleanString(title, TITLE_STRIP_PATTERNS);
 };
 
 const formatSlugToTitle = (slug) => {
@@ -145,7 +156,7 @@ const extractServiceFromLdJson = (html) => {
     try {
       jsonData = JSON.parse(match[1]);
     } catch {
-      // Ignore parsing errors for invalid JSON blocks
+      jsonData = null;
     }
 
     if (jsonData) {
@@ -228,14 +239,8 @@ const extractPageData = (filePath, route) => {
   return data;
 };
 
-
 const cleanCareServiceName = (name) => {
-  const cleanedName = name
-    .replace(/\s*Services in Nepal/gi, "")
-    .replace(/\s*in Nepal/gi, "")
-    .replace(/\s+(Services in|in)$/gi, "")
-    .trim();
-  
+  const cleanedName = cleanString(name, CARE_SERVICE_STRIP_PATTERNS);
   return cleanedName || name;
 };
 
@@ -286,7 +291,6 @@ const processHtmlFile = (file) => {
     care_services: pageData.care_services,
   };
 };
-
 
 const generateJson = () => {
   if (!fs.existsSync(OUTPUT_DIR)) {
