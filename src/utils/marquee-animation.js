@@ -195,6 +195,9 @@ export function startMarquee() {
 function horizontalLoop(items, config) {
   const elements = gsap.utils.toArray(items);
   const settings = config ?? {};
+  
+  settings.snap = settings.snap ?? false;
+
   const timeline = gsap.timeline({
     repeat: settings.repeat,
     paused: settings.paused,
@@ -213,9 +216,7 @@ function horizontalLoop(items, config) {
 
   const snap =
     settings.snap === false
-      ? (v) => {
-          return v;
-        }
+      ? (v) => v
       : gsap.utils.snap(settings.snap ?? 1);
 
   gsap.set(elements, {
@@ -224,7 +225,8 @@ function horizontalLoop(items, config) {
       widths[i] = w;
       const xProp = Number.parseFloat(gsap.getProperty(el, "x", "px"));
       const xPercentProp = gsap.getProperty(el, "xPercent");
-      const val = snap((xProp / w) * 100 + xPercentProp);
+      
+      const val = (xProp / w) * 100 + xPercentProp;
       xPercents[i] = val;
       return val;
     },
