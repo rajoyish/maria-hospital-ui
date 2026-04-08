@@ -10,11 +10,18 @@ const FOOTER_TEMPLATE = `
          
           <p class="max-w-sm text-info italic">International Quality You Can Trust</p>
           <div class="space-y-4">
-            <div class="flex items-start gap-3">
+            <div class="flex items-center gap-3">
               <svg class="text-info size-6 shrink-0 font-bold" aria-hidden="true">
                 <use href="#icon-location" />
               </svg>
               <p class="text-gray-200">Gairidhara Road, Baluwatar, Kathmandu</p>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <svg class="text-info size-6 shrink-0 font-bold" aria-hidden="true">
+                <use href="#icon-mail"></use>
+              </svg>
+              <a href="mailto:mail@npmariahospital.com" class="text-gray-200 hover:text-info transition-colors">mail@npmariahospital.com</a>
             </div>
 
             <div class="flex items-center gap-3">
