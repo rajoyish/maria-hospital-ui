@@ -1,0 +1,14 @@
+@import "glightbox/dist/css/glightbox.min.css";
+
+.glightbox {
+  cursor: pointer;
+  display: block;
+}
+
+.glightbox img {
+  transition: filter 0.3s ease-in-out;
+}
+
+.glightbox:hover img {
+  filter: brightness(0.9);
+}

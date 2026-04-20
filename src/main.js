@@ -3,6 +3,7 @@ import Alpine from "alpinejs";
 import "./components/app-footer.js";
 import "./components/header.js";
 import "./components/icon-sprite.js";
+import { initLightBox } from "./components/LightBox/LightBox.js";
 import "./components/related-care-services.js";
 import "./components/related-treatments.js";
 import "./components/scroll-to-top.js";
@@ -51,6 +52,8 @@ window.Alpine = Alpine;
 Alpine.start();
 
 document.addEventListener("DOMContentLoaded", () => {
+  const lightbox = initLightBox();
+
   const homeSlider = initHomeSlider({
     containerSelector: ".embla",
     autoplayDelay: 6000,
@@ -65,6 +68,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   window.addEventListener("beforeunload", () => {
+    if (lightbox) {
+      lightbox.destroy();
+    }
     if (homeSlider) {
       homeSlider.destroy();
     }
