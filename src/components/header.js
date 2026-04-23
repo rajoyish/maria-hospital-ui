@@ -67,7 +67,11 @@ const HEADER_TEMPLATE = `
                   Home </a>
               </li>
 
-              <li class="relative">
+              <li class="relative" 
+                  @mouseenter="servicesOpen = true" 
+                  @mouseleave="servicesOpen = false" 
+                  @focusin="servicesOpen = true" 
+                  @focusout="!$el.contains($event.relatedTarget) && (servicesOpen = false)">
                 <button type="button"
                   class="text-dark-navy hover:text-accent-navy focus-visible:ring-info inline-flex cursor-pointer items-center gap-2 rounded px-1 py-1 focus-visible:ring-2 focus-visible:outline-none"
                   @click.stop="servicesOpen = !servicesOpen" :aria-expanded="servicesOpen" aria-haspopup="menu"
