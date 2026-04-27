@@ -1,172 +1,167 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- FAVICONS & WEB MANIFEST -->
-  <link rel="icon" href="%VITE_SITE_URL%/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" href="%VITE_SITE_URL%/favicon-96x96.png" sizes="96x96">
-  <link rel="apple-touch-icon" href="%VITE_SITE_URL%/apple-touch-icon.png">
-  <link rel="manifest" href="%VITE_SITE_URL%/site.webmanifest">
-  <!-- END FAVICONS & WEB MANIFEST -->
+  <link rel="icon" href="%VITE_SITE_URL%/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" href="%VITE_SITE_URL%/favicon-96x96.png" sizes="96x96" />
+  <link rel="apple-touch-icon" href="%VITE_SITE_URL%/apple-touch-icon.png" />
+  <link rel="manifest" href="%VITE_SITE_URL%/site.webmanifest" />
 
   <title>Maria Hospital | Urology, Piles, STDs, ENT, TCM & Gynecology</title>
-  <meta name="msapplication-config" content="%VITE_SITE_URL%/browserconfig.xml">
+  <meta name="msapplication-config" content="%VITE_SITE_URL%/browserconfig.xml" />
   <meta name="description"
-    content="International-quality care for Urology, STDs, Anorectal, Piles, ENT, TCM, Acupuncture & Gynecology in Kathmandu">
+    content="International-quality care for Urology, STDs, Anorectal, Piles, ENT, TCM, Acupuncture & Gynecology in Kathmandu" />
   <meta name="keywords"
-    content="Maria Hospital Nepal, Best hospital in Kathmandu for Piles, STD treatment Kathmandu, Urology clinic Nepal, ENT specialist Kathmandu, Laser piles surgery Nepal, Gynecologist Kathmandu, Confidential STD checkup, Anorectal surgery Kathmandu">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="%VITE_SITE_URL%/">
-  <meta name="theme-color" content="#002B53">
+    content="Maria Hospital Nepal, Best hospital in Kathmandu for Piles, STD treatment Kathmandu, Urology clinic Nepal, ENT specialist Kathmandu, Laser piles surgery Nepal, Gynecologist Kathmandu, Confidential STD checkup, Anorectal surgery Kathmandu" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="%VITE_SITE_URL%/" />
+  <meta name="theme-color" content="#002B53" />
 
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="%VITE_SITE_URL%/">
-  <meta property="og:title" content="Maria Hospital Kathmandu | Specialized Urology, Piles & ENT Care">
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="%VITE_SITE_URL%/" />
+  <meta property="og:title" content="Maria Hospital Kathmandu: Urology, Piles & STD Care" />
   <meta property="og:description"
-    content="Specialized medical care for Piles, Urology, STDs, and ENT in Kathmandu. Modern technology, total privacy, and fast recovery at affordable rates.">
-  <meta property="og:image" content="%VITE_SITE_URL%/images/social/maria-hospital.png">
-  <meta property="og:site_name" content="Maria Hospital">
+    content="Maria Hospital in Kathmandu provides expert, confidential care for urology, piles, STDs, ENT, and gynecology with advanced minimally invasive technology." />
+  <meta property="og:image" content="%VITE_SITE_URL%/images/social/maria-hospital.png" />
+  <meta property="og:site_name" content="Maria Hospital" />
 
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="%VITE_SITE_URL%/">
-  <meta name="twitter:title" content="Maria Hospital Kathmandu | Expert Urology, Piles & STD Care">
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="%VITE_SITE_URL%/" />
+  <meta name="twitter:title" content="Maria Hospital Kathmandu: Urology, Piles & STD Care" />
   <meta name="twitter:description"
-    content="Expert diagnosis and treatment for Urology, STDs, Piles, and ENT in Gairidhara, Kathmandu. Quality healthcare you can trust.">
-  <meta name="twitter:image" content="%VITE_SITE_URL%/images/social/maria-hospital.png">
+    content="Maria Hospital in Kathmandu provides expert, confidential care for urology, piles, STDs, ENT, and gynecology with advanced minimally invasive technology." />
+  <meta name="twitter:image" content="%VITE_SITE_URL%/images/social/maria-hospital.png" />
 
-  <meta name="geo.region" content="NP">
-  <meta name="geo.placename" content="Kathmandu">
+  <meta name="geo.region" content="NP" />
+  <meta name="geo.placename" content="Kathmandu" />
 
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
       {
-        "@type": "MedicalWebPage",
-        "@id": "%VITE_SITE_URL%/#webpage",
-        "name": "Maria Hospital Kathmandu - Specialized Healthcare Services",
-        "description": "Maria Hospital provides specialized medical services in Urology, Anorectal (Piles/Fissures), ENT, Gynecology, and Acupuncture in Kathmandu, Nepal.",
-        "url": "%VITE_SITE_URL%/",
-        "primaryImageOfPage": {
-          "@type": "ImageObject",
-          "url": "%VITE_SITE_URL%/images/sliders/Urology-STDs.avif"
-        },
-        "specialty": [
-          { "@type": "MedicalSpecialty", "name": "Urology" },
-          { "@type": "MedicalSpecialty", "name": "Otolaryngology" },
-          { "@type": "MedicalSpecialty", "name": "Gynecology" },
-          { "@type": "MedicalSpecialty", "name": "Proctology" }
-        ],
-        "provider": {
-          "@type": "Hospital",
-          "name": "Maria Hospital",
-          "alternateName": "Maria Hospital Nepal",
-          "url": "%VITE_SITE_URL%",
-          "logo": "%VITE_SITE_URL%/images/maria-hospital-logo.svg",
-          "telephone": "+977-9851433833",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "Gairidhara Road, Baluwatar",
-            "addressLocality": "Kathmandu",
-            "addressRegion": "Bagmati",
-            "postalCode": "44600",
-            "addressCountry": "NP"
-          },
-          "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": 27.7191,
-            "longitude": 85.3262
-          }
-        }
-      },
-      {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
+        "@context": "https://schema.org",
+        "@graph": [
           {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "%VITE_SITE_URL%"
+            "@type": "MedicalWebPage",
+            "@id": "%VITE_SITE_URL%/#webpage",
+            "name": "Maria Hospital Kathmandu - Specialized Healthcare Services",
+            "description": "Maria Hospital provides specialized medical services in Urology, Anorectal (Piles/Fissures), ENT, Gynecology, and Acupuncture in Kathmandu, Nepal.",
+            "url": "%VITE_SITE_URL%/",
+            "primaryImageOfPage": {
+              "@type": "ImageObject",
+              "url": "%VITE_SITE_URL%/images/sliders/Urology-STDs.avif"
+            },
+            "specialty": [
+              { "@type": "MedicalSpecialty", "name": "Urology" },
+              { "@type": "MedicalSpecialty", "name": "Otolaryngology" },
+              { "@type": "MedicalSpecialty", "name": "Gynecology" },
+              { "@type": "MedicalSpecialty", "name": "Proctology" }
+            ]
           },
           {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Specialized Care Services",
-            "item": "%VITE_SITE_URL%/"
+            "@type": "Hospital",
+            "@id": "%VITE_SITE_URL%/#hospital",
+            "name": "Maria Hospital",
+            "alternateName": "Maria Hospital Nepal",
+            "url": "%VITE_SITE_URL%",
+            "logo": "%VITE_SITE_URL%/images/maria-hospital-logo.svg",
+            "telephone": "+977-9851433833",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Gairidhara Road, Baluwatar",
+              "addressLocality": "Kathmandu",
+              "addressRegion": "Bagmati",
+              "postalCode": "44600",
+              "addressCountry": "NP"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": 27.7191,
+              "longitude": 85.3262
+            }
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What is the OPD charge at Maria Hospital?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "The OPD form fee is NPR 500; after the doctor's assessment, the total treatment cost is decided based on history, examination, and any required lab/imaging tests."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do you treat STDs confidentially?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes, consultations are handled professionally with strict patient privacy protocols. Tests and minimally invasive treatments are advised based on symptoms and individual risk history."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Does Maria Hospital cure infertility?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Our Gynecology and Urology departments support infertility concerns like low sperm count and irregular menstruation. Our board-certified doctors create tailored treatment plans based on detailed lab reports."
+                }
+              }
+            ]
           }
         ]
       }
-    ]
-  }
-  </script>
+    </script>
 </head>
 
-<body class="font-google-sans bg-white-pearl  text-lg antialiased">
-  <!-- SVG ICON SPRITE -->
+<body class="font-google-sans bg-white-pearl text-lg antialiased">
   <icon-sprite></icon-sprite>
-  <!-- END SVG ICON SPRITE -->
-
-  <!-- APP HEADER -->
   <app-header></app-header>
-  <!-- END APP HEADER -->
-
   <main>
-    <!-- HOME SLIDER -->
     <section class="relative w-full overflow-hidden">
-      <!-- Slider Container -->
       <div class="embla">
         <div class="embla__container">
-          <!-- Slide 1 -->
           <div class="embla__slide">
             <img src="./images/sliders/Urology-STDs.avif"
               alt="Doctor explaining urinary system health to male patient using holographic display showing kidneys, bladder, and urinary tract"
-              class="h-auto w-full object-cover">
+              class="h-auto w-full object-cover" />
           </div>
 
-          <!-- Slide 2 -->
           <div class="embla__slide">
             <img src="./images/sliders/ENT.avif"
               alt="Three panels showing ENT specialists examining elderly man's ear, woman's nose, and young man's throat during medical consultation"
-              class="h-auto w-full object-cover">
+              class="h-auto w-full object-cover" />
           </div>
 
-          <!-- Slide 3 -->
           <div class="embla__slide">
             <img src="./images/sliders/Anorectal-Piles.avif"
               alt="Man experiencing pain in modern blue bathroom while woman stands in background, illustrating anorectal or piles pain"
-              class="h-auto w-full object-cover">
+              class="h-auto w-full object-cover" />
           </div>
 
-          <!-- Slide 4 -->
           <div class="embla__slide">
             <img src="./images/sliders/acupuncture.avif"
               alt="Healthcare professional wearing blue medical gloves performing acupuncture treatment, inserting fine needles into patient's skin"
-              class="h-auto w-full object-cover">
+              class="h-auto w-full object-cover" />
           </div>
 
-          <!-- Slide 5 -->
           <div class="embla__slide">
             <img src="./images/sliders/Gynecology.avif"
               alt="Medical professional in blue gloves presenting holographic visualization of female reproductive system with uterus and ovaries highlighted in red"
-              class="h-auto w-full object-cover">
+              class="h-auto w-full object-cover" />
           </div>
 
-          <!-- Slide 6 -->
           <div class="embla__slide">
             <img src="./images/sliders/General-Medicine-Lab.avif"
               alt="Male laboratory technician in white coat examining test tube sample while using microscope and digital tablet in research lab"
-              class="h-auto w-full object-cover">
+              class="h-auto w-full object-cover" />
           </div>
         </div>
       </div>
 
-      <!-- Navigation Controls -->
       <div
         class="pointer-events-none absolute inset-y-0 right-0 left-0 z-10 flex items-center justify-between px-4 md:px-8">
-        <!-- Previous Button -->
         <button
           class="embla__prev text-accent-navy hover:bg-accent-navy border-accent-navy focus:ring-info pointer-events-auto cursor-pointer rounded-full border-2 bg-transparent p-2 transition-all duration-300 hover:scale-110 hover:text-white focus:ring-2 focus:outline-none"
           type="button" aria-label="Previous slide">
@@ -175,7 +170,6 @@
           </svg>
         </button>
 
-        <!-- Next Button -->
         <button
           class="embla__next text-accent-navy hover:bg-accent-navy border-accent-navy focus:ring-info pointer-events-auto cursor-pointer rounded-full border-2 bg-transparent p-2 transition-all duration-300 hover:scale-110 hover:text-white focus:ring-2 focus:outline-none"
           type="button" aria-label="Next slide">
@@ -185,14 +179,11 @@
         </button>
       </div>
 
-      <!-- Dots Navigation -->
       <div class="embla__dots absolute right-0 bottom-6 left-0 z-10 flex justify-center gap-2"></div>
     </section>
-    <!-- HOME SLIDER END -->
 
-    <!-- SCROLLING TREATMENTS -->
     <section
-      class="scrolling-text overflow-hidden bg-soft-blue text-dark-navy md:text-3xl md:px-16 p-8 font-semibold [contain:layout_style_paint]"
+      class="scrolling-text overflow-hidden bg-soft-blue text-dark-navy md:text-3xl md:px-16 p-8 font-semibold contain-[layout_style_paint]"
       x-data="treatmentMarquee" x-cloak>
       <div class="rail flex items-center w-full cursor-grab active:cursor-grabbing select-none touch-pan-y">
         <ul class="flex items-center whitespace-nowrap list-none m-0 p-0 w-max invisible"
@@ -207,20 +198,25 @@
         </ul>
       </div>
     </section>
-    <!-- SCROLLING TREATMENTS -->
 
-    <!-- CARE SERVICES -->
-    <section class="bg-dark-navy text-white-pearl  px-8 py-16 md:p-28">
+    <section class="bg-dark-navy text-white-pearl px-8 py-16 md:p-28">
+      <div class="max-w-5xl mx-auto text-center mb-16 lg:mb-28">
+        <h1 class="mb-8 text-4xl font-bold tracking-tight lg:text-5xl leading-snug">Expert Urology, Piles, STDs, ENT,
+          TCM and Gynecology Care in Kathmandu</h1>
+        <p class="leading-relaxed lg:text-2xl">
+          <span class="text-info font-bold">Maria Hospital</span> is a premier specialized hospital facility in
+          Kathmandu, Nepal. We provide advanced, minimally invasive treatments for urological conditions, anorectal
+          diseases, sexually transmitted diseases (STDs), and ENT disorders. Our board-certified specialists are
+          dedicated to ensuring fast recovery, absolute patient confidentiality, and transparent care.
+        </p>
+      </div>
       <div class="mx-auto max-w-7xl">
         <div class="mx-auto mb-16 gap-14 lg:mb-28 lg:flex">
-          <h2 class="mb-8 text-4xl font-bold tracking-tight lg:text-5xl">
-            <span class="text-info">Care </span>Services
+          <h2 class="mb-8 text-4xl font-bold tracking-tight lg:text-5xl"><span class="text-info">Care </span>Services
           </h2>
           <p class="leading-relaxed lg:text-2xl">
-            Your health is our priority. We provide specialized care tailored
-            to your needs, ranging from General Surgery and Reproductive
-            Health to holistic Pain Management. Explore our departments below
-            to find the right solution for you.
+            We provide specialized, evidence-based care tailored to your specific physiological needs. Explore our
+            comprehensive clinical departments below to find the right, long-lasting health solution for you.
           </p>
         </div>
 
@@ -228,16 +224,10 @@
           <article class="group scroll-mt-28 space-y-4">
             <img src="./images/sliders/Urology-STDs.avif"
               class="mb-8 rounded-2xl transition-all duration-300 group-hover:scale-110"
-              alt="Doctor explaining urinary system health to male patient using holographic display showing kidneys, bladder, and urinary tract">
-            <h3 class="text-2xl font-bold">
-              Urology<span class="text-info font-light"> &bull; </span>STD
-            </h3>
-            <p>
-              Expert diagnosis for urinary tract conditions and male
-              reproductive health, alongside confidential and compassionate
-              care for sexually transmitted diseases.
-            </p>
-
+              alt="Doctor explaining urinary system health to male patient using holographic display showing kidneys, bladder, and urinary tract" />
+            <h3 class="text-2xl font-bold">Urology<span class="text-info font-light"> &bull; </span>STD</h3>
+            <p>Expert diagnosis for urinary tract conditions and male reproductive health, alongside confidential and
+              compassionate care for sexually transmitted diseases.</p>
             <a href="/care-services/urology-std-nepal"
               class="text-info hover:text-white-pearl inline-flex items-center gap-1 font-bold transition-colors">
               <span
@@ -253,14 +243,10 @@
           <article class="group scroll-mt-28 space-y-4">
             <img src="./images/sliders/ENT.avif"
               class="mb-8 rounded-2xl transition-all duration-300 group-hover:scale-110"
-              alt="Three panels showing ENT specialists examining elderly man's ear, woman's nose, and young man's throat during medical consultation">
+              alt="Three panels showing ENT specialists examining elderly man's ear, woman's nose, and young man's throat during medical consultation" />
             <h3 class="text-2xl font-bold">ENT (Ear, Nose & Throat)</h3>
-            <p>
-              Comprehensive medical and surgical care for all conditions
-              affecting the ear, nose, and throat, including sinus issues,
-              allergies, and hearing disorders.
-            </p>
-
+            <p>Comprehensive medical and surgical care for all conditions affecting the ear, nose, and throat, including
+              sinus issues, allergies, and hearing disorders.</p>
             <a href="/care-services/ent-ear-nose-throat-nepal"
               class="text-info hover:text-white-pearl inline-flex items-center gap-1 font-bold transition-colors">
               <span
@@ -276,16 +262,10 @@
           <article class="group scroll-mt-28 space-y-4">
             <img src="./images/sliders/Anorectal-Piles.avif"
               class="mb-8 rounded-2xl transition-all duration-300 group-hover:scale-110"
-              alt="Man experiencing pain in modern blue bathroom while woman stands in background, illustrating anorectal or piles pain">
-            <h3 class="text-2xl font-bold">
-              Anorectal<span class="text-info font-light"> &bull; </span>Piles
-            </h3>
-            <p>
-              Specialized care for anorectal conditions like piles, fissures,
-              and fistulas, focusing on minimally invasive treatments and
-              effective pain relief.
-            </p>
-
+              alt="Man experiencing pain in modern blue bathroom while woman stands in background, illustrating anorectal or piles pain" />
+            <h3 class="text-2xl font-bold">Anorectal<span class="text-info font-light"> &bull; </span>Piles</h3>
+            <p>Specialized care for anorectal conditions like piles, fissures, and fistulas, focusing on minimally
+              invasive treatments and effective pain relief.</p>
             <a href="/care-services/anorectal-piles-nepal"
               class="text-info hover:text-white-pearl inline-flex items-center gap-1 font-bold transition-colors">
               <span
@@ -301,14 +281,10 @@
           <article class="group scroll-mt-28 space-y-4">
             <img src="./images/sliders/acupuncture.avif"
               class="mb-8 rounded-2xl transition-all duration-300 group-hover:scale-110"
-              alt="Healthcare professional wearing blue medical gloves performing acupuncture treatment, inserting fine needles into patient's skin">
+              alt="Healthcare professional wearing blue medical gloves performing acupuncture treatment, inserting fine needles into patient's skin" />
             <h3 class="text-2xl font-bold">Acupuncture</h3>
-            <p>
-              Holistic therapy designed to alleviate pain, reduce stress, and
-              promote overall wellness through the precise stimulation of
-              specific energy points.
-            </p>
-
+            <p>Holistic therapy designed to alleviate pain, reduce stress, and promote overall wellness through the
+              precise stimulation of specific energy points.</p>
             <a href="/care-services/acupuncture-nepal"
               class="text-info hover:text-white-pearl inline-flex items-center gap-1 font-bold transition-colors">
               <span
@@ -324,14 +300,10 @@
           <article class="group scroll-mt-28 space-y-4">
             <img src="./images/sliders/Gynecology.avif"
               class="mb-8 rounded-2xl transition-all duration-300 group-hover:scale-110"
-              alt="Medical professional in blue gloves presenting holographic visualization of female reproductive system with uterus and ovaries highlighted in red">
+              alt="Medical professional in blue gloves presenting holographic visualization of female reproductive system with uterus and ovaries highlighted in red" />
             <h3 class="text-2xl font-bold">Gynecology</h3>
-            <p>
-              Dedicated women's health services covering reproductive care,
-              pregnancy support, hormonal health, and preventive screenings
-              for all stages of life.
-            </p>
-
+            <p>Dedicated women's health services covering reproductive care, pregnancy support, hormonal health, and
+              preventive screenings for all stages of life.</p>
             <a href="/care-services/gynecology-nepal"
               class="text-info hover:text-white-pearl inline-flex items-center gap-1 font-bold transition-colors">
               <span
@@ -347,16 +319,10 @@
           <article class="group scroll-mt-28 space-y-4">
             <img src="./images/sliders/General-Medicine-Lab.avif"
               class="mb-8 rounded-2xl transition-all duration-300 group-hover:scale-110"
-              alt="Male laboratory technician in white coat examining test tube sample while using microscope and digital tablet in research lab">
-            <h3 class="text-2xl font-bold">
-              General Medicine<span class="text-info font-light"> &bull; </span>Lab
-            </h3>
-            <p>
-              Primary care for routine and chronic health needs, supported by
-              our fully equipped diagnostic laboratory for precise and timely
-              test results.
-            </p>
-
+              alt="Male laboratory technician in white coat examining test tube sample while using microscope and digital tablet in research lab" />
+            <h3 class="text-2xl font-bold">General Medicine<span class="text-info font-light"> &bull; </span>Lab</h3>
+            <p>Primary care for routine and chronic health needs, supported by our fully equipped diagnostic laboratory
+              for precise and timely test results.</p>
             <a href="/care-services/general-medicine-lab-nepal"
               class="text-info hover:text-white-pearl inline-flex items-center gap-1 font-bold transition-colors">
               <span
@@ -371,144 +337,108 @@
         </div>
       </div>
     </section>
-    <!-- CARE SERVICES END -->
 
-    <!-- TRUSTED PARTNER -->
     <section class="relative px-8 py-16 md:p-28">
-      <img src="./images/contineous-health-trust.svg"
-        class="absolute -top-4 left-0 -z-10 h-50 opacity-50 lg:top-4 lg:left-[30%]">
+      <img src="./images/contineous-health-trust.svg" loading="lazy"
+        alt="Abstract continuous health trust line background graphic"
+        class="absolute -top-4 left-0 -z-10 h-50 opacity-50 lg:top-4 lg:left-[30%]" />
       <div class="mx-auto max-w-7xl">
         <div class="mx-auto mb-16 max-w-3xl text-center lg:mb-28">
-          <h2 class="text-accent-navy mb-8 text-4xl font-bold tracking-tight lg:text-5xl">
-            Your <span class="text-info">Trusted Partner</span> in Health
-          </h2>
-          <p class="text-maria-black leading-relaxed lg:text-2xl">
-            At Maria Hospital, Nepal, we focus on providing safe, effective,
-            and patient‑centered care in a comfortable and confidential
-            environment.
-          </p>
+          <h2 class="text-accent-navy mb-8 text-4xl font-bold tracking-tight lg:text-5xl">Your <span
+              class="text-info">Trusted Partner</span> in Health</h2>
+          <p class="text-maria-black leading-relaxed lg:text-2xl">At Maria Hospital in Kathmandu, we emphasize safe,
+            clinically proven, and patient‑centered healthcare within an entirely comfortable and secure clinical
+            environment.</p>
         </div>
 
         <dl class="grid grid-cols-1 gap-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          <!-- Item - 1 -->
           <div class="space-y-4 rounded-lg bg-white p-8 text-center shadow-xl">
-            <img class="mx-auto" src="./images/amenities/stethoscope-icon.svg" alt="Qualified Professionals">
-            <dt class="text-maria-black text-2xl font-bold">
-              Qualified Professionals
-            </dt>
-            <dd class="text-maria-gray leading-relaxed">
-              Experienced doctors, surgeons, and specialists dedicated to your
-              health.
-            </dd>
+            <img class="mx-auto" src="./images/amenities/stethoscope-icon.svg" loading="lazy"
+              alt="Stethoscope icon symbolizing board-certified doctors and qualified medical professionals" />
+            <dt class="text-maria-black text-2xl font-bold">Qualified Professionals</dt>
+            <dd class="text-maria-gray leading-relaxed">Board-certified doctors, specialized surgeons, and highly
+              trained clinical staff with years of medical expertise.</dd>
           </div>
 
-          <!-- Item - 2 -->
           <div class="space-y-4 rounded-lg bg-white p-8 text-center shadow-xl">
-            <img class="mx-auto" src="./images/amenities/modern-tech-icon.svg"
-              alt="Modern Minimally Invasive Technology">
-            <dt class="text-maria-black text-2xl font-bold">
-              Modern Minimally Invasive Technology
-            </dt>
-            <dd class="text-maria-gray leading-relaxed">
-              Advanced equipment and techniques for safer, faster procedures.
-            </dd>
+            <img class="mx-auto" src="./images/amenities/modern-tech-icon.svg" loading="lazy"
+              alt="Medical technology icon showing modern minimally invasive surgical equipment" />
+            <dt class="text-maria-black text-2xl font-bold">Minimally Invasive Technology</dt>
+            <dd class="text-maria-gray leading-relaxed">State-of-the-art medical equipment, including laser tools,
+              facilitating safer interventions and smaller incisions.</dd>
           </div>
 
-          <!-- Item - 3 -->
           <div class="space-y-4 rounded-lg bg-white p-8 text-center shadow-xl">
-            <img class="mx-auto" src="./images/amenities/fast-recovery-icon.svg" alt="Fast Recovery">
+            <img class="mx-auto" src="./images/amenities/fast-recovery-icon.svg" loading="lazy"
+              alt="Clock and health icon illustrating rapid patient recovery times" />
             <dt class="text-maria-black text-2xl font-bold">Fast Recovery</dt>
-            <dd class="text-maria-gray leading-relaxed">
-              Early diagnosis, gentle care, and proper follow‑up for quick
-              healing.
-            </dd>
+            <dd class="text-maria-gray leading-relaxed">Proactive early diagnosis, precision surgical execution, and
+              diligent post-operative follow‑up ensure rapid healing.</dd>
           </div>
 
-          <!-- Item - 4 -->
           <div class="space-y-4 rounded-lg bg-white p-8 text-center shadow-xl">
-            <img class="mx-auto" src="./images/amenities/no-bleeding-icon.svg" alt="No Pain & Minimal Bleeding">
-            <dt class="text-maria-black text-2xl font-bold">
-              No Pain &amp; Minimal Bleeding
-            </dt>
-            <dd class="text-maria-gray leading-relaxed">
-              Latest pain‑control methods and precise surgical approaches.
-            </dd>
+            <img class="mx-auto" src="./images/amenities/no-bleeding-icon.svg" loading="lazy"
+              alt="Crossed out blood drop icon indicating no pain and minimal surgical bleeding" />
+            <dt class="text-maria-black text-2xl font-bold">Painless &amp; Minimal Bleeding</dt>
+            <dd class="text-maria-gray leading-relaxed">Utilizing advanced anesthetics and precise laser surgical
+              approaches specifically tailored for piles and anorectal disorders.</dd>
           </div>
 
-          <!-- Item - 5 -->
           <div class="space-y-4 rounded-lg bg-white p-8 text-center shadow-xl">
-            <img class="mx-auto" src="./images/amenities/personalized-care-icon.svg" alt="Personalized Care Plans">
-            <dt class="text-maria-black text-2xl font-bold">
-              Personalized Care Plans
-            </dt>
-            <dd class="text-maria-gray leading-relaxed">
-              Treatments tailored to each patient’s needs and comfort.
-            </dd>
+            <img class="mx-auto" src="./images/amenities/personalized-care-icon.svg" loading="lazy"
+              alt="Clipboard with user profile icon representing customized medical care plans" />
+            <dt class="text-maria-black text-2xl font-bold">Personalized Care Plans</dt>
+            <dd class="text-maria-gray leading-relaxed">Therapeutic regimens individually structured around your unique
+              health history, test results, and personal comfort.</dd>
           </div>
 
-          <!-- Item - 6 -->
           <div class="space-y-4 rounded-lg bg-white p-8 text-center shadow-xl">
-            <img class="mx-auto" src="./images/amenities/total-privacy-icon.svg" alt="Total Privacy & Confidentiality">
-            <dt class="text-maria-black text-2xl font-bold">
-              Total Privacy &amp; Confidentiality
-            </dt>
-            <dd class="text-maria-gray leading-relaxed">
-              Discreet consultations, secure medical records, and respectful
-              care.
-            </dd>
+            <img class="mx-auto" src="./images/amenities/total-privacy-icon.svg" loading="lazy"
+              alt="Padlock icon symbolizing absolute patient privacy and medical confidentiality" />
+            <dt class="text-maria-black text-2xl font-bold">Total Privacy &amp; Confidentiality</dt>
+            <dd class="text-maria-gray leading-relaxed">We enforce strict protocols for discreet STD consultations,
+              ensuring absolute security of all electronic medical records.</dd>
           </div>
 
-          <!-- Item - 7 -->
           <div class="space-y-4 rounded-lg bg-white p-8 text-center shadow-xl">
-            <img class="mx-auto" src="./images/amenities/affordable-icon.svg" alt="Affordable & Transparent Pricing">
-            <dt class="text-maria-black text-2xl font-bold">
-              Affordable &amp; Transparent Pricing
-            </dt>
-            <dd class="text-maria-gray leading-relaxed">
-              High‑quality care with clear costs and accessible packages.
-            </dd>
+            <img class="mx-auto" src="./images/amenities/affordable-icon.svg" loading="lazy"
+              alt="Wallet and plus sign icon showing transparent and affordable healthcare pricing" />
+            <dt class="text-maria-black text-2xl font-bold">Transparent Pricing</dt>
+            <dd class="text-maria-gray leading-relaxed">Premium clinical care without hidden fees. We provide clear,
+              itemized costs and accessible healthcare packages upfront.</dd>
           </div>
 
-          <!-- Item - 8 -->
           <div class="space-y-4 rounded-lg bg-white p-8 text-center shadow-xl">
-            <img class="mx-auto" src="./images/amenities/comfort-icon.svg" alt="Clean & Comfortable Environment">
-            <dt class="text-maria-black text-2xl font-bold">
-              Clean &amp; Comfortable Environment
-            </dt>
-            <dd class="text-maria-gray leading-relaxed">
-              Modern facilities ensuring safety, hygiene, and patient comfort.
-            </dd>
+            <img class="mx-auto" src="./images/amenities/comfort-icon.svg" loading="lazy"
+              alt="Hospital bed icon depicting a clean, hygienic, and comfortable medical environment" />
+            <dt class="text-maria-black text-2xl font-bold">Hygienic Environment</dt>
+            <dd class="text-maria-gray leading-relaxed">Immaculate, ISO-standard sanitized facilities designed
+              rigorously to prevent hospital-acquired infections and maximize comfort.</dd>
           </div>
 
-          <!-- Item - 9 -->
           <div class="space-y-4 rounded-lg bg-white p-8 text-center shadow-xl">
-            <img class="mx-auto" src="./images/amenities/compassonate-icon.svg" alt="Compassionate Support & Follow‑Up">
-            <dt class="text-maria-black text-2xl font-bold">
-              Compassionate Support &amp; Follow‑Up
-            </dt>
-            <dd class="text-maria-gray leading-relaxed">
-              Continuous guidance through recovery and beyond.
-            </dd>
+            <img class="mx-auto" src="./images/amenities/compassonate-icon.svg" loading="lazy"
+              alt="Hands holding heart icon showing compassionate patient support and follow-up" />
+            <dt class="text-maria-black text-2xl font-bold">Compassionate Follow‑Up</dt>
+            <dd class="text-maria-gray leading-relaxed">Our clinical care team provides ongoing, empathetic guidance
+              long after your procedure, ensuring sustained wellness.</dd>
           </div>
         </dl>
       </div>
     </section>
-    <!-- TRUSTED PARTNER END -->
 
-    <!-- CARE JOURNEYS -->
     <section id="care-journeys" class="relative z-10 overflow-hidden px-8 py-16 md:p-28">
-      <img class="absolute right-[-25%] bottom-0 -z-10 h-full w-auto" src="./images/ellipse-decor-full.svg" alt="">
+      <img class="absolute right-[-25%] bottom-0 -z-10 h-full w-auto" src="./images/ellipse-decor-full.svg" alt="" />
       <div class="mx-auto">
         <div class="mx-auto mb-16 max-w-4xl text-center lg:mb-28">
-          <h2 class="text-accent-navy mb-8 text-4xl font-bold tracking-tight lg:text-5xl">
-            Care <span class="text-info">Journeys</span>
-          </h2>
+          <h2 class="text-accent-navy mb-8 text-4xl font-bold tracking-tight lg:text-5xl">Care <span
+              class="text-info">Journeys</span></h2>
           <p class="text-maria-black mb-8 leading-relaxed lg:text-2xl">
-            Care Journeys shares real patient experiences with Maria Hospital.
-            These stories reflect the care, communication, and support
-            patients felt during their visits.
+            Care Journeys shares real patient experiences with Maria Hospital. These stories reflect the care,
+            communication, and support patients felt during their visits.
           </p>
-          <small class="text-maria-gray italic">* Patient names have been withheld to protect their privacy.</small>
+          <small class="text-maria-gray italic"><span class="text-danger">*</span> Patient identities have been
+            carefully anonymized to uphold our strict privacy standards.</small>
         </div>
 
         <div class="mx-auto max-w-7xl">
@@ -516,18 +446,15 @@
             <div class="embla-testimonials__viewport -my-8 overflow-hidden p-4 lg:p-8">
               <div
                 class="embla-testimonials__container -mx-4 grid auto-cols-[100%] grid-flow-col gap-8 px-4 lg:auto-cols-[calc(50%-2rem)] lg:gap-16">
-                <!-- Slide 1 -->
                 <div class="embla-testimonials__slide">
                   <article
                     class="text-maria-black flex h-full cursor-grab flex-col justify-between rounded-xl bg-white shadow-sm">
                     <blockquote class="p-8 leading-relaxed">
                       <p class="relative z-10 mb-10">
-                        <img class="absolute -z-10" src="./images/double-quote-icon.svg" alt="">
-                        I had burning while urinating and frequent urges for a
-                        long time. At Maria Hospital's Urology/STD department,
-                        the doctor explained everything clearly and started
-                        treatment right away. I felt significant relief within
-                        a few weeks, and the staff were very supportive.
+                        <img class="absolute -z-10" src="./images/double-quote-icon.svg" alt="" />
+                        I had burning while urinating and frequent urges for a long time. At Maria Hospital's
+                        Urology/STD department, the doctor explained everything clearly and started treatment right
+                        away. I felt significant relief within a few weeks, and the staff were very supportive.
                       </p>
                     </blockquote>
                     <div class="p-8 pt-0">
@@ -537,18 +464,15 @@
                   </article>
                 </div>
 
-                <!-- Slide 2 -->
                 <div class="embla-testimonials__slide">
                   <article
                     class="text-maria-black flex h-full cursor-grab flex-col justify-between rounded-xl bg-white shadow-sm">
                     <blockquote class="p-8 leading-relaxed">
                       <p class="relative z-10 mb-10">
-                        <img class="absolute -z-10" src="./images/double-quote-icon.svg" alt="">
-                        I visited for an ENT issue because my throat pain and
-                        hoarse voice were getting worse. The ENT doctor
-                        checked me thoroughly and suggested the right
-                        medicines and care. I'm much better now, and the
-                        follow-up system is also well managed.
+                        <img class="absolute -z-10" src="./images/double-quote-icon.svg" alt="" />
+                        I visited for an ENT issue because my throat pain and hoarse voice were getting worse. The ENT
+                        doctor checked me thoroughly and suggested the right medicines and care. I'm much better now,
+                        and the follow-up system is also well managed.
                       </p>
                     </blockquote>
                     <div class="p-8 pt-0">
@@ -558,19 +482,15 @@
                   </article>
                 </div>
 
-                <!-- Slide 3 -->
                 <div class="embla-testimonials__slide">
                   <article
                     class="text-maria-black flex h-full cursor-grab flex-col justify-between rounded-xl bg-white shadow-sm">
                     <blockquote class="p-8 leading-relaxed">
                       <p class="relative z-10 mb-10">
-                        <img class="absolute -z-10" src="./images/double-quote-icon.svg" alt="">
-                        I was suffering from piles and even sitting became
-                        painful. Maria Hospital's Anorectal service handled my
-                        case respectfully and professionally, and the
-                        consultation felt private and comfortable. After
-                        treatment, the pain reduced a lot and my daily life is
-                        easier.
+                        <img class="absolute -z-10" src="./images/double-quote-icon.svg" alt="" />
+                        I was suffering from piles and even sitting became painful. Maria Hospital's Anorectal service
+                        handled my case respectfully and professionally, and the consultation felt private and
+                        comfortable. After treatment, the pain reduced a lot and my daily life is easier.
                       </p>
                     </blockquote>
                     <div class="p-8 pt-0">
@@ -580,18 +500,15 @@
                   </article>
                 </div>
 
-                <!-- Slide 4 -->
                 <div class="embla-testimonials__slide">
                   <article
                     class="text-maria-black flex h-full cursor-grab flex-col justify-between rounded-xl bg-white shadow-sm">
                     <blockquote class="p-8 leading-relaxed">
                       <p class="relative z-10 mb-10">
-                        <img class="absolute -z-10" src="./images/double-quote-icon.svg" alt="">
-                        I had chronic neck and shoulder pain, and medicines
-                        only gave temporary relief. I tried acupuncture at
-                        Maria Hospital, and after a few sessions I could feel
-                        real improvement. The procedure felt safe, and the
-                        therapist was very professional.
+                        <img class="absolute -z-10" src="./images/double-quote-icon.svg" alt="" />
+                        I had chronic neck and shoulder pain, and medicines only gave temporary relief. I tried
+                        acupuncture at Maria Hospital, and after a few sessions I could feel real improvement. The
+                        procedure felt safe, and the therapist was very professional.
                       </p>
                     </blockquote>
                     <div class="p-8 pt-0">
@@ -601,18 +518,15 @@
                   </article>
                 </div>
 
-                <!-- Slide 5 -->
                 <div class="embla-testimonials__slide">
                   <article
                     class="text-maria-black flex h-full cursor-grab flex-col justify-between rounded-xl bg-white shadow-sm">
                     <blockquote class="p-8 leading-relaxed">
                       <p class="relative z-10 mb-10">
-                        <img class="absolute -z-10" src="./images/double-quote-icon.svg" alt="">
-                        I went for a gynecology check-up and felt comfortable
-                        from the start. The doctor listened patiently and
-                        explained the next steps in a very simple way. The
-                        reports came on time and the overall environment felt
-                        very friendly for female patients.
+                        <img class="absolute -z-10" src="./images/double-quote-icon.svg" alt="" />
+                        I went for a gynecology check-up and felt comfortable from the start. The doctor listened
+                        patiently and explained the next steps in a very simple way. The reports came on time and the
+                        overall environment felt very friendly for female patients.
                       </p>
                     </blockquote>
                     <div class="p-8 pt-0">
@@ -622,18 +536,15 @@
                   </article>
                 </div>
 
-                <!-- Slide 6 -->
                 <div class="embla-testimonials__slide">
                   <article
                     class="text-maria-black flex h-full cursor-grab flex-col justify-between rounded-xl bg-white shadow-sm">
                     <blockquote class="p-8 leading-relaxed">
                       <p class="relative z-10 mb-10">
-                        <img class="absolute -z-10" src="./images/double-quote-icon.svg" alt="">
-                        I was anxious about an STD concern and didn't know
-                        where to go. At Maria Hospital, privacy was taken
-                        seriously and the doctor listened without judgment.
-                        Testing and treatment were smooth, and I feel much
-                        more confident and relieved now.
+                        <img class="absolute -z-10" src="./images/double-quote-icon.svg" alt="" />
+                        I was anxious about an STD concern and didn't know where to go. At Maria Hospital, privacy was
+                        taken seriously and the doctor listened without judgment. Testing and treatment were smooth, and
+                        I feel much more confident and relieved now.
                       </p>
                     </blockquote>
                     <div class="p-8 pt-0">
@@ -643,18 +554,15 @@
                   </article>
                 </div>
 
-                <!-- Slide 7 -->
                 <div class="embla-testimonials__slide">
                   <article
                     class="text-maria-black flex h-full cursor-grab flex-col justify-between rounded-xl bg-white shadow-sm">
                     <blockquote class="p-8 leading-relaxed">
                       <p class="relative z-10 mb-10">
-                        <img class="absolute -z-10" src="./images/double-quote-icon.svg" alt="">
-                        I had ongoing sinus problems and constant nasal
-                        blockage. The ENT department at Maria Hospital
-                        diagnosed the issue quickly and the treatment worked
-                        well. The staff were helpful and the service felt fast
-                        and organized.
+                        <img class="absolute -z-10" src="./images/double-quote-icon.svg" alt="" />
+                        I had ongoing sinus problems and constant nasal blockage. The ENT department at Maria Hospital
+                        diagnosed the issue quickly and the treatment worked well. The staff were helpful and the
+                        service felt fast and organized.
                       </p>
                     </blockquote>
                     <div class="p-8 pt-0">
@@ -664,18 +572,15 @@
                   </article>
                 </div>
 
-                <!-- Slide 8 -->
                 <div class="embla-testimonials__slide">
                   <article
                     class="text-maria-black flex h-full cursor-grab flex-col justify-between rounded-xl bg-white shadow-sm">
                     <blockquote class="p-8 leading-relaxed">
                       <p class="relative z-10 mb-10">
-                        <img class="absolute -z-10" src="./images/double-quote-icon.svg" alt="">
-                        I had bleeding and discomfort due to piles, but I kept
-                        delaying out of embarrassment. The doctor and nurses
-                        at Maria Hospital treated me with respect and gave a
-                        clear treatment plan. My symptoms have improved a
-                        lot—I only wish I had come earlier.
+                        <img class="absolute -z-10" src="./images/double-quote-icon.svg" alt="" />
+                        I had bleeding and discomfort due to piles, but I kept delaying out of embarrassment. The doctor
+                        and nurses at Maria Hospital treated me with respect and gave a clear treatment plan. My
+                        symptoms have improved a lot—I only wish I had come earlier.
                       </p>
                     </blockquote>
                     <div class="p-8 pt-0">
@@ -685,18 +590,15 @@
                   </article>
                 </div>
 
-                <!-- Slide 9 -->
                 <div class="embla-testimonials__slide">
                   <article
                     class="text-maria-black flex h-full cursor-grab flex-col justify-between rounded-xl bg-white shadow-sm">
                     <blockquote class="p-8 leading-relaxed">
                       <p class="relative z-10 mb-10">
-                        <img class="absolute -z-10" src="./images/double-quote-icon.svg" alt="">
-                        I had irregular periods and lower abdominal pain, so I
-                        visited Maria Hospital's gynecology service. The
-                        check-up, reports, and treatment were well organized
-                        and timely. The doctor also guided me on diet, rest,
-                        and follow-up, which really helped.
+                        <img class="absolute -z-10" src="./images/double-quote-icon.svg" alt="" />
+                        I had irregular periods and lower abdominal pain, so I visited Maria Hospital's gynecology
+                        service. The check-up, reports, and treatment were well organized and timely. The doctor also
+                        guided me on diet, rest, and follow-up, which really helped.
                       </p>
                     </blockquote>
                     <div class="p-8 pt-0">
@@ -706,19 +608,15 @@
                   </article>
                 </div>
 
-                <!-- Slide 10 -->
                 <div class="embla-testimonials__slide">
                   <article
                     class="text-maria-black flex h-full cursor-grab flex-col justify-between rounded-xl bg-white shadow-sm">
                     <blockquote class="p-8 leading-relaxed">
                       <p class="relative z-10 mb-10">
-                        <img class="absolute -z-10" src="./images/double-quote-icon.svg" alt="">
-                        My urology problem—weak urine flow and frequent night
-                        urination—was affecting my daily life. The doctor at
-                        Maria Hospital took time to evaluate properly and
-                        started an effective treatment. The hospital was
-                        clean, the service was quick, and the overall behavior
-                        was excellent.
+                        <img class="absolute -z-10" src="./images/double-quote-icon.svg" alt="" />
+                        My urology problem—weak urine flow and frequent night urination—was affecting my daily life. The
+                        doctor at Maria Hospital took time to evaluate properly and started an effective treatment. The
+                        hospital was clean, the service was quick, and the overall behavior was excellent.
                       </p>
                     </blockquote>
                     <div class="p-8 pt-0">
@@ -730,11 +628,8 @@
               </div>
             </div>
 
-            <!-- Navigation Controls -->
             <div class="mt-8 flex justify-center lg:mt-12">
-              <!-- Prev/Next Buttons -->
               <div class="flex gap-8">
-                <!-- Previous Button -->
                 <button
                   class="embla-testimonials__button embla-testimonials__button--prev border-accent-navy text-accent-navy hover:bg-accent-navy focus:ring-info pointer-events-auto cursor-pointer rounded-full border-2 bg-transparent p-2 transition-all duration-300 hover:scale-110 hover:text-white focus:ring-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-40"
                   type="button" aria-label="Previous testimonial">
@@ -743,7 +638,6 @@
                   </svg>
                 </button>
 
-                <!-- Next Button -->
                 <button
                   class="embla-testimonials__button embla-testimonials__button--next border-accent-navy text-accent-navy hover:bg-accent-navy focus:ring-info pointer-events-auto cursor-pointer rounded-full border-2 bg-transparent p-2 transition-all duration-300 hover:scale-110 hover:text-white focus:ring-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-40"
                   type="button" aria-label="Next testimonial">
@@ -757,29 +651,22 @@
         </div>
       </div>
     </section>
-    <!-- CARE JOURNEYS END -->
 
-    <!-- FAQs -->
     <section id="faqs" class="bg-soft-blue relative z-10 px-8 py-16 md:p-28">
       <div class="mx-auto max-w-7xl">
-        <!-- Header -->
         <div class="mx-auto mb-16 max-w-4xl text-center lg:mb-28">
           <h2 class="text-accent-navy mb-8 text-4xl font-bold tracking-tight lg:text-5xl">
             Frequently Asked Questions
             <span class="text-info">(FAQs)</span>
           </h2>
           <p class="text-maria-black leading-relaxed lg:text-2xl">
-            FAQs answer common visitor questions to make your visit seamless.
-            Review them beforehand to save time and learn basic information
-            about us.
+            FAQs answer common visitor questions to make your visit seamless. Review them beforehand to save time and
+            learn basic information about us.
           </p>
         </div>
 
-        <!-- FAQ Grid -->
         <div class="grid gap-6 lg:grid-cols-2 lg:gap-16">
-          <!-- Left Column -->
           <div class="space-y-6">
-            <!-- FAQ 1 -->
             <div class="rounded-3xl bg-white/40 p-3 shadow-sm backdrop-blur-sm">
               <div class="rounded-2xl bg-white">
                 <details name="faq-left" class="group" open>
@@ -793,20 +680,16 @@
                         <use href="#icon-minus" />
                       </svg>
                     </div>
-                    <h4 class="text-accent-navy text-left font-bold">
-                      What is the OPD charge at Maria Hospital?
-                    </h4>
+                    <h4 class="text-accent-navy text-left font-bold">What is the OPD charge at Maria Hospital?</h4>
                   </summary>
                   <p class="text-maria-black px-6 py-5 leading-relaxed">
-                    The OPD form fee is NPR 500; after the doctor's
-                    assessment, the total treatment cost is decided based on
-                    history, examination, and any required lab/imaging tests.
+                    The OPD form fee is NPR 500; after the doctor's assessment, the total treatment cost is decided
+                    based on history, examination, and any required lab/imaging tests.
                   </p>
                 </details>
               </div>
             </div>
 
-            <!-- FAQ 2 -->
             <div class="rounded-3xl bg-white/40 p-3 shadow-sm backdrop-blur-sm">
               <div class="rounded-2xl bg-white">
                 <details name="faq-left" class="group">
@@ -820,21 +703,16 @@
                         <use href="#icon-minus" />
                       </svg>
                     </div>
-                    <h4 class="text-accent-navy text-left font-bold">
-                      What's the price for treatment of X or Y?
-                    </h4>
+                    <h4 class="text-accent-navy text-left font-bold">What's the price for treatment of X or Y?</h4>
                   </summary>
                   <p class="text-maria-black px-6 py-5 leading-relaxed">
-                    Pricing depends on the patient's treatment history,
-                    background, physical examination, and lab tests; the OPD
-                    form fee is NPR 500, and final cost is confirmed after
-                    doctor evaluation.
+                    Pricing depends on the patient's treatment history, background, physical examination, and lab tests;
+                    the OPD form fee is NPR 500, and final cost is confirmed after doctor evaluation.
                   </p>
                 </details>
               </div>
             </div>
 
-            <!-- FAQ 3 -->
             <div class="rounded-3xl bg-white/40 p-3 shadow-sm backdrop-blur-sm">
               <div class="rounded-2xl bg-white">
                 <details name="faq-left" class="group">
@@ -848,23 +726,18 @@
                         <use href="#icon-minus" />
                       </svg>
                     </div>
-                    <h4 class="text-accent-navy text-left font-bold">
-                      Do you treat STDs confidentially?
-                    </h4>
+                    <h4 class="text-accent-navy text-left font-bold">Do you treat STDs confidentially?</h4>
                   </summary>
                   <p class="text-maria-black px-6 py-5 leading-relaxed">
-                    Yes, consultations are handled professionally with patient
-                    privacy and respectful communication; tests and treatment
-                    are advised based on symptoms and risk history.
+                    Yes, consultations are handled professionally with patient privacy and respectful communication;
+                    tests and treatment are advised based on symptoms and risk history.
                   </p>
                 </details>
               </div>
             </div>
           </div>
 
-          <!-- Right Column -->
           <div class="space-y-6">
-            <!-- FAQ 4 -->
             <div class="rounded-3xl bg-white/40 p-3 shadow-sm backdrop-blur-sm">
               <div class="rounded-2xl bg-white">
                 <details name="faq-right" class="group">
@@ -874,25 +747,20 @@
                       <svg class="size-5 group-open:hidden" fill="currentColor" aria-hidden="true">
                         <use href="#icon-plus" />
                       </svg>
-
                       <svg class="hidden size-5 group-open:block" fill="currentColor" aria-hidden="true">
                         <use href="#icon-minus" />
                       </svg>
                     </div>
-                    <h4 class="text-accent-navy text-left font-bold">
-                      Can I come directly or need an appointment?
-                    </h4>
+                    <h4 class="text-accent-navy text-left font-bold">Can I come directly or need an appointment?</h4>
                   </summary>
                   <p class="text-maria-black px-6 py-5 leading-relaxed">
-                    Both options work—walk-in OPD is available, and booking in
-                    advance helps reduce waiting time (recommended for privacy
-                    and time planning).
+                    Both options work—walk-in OPD is available, and booking in advance helps reduce waiting time
+                    (recommended for privacy and time planning).
                   </p>
                 </details>
               </div>
             </div>
 
-            <!-- FAQ 5 -->
             <div class="rounded-3xl bg-white/40 p-3 shadow-sm backdrop-blur-sm">
               <div class="rounded-2xl bg-white">
                 <details name="faq-right" class="group">
@@ -902,26 +770,21 @@
                       <svg class="size-5 group-open:hidden" fill="currentColor" aria-hidden="true">
                         <use href="#icon-plus" />
                       </svg>
-
                       <svg class="hidden size-5 group-open:block" fill="currentColor" aria-hidden="true">
                         <use href="#icon-minus" />
                       </svg>
                     </div>
-                    <h4 class="text-accent-navy text-left font-bold">
-                      Does Maria Hospital cure infertility?
-                    </h4>
+                    <h4 class="text-accent-navy text-left font-bold">Does Maria Hospital cure infertility?</h4>
                   </summary>
                   <p class="text-maria-black px-6 py-5 leading-relaxed">
-                    Gynecology mainly supports infertility-related concerns
-                    such as sperm count issues and irregular menstruation; the
-                    doctor advises investigations and a treatment plan based
-                    on the couple's reports and tests.
+                    Gynecology mainly supports infertility-related concerns such as sperm count issues and irregular
+                    menstruation; the doctor advises investigations and a treatment plan based on the couple's reports
+                    and tests.
                   </p>
                 </details>
               </div>
             </div>
 
-            <!-- FAQ 6 -->
             <div class="rounded-3xl bg-white/40 p-3 shadow-sm backdrop-blur-sm">
               <div class="rounded-2xl bg-white">
                 <details name="faq-right" class="group">
@@ -931,19 +794,15 @@
                       <svg class="size-5 group-open:hidden" fill="currentColor" aria-hidden="true">
                         <use href="#icon-plus" />
                       </svg>
-
                       <svg class="hidden size-5 group-open:block" fill="currentColor" aria-hidden="true">
                         <use href="#icon-minus" />
                       </svg>
                     </div>
-                    <h4 class="text-accent-navy text-left font-bold">
-                      Are Maria Hospital doctors experienced?
-                    </h4>
+                    <h4 class="text-accent-navy text-left font-bold">Are Maria Hospital doctors experienced?</h4>
                   </summary>
                   <p class="text-maria-black px-6 py-5 leading-relaxed">
-                    Yes, Maria Hospital has professional and experienced
-                    doctors, and the hospital promotes access to specialist
-                    clinicians and modern technology.
+                    Yes, Maria Hospital has professional and experienced doctors, and the hospital promotes access to
+                    specialist clinicians and modern technology.
                   </p>
                 </details>
               </div>
@@ -951,22 +810,15 @@
           </div>
         </div>
       </div>
-      <img class="absolute right-0 bottom-4 -z-10 w-1/2" src="./images/faqs-decor.svg">
+      <img class="absolute right-0 bottom-4 -z-10 w-1/2" src="./images/faqs-decor.svg" />
     </section>
-    <!-- FAQs END -->
   </main>
 
-  <!-- FOOTER -->
   <app-footer></app-footer>
-  <!-- FOOTER END -->
 
-  <!-- FIXED BOTTOM SOCIAL NAV -->
   <social-media-nav></social-media-nav>
-  <!-- FIXED BOTTOM SOCIAL NAV -->
 
-  <!-- SCROLL TO TOP -->
   <scroll-to-top></scroll-to-top>
-  <!-- SCROLL TO TOP -->
 
   <script type="module" src="/src/main.js"></script>
 </body>
