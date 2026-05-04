@@ -12,3 +12,8 @@
 .glightbox:hover img {
   filter: brightness(0.9);
 }
+
+.gslide-media.gslide-image img
+ {
+    border-radius: 0.75rem;
+}
