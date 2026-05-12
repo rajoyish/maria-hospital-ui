@@ -8,7 +8,7 @@ const __dirname = dirname(__filename);
 const VIDEO_URL_REGEX = /@([^/]+)\/video\/(\d+)/;
 
 try {
-  const txtPath = resolve(__dirname, "..", "videos.txt");
+  const mdPath = resolve(__dirname, "..", "videos.md");
   const publicDir = resolve(__dirname, "..", "public");
   const jsonPath = resolve(publicDir, "videos.json");
 
@@ -16,13 +16,13 @@ try {
     mkdirSync(publicDir, { recursive: true });
   }
 
-  if (!existsSync(txtPath)) {
-    writeFileSync(txtPath, "");
+  if (!existsSync(mdPath)) {
+    writeFileSync(mdPath, "");
     writeFileSync(jsonPath, "[]");
     process.exit(0);
   }
 
-  const urlsText = readFileSync(txtPath, "utf-8");
+  const urlsText = readFileSync(mdPath, "utf-8");
   const urls = urlsText.split("\n").filter((line) => line.trim() !== "");
 
   const videos = urls
