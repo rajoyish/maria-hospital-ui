@@ -8,7 +8,6 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
-    # Optional: Define environment if you use GitHub Environments
     environment:
       name: Staging
       url: https://staging.npmariahospital.com
@@ -17,21 +16,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "24"
-          cache: "npm"
+          cache: "pnpm"
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Build (Vite)
-        # 1. Set the URL so the sitemap generates with https://staging...
         env:
           VITE_SITE_URL: "https://staging.npmariahospital.com"
-        # 2. Use the custom staging script defined in package.json
-        run: npm run build:staging
+        run: pnpm run build:staging
 
       - name: Start SSH agent
         uses: webfactory/ssh-agent@v0.9.0
@@ -45,9 +47,6 @@ jobs:
 
       - name: Deploy dist/ to cPanel docroot
         run: |
-          # Added excludes to protect system folders (SSL, cgi-bin)
-          # .htaccess IS NOT excluded, so your new clean URL rules will be uploaded.
-          
           rsync -az --delete \
             -e "ssh -p ${{ secrets.STAGING_PORT }}" \
             --exclude '.well-known' \
